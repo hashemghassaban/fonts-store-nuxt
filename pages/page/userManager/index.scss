@@ -1,0 +1,70 @@
+
+.invite{
+  background: #fff;
+  padding: 0 5%;
+
+
+  &-block{
+    display: flex;
+    gap: 50px;
+    padding: 5% 10%;
+    background: #fff;
+
+    &__content{
+      border-radius: 15px;
+      flex: 60%;
+      min-width: 60%;
+      max-width: 60%;
+      padding: 50px;
+      .invite-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 25px;
+
+        h2{
+          font-size: 20px;
+          color: #F15A24;
+        }
+        i{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &-code{
+    font-size: 24px;
+    border: 1px solid #ccc;
+    height: 60px;
+    width: 165px;
+    text-align: center;
+    line-height: 60px;
+    margin: 40px auto;
+    border-radius: 10px;
+    color: #626262;
+  }
+  .social-media{
+    border: 6px solid #aae73e63;
+    padding: 10px;
+    border-radius: 50px;
+    &-block{
+      justify-content: center;
+      gap: 40px;
+      display: flex;
+      .box{
+        a{
+        i{
+          font-size: 50px;
+          color: #aae73e;
+
+        }
+          &:hover{
+            i{
+              color: #FF7A00;
+            }
+          }
+        }
+      }
+    }
+  }
+}

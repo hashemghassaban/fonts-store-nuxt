@@ -1,0 +1,43 @@
+
+.profile{
+  background: #fff;
+  padding: 0 5%;
+
+
+  &-block{
+    display: flex;
+    gap: 50px;
+    padding: 5% 10%;
+    background: #fff;
+    &__info{
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      flex: 40%;
+      min-width: 40%;
+      max-width: 40%;
+      padding: 30px;
+      height: 600px;
+    }
+    &__content{
+      border-radius: 15px;
+      flex: 60%;
+      min-width: 60%;
+      max-width: 60%;
+      padding: 50px;
+      .profile-title{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 0 25px;
+
+        h2{
+          font-size: 20px;
+          color: #F15A24;
+        }
+        i{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
