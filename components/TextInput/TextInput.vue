@@ -3,6 +3,7 @@
     class="position-relative inline-flex-col form-text-input-container"
     :style="{ height, width, style }"
     :class="typeShape"
+
   >
     <div
       v-if="label"
@@ -40,16 +41,16 @@
     <SvgIcon
       v-if="readonly"
       class="position-absolute top-0 left-0 ml-1 mt-1"
-      name="lock"
-      fill="#c8c8c8"
-      size="24px"
+
+      icon="lock" size="md" color="#c8c8c8"
     />
 
     <div
       v-if="!disabled && error"
       class="error-field flex-row align-items-center mr-1 mt-1"
     >
-      <SvgIcon name="warning" size="16px" fill="#c82323" />
+      <SvgIcon   icon="warning" size="md" color="#c8c8c8"
+      />
       <div class="ala-text-14 mr-1">{{ error }}</div>
     </div>
   </div>
@@ -95,11 +96,11 @@ export default {
     },
     width: {
       type: String,
-      default: "250px",
+      default: "",
     },
     height: {
       type: String,
-      default: "40px",
+      default: "50px",
     },
     margin: {
       type: String,
@@ -186,6 +187,10 @@ export default {
   display: inline-flex;
   flex-direction: column;
   padding: 0;
+  width: 100%;
+  @include breakpoint(medium) {
+    width: 400px;
+  }
 
   .error-field {
     position: absolute;
@@ -221,20 +226,19 @@ export default {
 }
 
 .form-text-input-label--down {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  color: #607d8b;
-  top: 10px;
+  color: #a8a8a8;
+  top: 15px;
   right: 15px;
 }
 
 .form-text-input,
 .form-text-input-input {
-  border-radius: 6px;
-  border: solid 2px #607d8b;
-  background-color: #f8fafc;
+  border-radius: 10px;
+  border: solid 2px #bebebe;
+  background-color: #fff;
   padding: 10px 12px;
-  border-radius: 6px;
   font-weight: 500;
   font-size: 14px;
 }
@@ -242,7 +246,7 @@ export default {
   width: 100%;
   .form-text-input-input {
     border-radius: 100px;
-    border: solid 2px #e5e5e5;
+    border: solid 2px #c5c5c5;
     background-color: #fff;
   }
 }

@@ -10,8 +10,12 @@
             className="rounded-full"
           />
         </div>
-        <v-btn density="default" class="add" > <v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn density="default" class="add" @click="" > <v-icon>mdi-plus</v-icon></v-btn>
         <div class="name">
+          <nuxt-link to="/page/userManager">
+
+
+
           هاشم قصابان
           <SvgIcon
             name="edit"
@@ -19,6 +23,7 @@
             size="25px"
             className="rounded-full"
           />
+          </nuxt-link>
         </div>
       </div>
 
@@ -30,20 +35,13 @@
           </li>
           <li>
             <b>ایمیل : </b>
-            <span>
-                         <SvgIcon
-                           name="edit"
-                           color=#000
-                           size="25px"
-                           className="rounded-full"
-                         />
-                    Ebrahimi@gmail.com   </span>
+            <span>Ebrahimi@gmail.com   </span>
           </li>
         </ul>
       </div>
 
     </div>
-    <v-card class="mx-auto sidebar-block mb-10" max-width="350">
+    <v-card class="mx-auto sidebar-block mb-10" max-width="100%">
       <v-list flat>
         <v-list-item-group v-model="selectedItem" color="primary">
           <v-list-item
@@ -52,96 +50,26 @@
             @click="goToLink(item.link, true)"
             v-if="i < 5"
           >
-            <v-list-item-icon>
-              <v-icon size="10">mdi-checkbox-blank-circle</v-icon>
-            </v-list-item-icon>
+
             <v-list-item-content>
               <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-icon>mdi-chevron-left</v-icon>
             </v-list-item-content>
           </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
-    <v-card class="mx-auto sidebar-block" max-width="350">
-      <v-list flat>
-        <v-list-item-group v-model="selectedItemPages" color="primary">
           <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            :to="item.link"
-            v-if="i > 4"
+
           >
-            <v-list-item-icon>
-              <v-icon size="10">mdi-checkbox-blank-circle</v-icon>
-            </v-list-item-icon>
+
             <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
+              <v-list-item-title>خروج</v-list-item-title>
+              <v-icon>mdi-chevron-left</v-icon>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-card>
-    <v-btn
-      class="showList mb-10"
-      color="primary"
-      @click="drawerPage = true"
-      height="40px"
-      width="40px"
-      elevation="0"
-    >
-      <v-icon>mdi-menu</v-icon>
-    </v-btn>
-    <v-navigation-drawer
-      v-model="drawerPage"
-      fixed
-      temporary
-      class="navigation"
-      width="100%"
-    >
-      <div class="navigation-header">
-        <v-btn icon color="#fff" @click="drawerPage = false" elevation="0">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <span>لیست صفحات</span>
-      </div>
-      <div class="navigation-body">
-        <v-list flat>
-          <v-list-item-group v-model="selectedItem" color="primary">
-            <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-              :to="item.link"
-              v-if="i < 6"
-            >
-              <v-list-item-icon>
-                <v-icon size="10">mdi-checkbox-blank-circle</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-        <v-divider class="my-3"></v-divider>
-        <v-list flat>
-          <v-list-item-group v-model="selectedItemPages" color="primary">
-            <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-              :to="item.link"
-              v-if="i > 5"
-            >
-              <v-list-item-icon>
-                <v-icon size="10">mdi-checkbox-blank-circle</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </div>
-    </v-navigation-drawer>
+
+
   </div>
 </template>
 
@@ -152,16 +80,10 @@ export default {
     selectedItemPages: null,
     drawerPage: false,
     items: [
-      // { text: 'پرسش های متداول', link: '/page/faq' },
-      // { text: ' بازگرداندن کالا', link: '/page/returned' },
-      { text: 'شرایط استفاده', link: '/page/term' },
-      { text: ' حریم خصوصی', link: '/page/privacy' },
-      // { text: "گزارش تخلف و باگ", link: "/page/bugReport" },
-      { text: ' درباره آلاساز ', link: '/page/aboutUs' },
-      { text: 'تماس با آلاساز', link: '/page/contactUs' },
-      { text: 'راهنمای  خرید ازآلاساز', link: '/page/guid' },
+      { text: 'سفارش ها', link: '/page/order' },
+      { text: 'کیف پول من', link: '/page/wallet' },
+      { text: 'فونت های مورد علاقه', link: '/page/favorite' },
 
-      // { text: "فرصت های شغلی", link: "/page/careers" },
     ],
   }),
   props: {},
@@ -195,74 +117,55 @@ export default {
   }
 }
 .sidebar-block {
-  border-radius: 10px;
-  box-shadow: 0px 0px 7px -3px #000;
-  display: none;
-  @include breakpoint(medium) {
-    display: block;
-  }
+  display: block;
+  border: 0;
+  box-shadow: none!important;
+
+
   .v-list {
-    background: #f5f5f5;
+    background: #fff;
     padding: 0;
-    overflow: hidden;
     .v-list-item__title {
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      @include breakpoint(small) {
+        font-size: 18px;
+      }
     }
-    .v-list-item__icon {
-      margin: 19px 0;
-      margin-left: 0 !important;
-      min-width: 15px;
-      color: #bfbfbf;
-    }
-  }
-  .v-list-item {
-    border-bottom: 1px solid #ccc;
-    &:last-child {
-      border: 0;
+    i {
+      position: absolute;
+      left: 0;
+      top:10px;
+      color: #C2C2C2;
+      font-size: 30px;
     }
   }
 
-  .v-item {
-    list-style: disc;
-  }
+.v-list-item{
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+
   .v-item--active {
-    background: #1a9520;
-    color: #fff;
-    .v-list-item__icon {
-      color: #fff;
-    }
-  }
-}
-.navigation {
-  &-header {
-    padding: 10px 17px;
-    background: #607d8b;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    color: #F15A24;
 
-    .v-btn__content .v-icon {
-      color: #fff !important;
-
-      &:after {
-        color: #fff !important;
+    .v-list-item__title{
+      color: #F15A24;
+      &:before{
+        width: 4px;
+        height: 34px;
+        background: #F15A24;
+        content: "";
+        position: absolute;
+        right: -32px;
+        top: 9px;
       }
     }
 
-    span {
-      font-size: 1rem;
-    }
-  }
-
-  &-body {
-    .v-expansion-panels {
-      &:last-child {
-        margin-bottom: 100px;
-      }
-    }
   }
 }
+
 .profile {
   padding: 0 6%;
   gap: 1%;
@@ -317,13 +220,7 @@ export default {
         font-weight: 900;
       }
     }
-    .v-navigation-drawer {
-      width: 100% !important;
-    }
 
-    .v-navigation-drawer__border {
-      display: none;
-    }
 
     .v-list-item--link:before {
       background-color: inherit !important;
@@ -410,58 +307,91 @@ export default {
   .info-top{
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 15px;
     position: relative;
-
+    @include breakpoint(small) {
+      gap: 25px;
+    }
   }
   .avatar-user{
     background: #626262;
     position: relative;
-    min-width: 145px;
-    height: 145px;
+    min-width: 80px;
+    height: 80px;
     border-radius: 100px;
     overflow: hidden;
     text-align: center;
-    line-height: 145px;
+    line-height: 80px;
+    @include breakpoint(small) {
+      line-height: 145px;
+      min-width: 145px;
+      height: 145px;
+    }
     i{
-      font-size: 68px !important;
-      margin: 33px auto 0;
+      font-size: 30px !important;
+      margin: 25px auto 0;
       display: block;
+      line-height: 30px;
+      @include breakpoint(small) {
+        font-size: 68px !important;
+        line-height: 100px;
+        margin: 20px auto 0;
+
+      }
     }
   }
   .add{
     color: #000;
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background: #aae73e;
     font-size: 22px;
     text-align: center;
     padding: 0;
     min-width: 20px;
     border-radius: 50px;
-    right: 112px;
-    bottom: 12px;
+    right: 58px;
+    bottom: 6px;
+    @include breakpoint(small) {
+      right: 112px;
+      bottom: 12px;
+      width: 30px;
+      height: 30px;
+    }
     i{
       font-size: 22px!important;
       margin: 0!important;
     }
   }
   .name{
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
+
     font-size: 22px;
     font-weight: 700;
+    width: 100%;
+    a{
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      gap: 20px;
+      justify-content: space-between;
+      width: 100%;
+      @include breakpoint(small) {
+        font-size: 23px;
+      }
+    }
     i{
+      transition: all 0.3s ease;
 
       cursor: pointer;
       &:hover{
         color: #FF7A00;
+        transition: all 0.3s ease;
+
         &:before{
           color: #FF7A00;
+          transition: all 0.3s ease;
+
         }
       }
     }
@@ -475,9 +405,12 @@ export default {
       li{
         display: flex;
         justify-content: space-between;
-        font-size: 18px;
+        font-size: 15px;
         color: #777777;
         margin: 0 0 10px;
+        @include breakpoint(small) {
+          font-size: 18px;
+        }
         b{
           font-weight: 100;
         }
@@ -486,10 +419,16 @@ export default {
           i{
             margin-right: 10px;
             cursor: pointer;
+            transition: all 0.3s ease;
+
             &:hover{
               color: #FF7A00;
+              transition: all 0.3s ease;
+
               &:before{
                 color: #FF7A00;
+                transition: all 0.3s ease;
+
               }
             }
           }

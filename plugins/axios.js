@@ -1,6 +1,6 @@
 // Load Services
 
-import store from '@/store/index.js'
+import store from '../store'
 export default async function ({ app, $axios, $toast, error, store }) {
   let refreshAttempts = 0;
   // Axios configuration
@@ -24,7 +24,7 @@ export default async function ({ app, $axios, $toast, error, store }) {
   })
 
   $axios.onError((e) => {
-    
+
     if (e.response.status === 401) {
       let tokenString = process.client ? localStorage.getItem('token') : '';
       let newTokenString =  tokenString.slice (7)
@@ -42,7 +42,7 @@ export default async function ({ app, $axios, $toast, error, store }) {
           Authorization: 'bearer' + !!window.localStorage.getItem('token'),
         },
       })
-    
+
     }
       const message =
         (e.response && e.response.data.error) ||

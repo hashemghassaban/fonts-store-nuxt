@@ -1,0 +1,49 @@
+/**
+*
+*	Name:			IRAN Sans-Serif Font
+*	Version:		5.0
+*	Author:			Moslem Ebrahimi (moslemebrahimi.com)
+*	Created on:		Dec 25, 2012
+*	Updated on:		Sep 01, 2017
+*	Website:		             http://fontiran.com
+*	Copyright:		Commercial/Proprietary Software
+--------------------------------------------------------------------------------------
+فونت های ایران سن سریف یک نرم افزار مالکیتی محسوب می شود. جهت آگاهی از قوانین استفاده از این فونت ها لطفا به وب سایت (فونت ایران دات کام) مراجعه نمایید
+--------------------------------------------------------------------------------------
+IRAN Sans-serif fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (.....)
+--------------------------------------------------------------------------------------
+*
+**/
+
+
+@font-face {
+  font-family: IRANYekanRegular;
+  font-style: normal;
+  src: url('#{$font_path}/iranYekan/IRANYekanRegularFaNum.ttf') format('truetype');
+
+}
+
+@font-face {
+  font-family: IRANYekanBold;
+  font-style: bold;
+  font-weight: bold;
+  src: url('#{$font_path}/iranYekan/IRANYekanBoldFaNum.ttf') format('truetype');
+
+}
+
+@font-face {
+  font-family: IRANYekanMedium;
+  font-style: normal;
+  src: url('#{$font_path}/iranYekan/IRANYekanMediumFaNum.ttf') format('truetype');
+
+}
+@font-face {
+	font-family: iransans;
+	font-style: normal;
+	font-weight: normal;
+	src: url('#{$font_path}/woff/IRANSansWeb(FaNum).woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+
+}
+

@@ -9,104 +9,9 @@
       <section class="productDetail-description">
         <div class="head-pro">
           <h1>فونت کوت</h1>
-
-          <button >
-            <div class="icon">
-              <SvgIcon
-                name="arrow"
-                color="#fff"
-                size="12px"
-                className="rounded-full"
-              />
-            </div>
-            <span>اضافه به سبد خرید</span>
-          </button>
         </div>
-
         <p>        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.
         </p>
-      </section>
-      <section class="productDetail-fontPack">
-        <div class="fontPack-block">
-          <div class="box">
-            <div class="box-head">
-              <div class="weight">10 وزن</div>
-              <div class="rate-and-type">
-                <div class="rate">
-                  <img src="~/assets/img/icon/version-1.png" alt="">
-                </div>
-                <div class="types">نسخه پرو</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
-            </div>
-            <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-                />
-اضافه کردن به سبد
-              </button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-head">
-              <div class="weight">10 وزن</div>
-              <div class="rate-and-type">
-                <div class="rate">
-                  <img src="~/assets/img/icon/version-2.png" alt="">
-                </div>
-                <div class="types">نسخه پرو</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
-            </div>
-            <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-                />
-                اضافه کردن به سبد
-              </button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-head">
-              <div class="weight">10 وزن</div>
-              <div class="rate-and-type">
-                <div class="rate">
-                  <img src="~/assets/img/icon/version-3.png" alt="">
-                </div>
-                <div class="types">نسخه پرو</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
-            </div>
-            <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-                />
-                اضافه کردن به سبد
-              </button>
-            </div>
-          </div>
-        </div>
       </section>
       <section class="productDetail-tiny-banners">
         <div class="banners-block">
@@ -123,26 +28,278 @@
         </div>
 <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
-
+      <div class="small-banner">
+        <img src="~/assets/img/banner/ban4.jpg" alt="">
+        <button >
+          <div class="icon">
+            <SvgIcon
+              name="arrow"
+              color="#fff"
+              size="12px"
+              className="rounded-full"
+            />
+          </div>
+          <span>فونت کوت</span>
+        </button>
+      </div>
 
 
     </div>
-
-      <section class="creator">
-        <div class="pic">
-          <img src="~/assets/img/element/creator.jpg" alt="creator">
-        </div>
-        <div class="info-creator">
-          <h3>مسعود سپهر</h3>
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+      <section class="feature">
+        <div class="feature-block">
+          <div class="feature-block-play" @click="showVideo">
+            <img src="~/assets/img/icon/play.svg" alt="">
+          </div>
         </div>
 
+        <v-dialog width="800" v-model="dialogVideo" persistent  >
+
+
+          <v-card
+
+            prepend-icon="mdi-update"
+            text="Your application will relaunch automatically after the update is complete."
+            title="Update in progress"
+            class="block-video"
+          >
+            <v-icon  @click="hideVideo" class="close" color="#fff">mdi-close</v-icon>
+
+            <video
+              controls
+              width="640"
+
+              ref="videoPlayer"
+              height="360"
+              :src="videoSource"
+
+            >
+              Your browser does not support the video tag.
+            </video></v-card
+          >
+
+
+        </v-dialog>
       </section>
+
+
       <section class="type-font">
         <h3>فونت فارسی</h3>
         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
+      <section class="postMain">
+        <h2>  مطالب مشابه</h2>
+        <nuxt-link to="/" class="show-More">
+          همه </nuxt-link>
+        <div class="postMain-block">
+          <div class="box"><Post /></div>
+          <div class="box"><Post /></div>
 
+          <div class="box"><Post /></div>
+
+          <div class="box"><Post /></div>
+
+        </div>
+
+      </section>
+      <section class="contact-form">
+        <div class="form-top">
+          <h3>ثبت نظر:  مهرداد موسوی</h3>
+          <div class="rate-box">
+            <v-rating
+              length="5"
+              v-model="rateComment"
+              hover
+              color="yellow darken-2"
+              background-color="#ccc"
+              icon="mdi-star"
+              empty-icon="mdi-star"
+              full-icon="mdi-star"
+            ></v-rating>
+            <span class="numberRate"> {{ rateComment }} امتیاز</span>
+          </div>
+        </div>
+
+        <div class="contact-form-block">
+
+          <div class="block pb-5">
+            <TextInput
+              class="my-2"
+              :isValid.sync="isValid"
+              v-model="description"
+              height="100px"
+              width="100%"
+              label="متن پیام"
+            />
+          </div>
+          <div class="block">
+            <v-btn
+              elevation="0"
+              class="secondary btn"
+            >  <SvgIcon
+              name="arrow"
+              color="#fff"
+              size="15px"
+              className="rounded-full"
+              style="margin-left: 15px"
+            />   ثبت نظر  </v-btn
+            >
+          </div>
+        </div>
+        <div class="comments-block__list">
+          <div class="comments-block__block" >
+            <div class="comments-block__box" >
+              <div class="header">
+                <div class="user">
+                  <div class="avatar">
+                    <img src="~/assets/img/icon/user.svg" width="35" alt="user" />
+                  </div>
+                  <div class="name">
+                   هاشم قصابان
+                  </div>
+                  <div class="info-user">
+                    <div class="rate">
+                      <v-icon>mdi mdi-star</v-icon>
+                      <span>5</span>
+                    </div>
+                    <div class="date">1403/03/02</div>
+
+                  </div>
+                </div>
+                <div class="comment-description mb-5">اشتسشاسشستششسشاسشس</div>
+
+                <div class="comment-action">
+                  <div
+                    class="comment-action-box">
+                    <v-btn
+                      icon
+                      elevation="0"
+                      color="orange"
+                      @click="showDialogComment(false)"
+                    >
+                      <SvgIcon
+                        name="reply-1"
+                        color="#F15A24"
+                        size="12px"
+                        className="rounded-full"
+                      />
+                    </v-btn>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comments-block__block reply" >
+              <div class="comments-block__box" >
+                <div class="header">
+                  <div class="user">
+                    <div class="avatar">
+                      <img src="~/assets/img/icon/user.svg" width="35" alt="user" />
+                    </div>
+                    <div class="name">
+                      هاشم قصابان
+                    </div>
+                    <div class="info-user">
+                      <div class="date">1403/03/02</div>
+
+                    </div>
+                  </div>
+                  <div class="comment-description mb-5">اشتسشاسشستششسشاسشس</div>
+
+                  <div class="comment-action">
+                    <div
+                      class="comment-action-box">
+                      <v-btn
+                        icon
+                        elevation="0"
+                        color="orange"
+                        @click="showDialogComment(false)"
+                      >
+
+                        <SvgIcon
+                          name="reply-1"
+                          color="#AAE73E"
+                          size="12px"
+                          className="rounded-full"
+                        />
+                      </v-btn>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <v-dialog v-model="dialogAddComment" max-width="600px">
+        <v-card>
+          <v-card-title class="titleDialog">
+            <span >ثبت دیدگاه </span>
+          </v-card-title>
+          <v-card-text>
+            <v-container >
+              <v-row>
+
+                <v-col cols="12">
+
+                  <TextInput
+                    class="my-2"
+                    :isValid.sync="isValid"
+                    v-model="bodyComment"
+                    height="100px"
+                    width="100%"
+                    label="متن پیام"
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <div class="rate-box">
+                    <v-rating
+                      length="5"
+                      v-model="rateComment"
+                      hover
+                      color="yellow darken-2"
+                      background-color="#ccc"
+                      icon="mdi-star"
+                      empty-icon="mdi-star"
+                      full-icon="mdi-star"
+                    ></v-rating>
+                    <span class="numberRate"> {{ rateComment }} امتیاز</span>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-container>
+<!--            <v-container v-else>-->
+<!--              <img src="@/assets/img/vector/Sign up-cuate.svg" alt="Sign up" />-->
+<!--              <p>باید وارد حساب کاربری خود شوید.</p>-->
+<!--            </v-container>-->
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+
+
+
+            <v-btn
+              elevation="0"
+              class="agreeComment"
+              @click="dialogAddComment = false"
+              text
+            >
+              خروج
+            </v-btn>
+            <v-btn
+              color="secondary "
+class="agreeComment ok"
+              elevation="0"
+              @click="addComment()"
+              width="100px"
+
+            >
+              ثبت نظر
+            </v-btn>
+
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </client-only>
 </template>
@@ -179,12 +336,40 @@ export default {
       itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
       filter: 'جدیدترین',
       page: 1,
+      dialogVideo:false,
+      videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      description:'',
+      isValid: false,
+      rateComment: 0,
+      dialogAddComment: false,
+      bodyComment:''
+
 
     }
   },
   methods: {
+    showDialogComment(newComment) {
+this.dialogAddComment = true
+    },
+    showVideo(){
+      this.dialogVideo = true
+      this.$nextTick(() => {
+        this.$refs.videoPlayer.play();
+      });
+    },
+    hideVideo(){
+      this.dialogVideo = false
+      this.$nextTick(() => {
+        this.$refs.videoPlayer.pause();
+      });
+    },
+    async ReactToComment(reactComment, id) {
 
 
+    },
+    addComment(){
+
+    }
 
   }
 };
@@ -276,7 +461,7 @@ export default {
         gap: 20px;
         align-items: center;
         justify-content: space-between;
-        margin: 100px 0 50px;
+        margin:0 0 50px;
         padding: 0;
 
 
@@ -319,158 +504,40 @@ export default {
       }
     }
   }
-  &-fontPack{
-    padding: 0 5%;
-    .fontPack-block{
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      @include breakpoint(medium) {
-        flex-wrap: nowrap;
-      }
-      .box{
-        flex: 48%;
-        max-width: 48%;
-        @include breakpoint(medium) {
-          flex: 33.333%;
-          max-width: 33.3333%;
-        }
-        &-head{
-          display: flex;
-          justify-content: space-between;
-          flex-direction: row-reverse;
-          background: #676767;
-          margin-bottom: 11px;
-          padding: 10px;
-          height: 60px;
-          border-radius: 10px;
-          align-items: center;
-          .weight{
-            color: #C2C2C2;
-          }
-          .rate-and-type{
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            .rate{
-              img{
-                width: 60px;
-              }
-            }
-            .types{
-              color: #fff;
-            }
-          }
-        }
-        &-body{
-          height: 250px;
-          @include breakpoint(medium) {
-            height: 600px;
-          }
-          img{
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-          }
-        }
-        &-footer{
-          display: flex;
-          justify-content: space-between;
-
-          background: #AAE73E;
-          margin-top: 11px;
-          padding: 10px 18px;
-          height: auto;
-          border-radius: 10px;
-          align-items: center;
-          flex-direction: column;
-          @include breakpoint(medium) {
-            flex-direction: row-reverse;
-            height: 60px;
-          }
-          .add-to-cart{
-            border: 2px solid #AAE73E;
-            background: #AAE73E;
-            border-radius: 10px;
-            text-align: center;
-            width: 180px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            color: #fff;
-            &:hover{
-              background: #000;
-              border: 2px solid #000;
-
-              transition: all 0.3s ease;
-
-
-            }
-
-            i{
-              margin-left: 5px;
-            }
-          }
-          .price{
-            font-size: 20px;
-          }
-        }
-      }
-    }
-  }
 
 }
-
-
-.creator{
+.rate {
   display: flex;
   gap: 30px;
-  padding: 70px 15%;
-  background: #EEE;
-  flex-direction: column;
-  @include breakpoint(medium) {
-    flex-direction: row;
-  }
-  .pic{
-    min-width: 150px;
-    min-height: 150px;
-    overflow: hidden;
-    border-radius: 15px;
-    display: inline-block;
-    @include breakpoint(medium) {
-      min-width: 283px;
-      min-height: 283px;;
+  align-items: flex-end;
+
+  &-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 1.5rem 0 0;
+
+    span {
+      color: #5a5a5a;
     }
-      img{
-        width: 100%;
-        height: 100%;
-        object-fit: fill;
-      }
-  }
-  .info-creator{
-    padding: 40px 0 0;
-    @include breakpoint(medium) {
-      padding: 40px 0;
-    }
-    h3{
-      color: #676767;
-    }
-    p{
-      font-size: 15px;
-      line-height: 30px;
-      margin: 12px 0;
-      color: #7D7D7D;
-      text-align: justify;
-      @include breakpoint(medium) {
-        text-align: right;
+
+    ::v-deep {
+      .v-rating {
+        direction: ltr !important;
+
+        .v-icon {
+          padding: 0 2px 0;
+        }
       }
     }
   }
 
+  .review {
+    color: #b5b5b5;
+  }
 }
+
+
 .type-font{
   margin-top: 50px;
   margin-bottom: 0;
@@ -478,7 +545,7 @@ export default {
   @include breakpoint(medium) {
     padding: 0 5%;
     margin-bottom: 100px;
-    margin-top: 100px;
+    margin-top: 0px;
 
   }
   h3{
@@ -500,7 +567,501 @@ export default {
   }
 
 }
+.small-banner{
+  height: 170px;
+  width: 90%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 50px auto ;
+  position: relative;
+  @include breakpoint(medium) {
+    height: 270px;
+    margin: 100px auto 50px;
+  }
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+  }
+  button{
+    width: 200px;
+    background: #AAE73E;
+    height: 54px;
+    border-radius: 15px;
+    border: 3px solid #fff;
+    display: flex;
+    padding: 12px 7px;
+    font-size: 18px;
+    font-weight: 900;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    @include breakpoint(medium) {
+      width: 300px;
+    }
+    &:hover{
+      background: #fff;
+      transition: all 0.3s ease;
+
+    }
+    .icon{
+      width: 35px;
+      height: 35px;
+      background: #000;
+      text-align: center;
+      border-radius: 50px;
+      padding: 5px;
+    }
+    span{
+      font-size: 16px;
+      font-weight: 900;
+      margin-left: 10px;
+    }
+
+
+  }
+}
+.feature{
+  padding: 0;
+  position: relative;
+  top: 0;
+  @include breakpoint(medium) {
+    padding: 10px 0% 50px;
+  }
+
+
+  &-block{
+    height: 250px;
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    background: url('./assets/img/banner/about-video.jpg');
+    background-size: 100% 100%;
+    @include breakpoint(medium) {
+      height: 585px;
+    }
+    &-play{
+      width: 90px;
+      height: 90px;
+      border-radius: 100px;
+      background: #000;
+      position: absolute;
+      right: 50%;
+      top: 50px;
+      transform:translate(50%, 30%);
+      border: 8px solid #fff;
+      cursor: pointer;
+      text-align: center;
+      line-height: 70px;
+      transition: all 0.3s ease;
+      @include breakpoint(medium) {
+        width: 150px;
+        height: 150px;
+        transform:translate(50%, 100%);
+        line-height: 125px;
+        border: 11px solid #fff;
+
+      }
+
+      &:hover{
+        border: 11px solid #FF7A00;
+        transition: all 0.3s ease;
+
+        img{
+          filter: contrast(0.5);
+          transition: all 0.3s ease;
+
+        }
+
+      }
+      img{
+        width: 25px;
+        height: 25px;
+        transition: all 0.3s ease;
+        @include breakpoint(medium) {
+          width: 35px;
+          height: 35px;
+        }
+
+      }
+    }
+
+
+  }
+  &-title{
+    padding: 22px;
+    font-size: 25px;
+    color: #3A3A3A;
+  }
+}
+.postMain{
+  margin-bottom: 100px;
+  position: relative;
+  margin-top: 100px;
+  .show-More{
+    position: absolute;
+    left: 16%;
+    top: 0;
+    font-size: 20px;
+    color: #F15A24;
+    font-weight: bold;
+  }
+
+  h2{
+    text-align: center;
+    font-weight: bold;
+  }
+  &-block{
+    display: flex;
+    width: 100%;
+    padding: 40px 5% 0;
+    flex-wrap: wrap;
+    @include breakpoint(medium) {
+      padding: 40px 15%;
+
+    }
+    .box{
+      flex: 50%;
+      max-width: 50%;
+      padding: 0 10px;
+      @include breakpoint(medium) {
+        flex: 25%;
+        max-width: 25%;
+      }
+    }
+  }
+}
+
+.contact-form {
+  background: #F8F8F8;
+  padding: 50px 0 65px;
+  @include breakpoint(medium) {
+    padding: 100px 0 5%;
+  }
+  .form-top{
+    display: flex;
+    margin: auto;
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    @include breakpoint(medium) {
+      width: 600px;
+      flex-direction: row;
+    }
+    .rate-box{
+      margin-right: auto;
+      padding: 0 11px;
+      @include breakpoint(medium) {
+        margin: 0;
+
+      }
+    }
+  }
+  h3{
+    padding: 0 5%;
+    @include breakpoint(medium) {
+      padding: 0 ;
+
+    }
+  }
+  &-block{
+    width: 100%;
+    margin: auto;
+    padding: 0 5%;
+    @include breakpoint(medium) {
+      width: 600px;
+      padding: 0;
+    }
+    .block{
+      text-align: center;
+      display: flex;
+      gap: 15px;
+    }
+  }
+}
+
+.comments {
+  background: #f5f5f5;
+  padding: 40px 20px;
+  margin: 33px 0 0;
+  flex-direction: column;
+
+  @include breakpoint(small) {
+    margin: 33px 0 90px;
+  }
+
+  &-title {
+    font-size: 1.4rem;
+    text-align: center;
+    color: #666;
+    margin: 0 0 45px;
+  }
+
+  &-block {
+    display: flex;
+    gap: 2%;
+    flex-wrap: wrap;
+
+
+
+    &__list {
+      flex: 100%;
+      max-width: 100%;
+      order: 3;
+      margin: 0;
+
+      @include breakpoint(large) {
+        flex: 46%;
+        max-width: 46%;
+        order: 2;
+        margin: 60px auto;
+      }
+    }
+
+    &__block {
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      position: relative;
+
+    }
+
+    &__box {
+      border-bottom: 1px solid #8d8d8d;
+      padding: 18px 0;
+
+      &:last-child {
+        border: 0;
+        padding: 18px 0 0;
+      }
+
+      &:first-child {
+        padding: 0 0 18px;
+        position: relative;
+      }
+
+      .header {
+        padding: 0!important;
+        height: auto !important;
+        .user {
+          display: flex;
+          gap: 15px;
+          position: relative;
+          align-items: center;
+
+          .name {
+            font-size: 15px;
+            font-weight: bold;
+            color: #929292;
+          }
+          .info-user{
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 0;
+            flex-direction: row-reverse;
+            gap: 10px;
+            .rate{
+              gap: 3px;
+              display: flex;
+              align-items: center;
+              margin-right: 10px;
+              flex-direction: row-reverse;
+
+              i{
+                font-size: 20px;
+                color: #FFC700;
+              }
+              span{
+                font-size: 15px;
+              }
+            }
+          }
+        }
+
+
+        .address-date {
+          display: flex;
+          font-weight: 100;
+          gap: 20px;
+          margin: 15px 0;
+          font-size: 14px;
+          color: #929292;
+
+          .date {
+            border-left: 1px solid #d9d9d9;
+            padding-left: 15px;
+          }
+        }
+
+        .comment-info {
+          display: flex;
+          font-weight: 100;
+          gap: 20px;
+          margin: 15px 0;
+          font-size: 14px;
+          color: #929292;
+          flex-direction: column;
+
+          @include breakpoint(small) {
+            flex-direction: row;
+          }
+
+          .size {
+            border: 0;
+            padding-left: 15px;
+
+            @include breakpoint(small) {
+              border-left: 1px solid #d9d9d9;
+            }
+          }
+
+          .color {
+            @extend .size;
+          }
+
+          .stete {
+            &.accept {
+              color: #1b9520;
+            }
+          }
+        }
+        .comment-description {
+          margin-top: 25px;
+          color: #232323;
+          font-size: 14px;
+          word-wrap: anywhere;
+          padding: 0 6%;
+          font-weight: 700;
+
+        }
+        .comment-text {
+          font-size: 19px;
+          margin: 15px 0;
+          color: #000;
+          font-weight: 700;
+        }
+
+        .comment-description {
+          font-size: 12px;
+          overflow-wrap: anywhere;
+
+        }
+
+        .comment-action {
+          gap: 20px;
+          display: flex;
+          align-items: center;
+          flex-direction: row;
+          justify-content: space-between;
+
+          @include breakpoint(small) {
+            flex-direction: row;
+          }
+
+          &-box {
+            border: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            left: -6px;
+            bottom: 29px;
+            i{
+              font-size: 30px!important
+            }
+
+
+            .block {
+              display: flex;
+              padding: 0;
+            }
+          }
+
+          span {
+            font-size: 12px;
+            color: #607d8b;
+            border: 2px solid #607d8b;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: 800;
+          }
+        }
+      }
+    }
+
+    .show-comment {
+      color: #1b9520;
+      text-align: left;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      margin-top: 30px;
+
+      &::before {
+        background-color: transparent !important;
+      }
+
+      &:hover {
+        i {
+          transform: translate(10px, 0);
+        }
+      }
+
+      i {
+        color: #1b9520;
+      }
+    }
+  }
+
+
+  .filter {
+    flex: 100%;
+    max-width: 100%;
+    order: 3;
+
+    @include breakpoint(medium) {
+      flex: 47%;
+      max-width: 48%;
+    }
+
+    @include breakpoint(large) {
+      flex: 25%;
+      max-width: 25%;
+    }
+
+    .sortField {
+      max-width: 100%;
+      font-size: 0.8rem;
+      margin: 6px 0 50px;
+      padding: 0;
+      width: 100%;
+    }
+
+    &-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 18px 0;
+    }
+  }
+}
 ::v-deep {
+  .form-text-input-container{
+    margin: 0 0 27px !important;
+    padding: 0;
+    @include breakpoint(medium) {
+      margin: 8px 0 !important;
+    }
+  }
+
   .block-video {
     border: 0;
     height: auto;
@@ -519,6 +1080,133 @@ export default {
   }
 
 }
+.v-dialog {
+  .titleDialog {
+    font-size: 16px;
+    padding: 15px 18px;
+    font-weight: 900;
 
+    span {
+      font-size: 16px !important;
+    }
+  }
+
+  p {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: #000;
+  }
+
+  img {
+    width: 200px;
+    margin: 0 auto 25px;
+    display: block;
+  }
+
+  .rate {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    &-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      text-align: center;
+      justify-content: flex-start;
+
+      span {
+        color: #ffffff;
+      }
+
+      .v-rating .v-icon {
+        padding: 0;
+      }
+    }
+
+    .review {
+      color: #b5b5b5;
+    }
+  }
+
+
+  .v-card__actions {
+    display: flex !important;
+    text-align: center;
+    padding: 16px !important;
+    border-top: 1px solid #d3d3d3;
+
+    .ignoreComment {
+      background: #607d8b;
+      padding: 7px 20px;
+      margin: 0;
+      color: #fff;
+      height: 40px;
+      width: 105px;
+    }
+
+    .agreeComment {
+      padding: 7px 20px;
+      margin: 0;
+      color: #000000;
+      background: #dddd;
+      display: inline-block;
+      width: auto;
+      border: 2px solid #dddd !important;
+      box-shadow: none !important;
+      height: 50px !important;
+      border-radius: 10px !important;
+      font-size: 15px !important;
+      &:hover {
+        background-color: #fff !important;
+        color: #000;
+
+        &:before {
+          background-color: #fff !important;
+
+        }
+      }
+      &.ok {
+        height: 40px;
+        width: 80px;
+        border: 2px solid #aae73e !important;
+
+        &:hover {
+          background-color: #fff !important;
+          border: 2px solid #ff7a00 !important;
+          color: #ff7a00;
+
+          &:before {
+            background-color: #fff !important;
+
+          }
+        }
+      }
+      &.v-btn--disabled {
+        background: rgb(223, 223, 223);
+        color: #999;
+      }
+      .v-btn--is-elevated {
+        width: 100px;
+        min-width: 100px;
+      }
+    }
+  }
+}
+
+.numberRate {
+  color: #000!important;
+  padding: 6px 4px;
+  font-size: 14px;
+  border-radius: 5px;
+  display: flex;
+  width: 52px;
+
+}
+.reply{
+  padding: 20px 40px;
+}
 
 </style>

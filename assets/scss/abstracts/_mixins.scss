@@ -1,0 +1,4 @@
+@mixin style($property, $variable-name) {
+  #{$property}: map-get($vars, $variable-name);
+  #{$property}: var(--$variable-name, map-get($vars, $variable-name));
+}

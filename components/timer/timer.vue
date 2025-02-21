@@ -43,7 +43,7 @@ export default {
             this.timer = setInterval( ()=> {
                 if(this.time>0)
                     this.time-=1
-                else 
+                else
                     this.end()
             } ,1000 )
         },

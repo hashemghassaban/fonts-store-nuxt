@@ -1,33 +1,93 @@
 <template>
   <client-only>
-    <section class="invite">
-      <div class="invite-block">
-        <div class="invite-block__info">
+    <section class="userManager">
+      <div class="userManager-block">
+        <div class="userManager-block__info">
           <sidebar />
         </div>
-        <div class="invite-block__content">
-          <div class="invite-title">
-            <h2>معرفی به دوستان</h2>
+        <div class="userManager-block__content">
+          <div class="userManager-title">
+            <h2> اطلاعات کاربری</h2>
           </div>
-          <div class="invite-block__box">
-              <p>کد دعوت را کپی و از طریق پیامک و یا شبکه های اجتماعی برای دوستانتان ارسال کلید و شارژ رایگان بگیرید.</p>
-            <div class="invite-code">
-              653265
+          <div class="userManager-block__box">
+          <div class="field">
+            <TextInput
+              validators="subject"
+              class="my-2"
+              placeholder="نام  خود را وارد کنید"
+              v-model="firstName"
+              label="نام"
+
+            />
+          </div>
+            <div class="field">
+              <TextInput
+                validators="subject"
+                class="my-2"
+                placeholder=" نام خانوادگی خود را وارد کنید"
+                v-model="lastName"
+                label="نام خانوادگی"
+
+              />
             </div>
-            <div class="social-media">
-              <div class="social-media-block">
-                <div class="box">
-                  <nuxt-link to="/">
-                    <v-icon>mdi mdi-send</v-icon>
-                  </nuxt-link>
-                </div>
-                <div class="box">
-                  <nuxt-link to="/">
-                    <v-icon>mdi mdi-whatsapp</v-icon>
-                  </nuxt-link>
-                </div>
-              </div>
+            <div class="field">
+              <TextInput
+                validators="subject"
+                class="my-2"
+                placeholder=" ایمیل خود را وارد کنید"
+                v-model="email"
+                label="ایمیل"
+
+              />
             </div>
+            <div class="field">
+              <TextInput
+                validators="subject"
+                class="my-2"
+                placeholder=" موبایل خود را وارد کنید"
+                v-model="mobileNumber"
+                label="موبایل"
+
+              />
+            </div>
+
+            <div class="field">
+              <date-picker
+                ref="datePicker"
+                type="date"
+                vmodel="selectedDate"
+                element="fromtime"
+                color="#AAE73E"
+                format="YYYY-MM-DD"
+                display-format="jYYYY/jMM/jDD"
+                @change="selectDate"
+              />
+              <TextInput
+                validators="date"
+                placeholder="تاریخ تولد  خود را وارد کنید"
+                v-model="born"
+                label="تاریخ تولد"
+                class="custom-input"
+                :width="'100%'"
+                id="fromtime"
+              />
+
+            </div>
+            <div class="field">
+
+              <button  class="submit-btn" >
+                <div class="icon">
+                  <SvgIcon
+                    name="arrow"
+                    color="#fff"
+                    size="12px"
+                    className="rounded-full"
+                  />
+                </div>
+                <span>  ثبت تغییرات </span>
+              </button>
+            </div>
+
 
           </div>
 

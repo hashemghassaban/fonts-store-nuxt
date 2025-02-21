@@ -1,58 +1,42 @@
 <template>
-  <svg :style="{ height:Height, width:Width,
-                 'min-height':Height,'min-width':Width,
-                 'max-height':Height,'max-width':Width,
-                 color,fill,stroke }" >
-    <use :xlink:href="src"></use>
-  </svg>
+  <i
+    :class="'font-'+name"
+    :style="{'color':color,'font-size':size }"></i>
+
 </template>
 
 <script>
 
 export default {
-    props:{
-      name:{
-        type:String,
-        default:'',
-      },
-      width:{
-        type:String,
-        default:'',
-      },
-      height:{
-        type:String,
-        default:'',
-      },
-      color:{
-        type:String,
-        default:''
-      },
-      stroke:{
-        type:String,
-        default:'transparent'
-      },
-      fill:{
-        type:String,
-        default:''
-      },
-      size:{
-        type:String,
-        default:null
-      },
+  props:{
+    name:{
+      type:String,
+      default:'',
     },
-    computed: {
-        src() {
-            return  `${require("@/components/SvgIcon/SvgIcon.svg")}#${this.name}`;
-        },
-        Width(){
-          if(this.size) return this.size
-          return this.width
-        },
-        Height(){
-          if(this.size) return this.size
-          return this.height
-        }
-    }
+
+    color:{
+      type:String,
+      default:''
+    },
+
+    size:{
+      type:String,
+      default:null
+    },
+  },
+
 }
 
 </script>
+<style scoped lang="scss">
+
+
+
+  i{
+    &:before{
+      color: inherit;
+    }
+  }
+
+
+</style>

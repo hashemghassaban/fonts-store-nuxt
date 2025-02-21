@@ -1,34 +1,79 @@
 <template>
   <client-only>
-    <section class="profile">
-      <div class="profile-block">
-        <div class="profile-block__info">
+    <section class="wallet">
+      <div class="wallet-block">
+        <div class="wallet-block__info">
           <sidebar />
         </div>
-        <div class="profile-block__content">
-          <div class="profile-title">
-            <h2>علاقه مندی های من</h2>
-            <SvgIcon name="search" size="25px" color="#676767"></SvgIcon>
+        <div class="wallet-block__content">
+          <div class="wallet-title">
+            <h2>افزایش اعتبار</h2>
           </div>
-          <div class="latest-font-block">
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
+        <div class="wallet-block__box">
+          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : 50000 ت
+         </h4>
+
+          <div class="button-container">
+            <h4> مبلغ :  </h4>
+
+            <button
+              v-for="(amount, index) in amounts"
+              :key="index"
+              :class="{ 'amount-button': true, 'active': activeButton === index }"
+              @click="handleButtonClick(index)"
+            >
+              {{ amount.name }}
+            </button>
+            <div class="input-container" v-if="activeButton !== null">
+              <TextInput
+                validators="subject"
+                class="my-2"
+                placeholder="مبلغ دلخواه خود را وارد کنید"
+                v-model="selectedAmount"
+                :disabled="activeButton !== 4"
+                label="مبلغ"
+
+              />
+
+
+
             </div>
           </div>
-          <v-pagination
-            v-model="page"
-            :length="5"
-            class="my-4"
-          ></v-pagination>
+          <!-- انتخاب درگاه پرداخت -->
+          <h4>درگاه پرداخت : </h4>
+          <div class="gateway-select">
+            <div class="gateway-options">
+              <div
+                v-for="gateway in gateways"
+                :key="gateway.id"
+                :class="{ 'gateway-item': true, 'active': selectedGateway === gateway.id }"
+                @click="selectedGateway = gateway.id"
+              >
+                <img
+                  src="~/assets/img/element/zarinpall.jpg"
+                  :alt="gateway.name"
+                  loading="lazy"
+                />
+
+              </div>
+            </div>
+
+          </div>
+
+          <button  class="payment-btn"   :disabled="!isValidForm">
+            <div class="icon">
+              <SvgIcon
+                name="arrow"
+                color="#fff"
+                size="12px"
+                className="rounded-full"
+              />
+            </div>
+            <span>افزایش اعتبار</span>
+          </button>
+
+        </div>
+
         </div>
       </div>
     </section>

@@ -124,7 +124,13 @@ export default {
     }
     &-text{
       text-align: center;
-      margin: 80px 0;
+      margin:35px 5%;
+
+      @include breakpoint(medium) {
+        margin: 80px 0;
+
+      }
+
       h3{
 color: #454545;
       }

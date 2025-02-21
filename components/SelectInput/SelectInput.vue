@@ -58,13 +58,7 @@
             :class="'flex-' + emptyState.direction"
             class="pa-8 align-items-center justify-content-center text-center"
           >
-            <img
-              src="@/assets/images/icons/noData.svg"
-              alt="noData"
-              width="43px"
-              height="48px"
-              v-if="emptyState.icon"
-            />
+
 
             <div :class="'ala-text-' + emptyState.baseTextIndex">
               {{ emptyState.text }}
@@ -72,25 +66,13 @@
           </div>
         </div>
 
-        <div v-if="realPersonSelect || legalPersonSelect" class="flex-col pb-1 pr-1">
-          <div class="ala-text-1 py-2 pr-1">نیاز به ثبت شخص جدید دارید؟</div>
 
-          <div class="flex-row justify-content-space-between">
-            <BaseButton v-if="realPersonSelect" add width="130px" round
-              >شخص حقیقی</BaseButton
-            >
-            <BaseButton v-if="legalPersonSelect" add width="130px" round
-              >شخص حقوقی</BaseButton
-            >
-          </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
 import TextInput from "@/components/TextInput/TextInput.vue";
-import BaseButton from "@/components/BaseButton/BaseButton.vue";
 import { matchFuzzy } from "@/utils/functional.utility.js";
 import SvgIcon from "@/components/SvgIcon/SvgIcon.vue";
 import ResponsiveMixin from "@/utils/responsive.js";
@@ -319,7 +301,6 @@ export default {
   components: {
     TextInput,
     SvgIcon,
-    BaseButton,
   },
 };
 </script>
@@ -352,7 +333,7 @@ export default {
 .form-select-input-drop-box {
   height: auto;
   padding: 6px;
-  border-radius: 6px;
+  border-radius: 10px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
@@ -377,7 +358,7 @@ export default {
 
 .form-select-input-drop-item {
   padding: 9px 6px;
-  border-radius: 6px;
+  border-radius: 10px;
   position: relative;
   font-size: 14px;
   font-weight: 900;

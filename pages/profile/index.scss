@@ -1,0 +1,28 @@
+.profile{
+  background: #fff;
+  padding: 0 5%;
+
+
+  &-block{
+  display: flex;
+  gap: 50px;
+  padding: 5% 10%;
+  background: #fff;
+  &__info{
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    flex: 40%;
+    min-width: 40%;
+    max-width: 40%;
+    padding: 50px;
+
+  }
+  &__content{
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    flex: 60%;
+    min-width: 60%;
+    max-width: 60%;
+  }
+}
+}

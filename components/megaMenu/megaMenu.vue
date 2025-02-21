@@ -16,107 +16,100 @@
               <i class="fa fa-angle-right pl-2" aria-hidden="true"></i>
             </div>
           </li>
+          <li v-for="(menuItem, index) in menuLink" :key="index" class="mega-menu">
+            <a href="#" class="nav-link">
+
+              <span  v-if="menuItem.category"> {{ menuItem.name }}</span>
+            </a>
+
+            <div class="mega-menu-container" v-if="menuItem.category">
+              <div class="block">
+               <div v-for="(items, d) in menuItem.category" :key="d" class="box">
+                 <div class="title" >
+                   <img :src="getImgUrl(titleBlock[d].pic)" :alt="titleBlock[index].name" />
+                   <span>{{titleBlock[d].name}}</span>
+                 </div>
+                <ul class="parent-link" >
+                  <li v-for="(childrenItem, index) in items" :key="index">
+                    <a href="#" class="parent-box">{{ childrenItem.name }}</a>
+                  </li>
+                  <li>
+                    <nuxt-link
+                      to='/linomag'
+                      class="nav-link">
+                      <SvgIcon
+                        name="arrow"
+                        color="#AAE73E"
+                        size="15px"
+                        className="rounded-full"
+                      />
+                      <span>
+                همه
+               </span
+               >
+
+                    </nuxt-link>
+                  </li>
+                </ul>
+
+               </div>
+              </div>
+            </div>
+          </li>
           <li
-            v-for="(menuItem, index) in menuLink"
-            :key="index"
+
+
             class="mega-menu"
           >
             <nuxt-link
               :to="
-                '/categories/' +
-                menuItem.number +
-                '/' +
-                menuItem.name.replaceAll(' ', '-')
+                '/linomag'
+
               "
               class="nav-link"
             >
-              <span v-on:mouseover="showImg(menuItem)">
-                {{ menuItem.name }}</span
+              <span>
+                لاینومگ
+               </span
               >
-              <span
-                class="sub-arrow"
-                v-if="menuItem.childrenCategories || true"
-              ></span>
+
             </nuxt-link>
+          </li>
+          <li
 
-            <div
-              class="mega-menu-container"
-              :class="{ opensubmenu: isActive('portfolio') }"
-              v-if="true"
+
+            class="mega-menu"
+          >
+            <nuxt-link
+              :to="
+                '/about'
+
+              "
+              class="nav-link"
             >
-              <div class="block">
-                <ul class="parent-link">
-                  <li
-                    v-for="(childrenItem, index) in menuItem.childrenCategories"
-                    :key="index"
-                  >
-                    <nuxt-link
-                      :to="
-                        '/categories/' +
-                        childrenItem.number +
-                        '/' +
-                        childrenItem.name.replaceAll(' ', '-')
-                      "
-                      class="parent-box"
-                    >
-                      <span v-on:mouseover="showImg(childrenItem)">
-                        {{ childrenItem.name }}</span
-                      >
-                    </nuxt-link>
-                    <ul class="child-parent-link">
-                      <li
-                        v-for="(item, i) in childrenItem.childrenCategories"
-                        :key="i"
-                      >
-                        <nuxt-link
-                          :to="
-                            '/categories/' +
-                            item.number +
-                            '/' +
-                            item.name.replaceAll(' ', '-')
-                          "
-                        >
-                          <span v-on:mouseover="showImg(item)">
-                            {{ item.name }}</span
-                          >
-                        </nuxt-link>
+              <span>
+                درباره ما
+               </span>
 
-                        <ul class="child-link">
-                          <li
-                            v-for="(link, j) in item.childrenCategories"
-                            :key="j"
-                          >
-                            <nuxt-link
-                              :to="
-                                '/categories/' +
-                                link.number +
-                                '/' +
-                                link.name.replaceAll(' ', '-')
-                              "
-                              class="m-0 p-0"
-                            >
-                              <span v-on:mouseover="showImg(link)">
-                                {{ link.name }}</span
-                              >
-                            </nuxt-link>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="pic-menu" v-if="srcImg?.imagePath">
-                <img
-                  :src="
-                    'https://cdn.alasaz.com/Files/' +
-                     srcImg.imagePath +
-                    '?width=250&height=180'
-                  "
-                  :alt="srcImg.name"
-                />
-              </div>
-            </div>
+            </nuxt-link>
+          </li>
+          <li
+
+
+            class="mega-menu"
+          >
+            <nuxt-link
+              :to="
+                '/support'
+
+              "
+              class="nav-link"
+            >
+              <span>
+                پشیتیبانی
+               </span>
+
+            </nuxt-link>
           </li>
         </ul>
       </div>
@@ -124,6 +117,8 @@
   </div>
 </template>
 <script>
+import SvgIcon from "@/components/SvgIcon/SvgIcon";
+
 export default {
   props: ['leftSidebarVal', 'menuLink'],
   data() {
@@ -134,17 +129,26 @@ export default {
       activeChildItem: '',
       srcImg: '',
       activemegaChild: '',
-      indexShowChild: null,
+      // indexShowChild: null,
+      titleBlock:[
+        {name:'کالیگرافی',pic:'box01'},
+        {name:'هندسی',pic:'box02'},
+        {name:'دست‌نویس',pic:'box03'},
+        {name:'نمایشی',pic:'box04'},
+      ]
     }
   },
-  mounted() {
-    this.showSubMenu(0)
-  },
+
   methods: {
+
+    getImgUrl(pet) {
+      var images = require.context('~/assets/img/element/', false, /\.png$/)
+      return images('./' + pet + '.png')
+    },
     mobilenav() {
       this.openmobilenav = !this.openmobilenav
     },
-    
+
     showImg: function (item) {
       this.srcImg = item
 
@@ -159,9 +163,6 @@ export default {
       } else {
         this.activeItem = menuItem
       }
-    },
-    showSubMenu(i) {
-      this.indexShowChild = i
     },
     isActiveChild(menuChildItem) {
       return this.activeChildItem === menuChildItem
@@ -196,6 +197,7 @@ export default {
       }
     },
   },
+
 }
 </script>
 
@@ -203,6 +205,24 @@ export default {
 .toggle-nav {
   &.toggle-button {
     z-index: 1;
+  }
+
+}
+.mega-menu-container{
+  .block{
+    display: flex;
+    flex-wrap: wrap;
+
+      .parent-link{
+        flex: 25%;
+        max-width: 25%;
+        a{
+          color: #A1A1A1!important;
+          font-size: 20px!important;
+        }
+      }
+
+
   }
 }
 </style>
