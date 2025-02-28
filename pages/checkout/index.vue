@@ -210,7 +210,7 @@ export default {
       this.loading = true;
       let body = {
         'method':this.selectedPaymethod,
-        'payment_method_id': this.selectedPayment,
+        'payment_method_id': this.selectedGateway,
       }
       try {
         const { action, id } = await cartService.saveCheckoutDetail(body)
