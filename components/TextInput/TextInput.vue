@@ -22,6 +22,7 @@
       :type="inputType"
       :class="{ 'opacity-05': disabled }"
       :disabled="readonly || disabled"
+      :maxlength="maxlength"
       v-model="model"
       :style="{ width, height }"
       v-on:keyup.enter="$emit('enterPress')"
@@ -93,6 +94,10 @@ export default {
     value: {
       type: String,
       default: "",
+    },
+    maxlength: {
+      type: String,
+      default: "100",
     },
     width: {
       type: String,

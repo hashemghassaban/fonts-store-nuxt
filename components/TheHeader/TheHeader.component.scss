@@ -76,18 +76,23 @@
     .search{
       cursor: pointer;
       margin-left: 5px;
+      display: flex;
+      align-items: center;
 
     }
     .signIn{
       display: flex;
       gap: 7px;
+      align-items: center;
 
       span{
         width: 115px;
         text-align: center;
         cursor: pointer;
         margin-right: 7px;
-        height: 25px;
+        height: 20px;
+        position: relative;
+        top: -3px;
         &:hover{
           color: #FF7A00 ;
         }
@@ -104,6 +109,8 @@
     .cart{
       cursor: pointer;
       position: relative;
+      display: flex;
+      align-items: center;
       .isFill{
         width: 10px;
         height: 10px;
@@ -139,6 +146,12 @@
   display: none;
   @include breakpoint(large) {
     display: block;
+  }
+}
+.navigation-mobile{
+  display: block;
+  @include breakpoint(large) {
+    display: none;
   }
 }
 .search-box{
@@ -198,8 +211,70 @@
   }
 }
 ::v-deep{
+  .expanding-search:not(.closed) {
+    max-width:100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 40px;
+    .v-input__slot{
+      background: rgb(255 255 255)!important;
+    }
+  }
+
+  .expanding-search.closed {
+    max-width: 100%;
+    padding: 0 12px !important;
+  }
+  .latest-child{
+    padding: 0;
+    border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: row-reverse;
+    background: #efefef;
+  }
+  .list-parent {
+    border-bottom: 1px solid #ccc;
+    &.hasChild{
+      padding: 0;
+    }
+    &:last-child {
+      border: 0;
+    }
+  }
+  .v-list-item--link{
+    &:before{
+      background: #fff;
+    }
+  }
+  .v-list-group__header{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .v-list-item__icon{
+    position: relative;
+    top: -8px;
+  }
+  .category-text{
+    position: absolute;
+
+  }
   .parent-link{
     padding: 0;
+
+  }
+  .v-list-group--sub-group{
+    .v-list-group__header{
+      padding: 0 15px 0 4px;
+      border-top: 1px solid #ccc;
+      display: flex;
+      flex-direction: row-reverse;
+
+      .v-list-item{
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0 20px 0 2px;
+      }
+    }
   }
   .v-text-field--filled > .v-input__control > .v-input__slot {
     background:#fff!important;
@@ -221,34 +296,8 @@
 
 }
 
-.expanding-search:not(.closed) {
-  max-width:100%;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: 40px;
-  .v-input__slot{
-    background: rgb(255 255 255)!important;
-  }
-}
 
-.expanding-search.closed {
-  max-width: 100%;
-  padding: 0 12px !important;
-}
-.list-parent {
-  border-bottom: 1px solid #ccc;
-  &.hasChild{
-    padding: 0;
-  }
-  &:last-child {
-    border: 0;
-  }
-}
-.v-list-item--link{
-  &:before{
-    background: #fff;
-  }
-}
+
 
 // Mobile responsiveness
 @media (max-width: 1200px) {

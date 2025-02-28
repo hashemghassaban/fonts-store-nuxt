@@ -45,7 +45,6 @@
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  top: 20px;
   &.modify{
     display: flex;
     justify-content: space-between;
@@ -75,7 +74,7 @@
 
 ::v-deep{
   .v-btn{
-    margin-top: 50px;
+    margin-top: 20px;
     i{
       width: 30px;
       height: 30px;
@@ -90,6 +89,8 @@
   }
   .v-otp-input{
     margin-top: 15px;
+    display: flex ;
+    flex-direction: row-reverse;
     .v-input__slot{
       border: solid 2px #bebebe;
       border-radius: 10px;

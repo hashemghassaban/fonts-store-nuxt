@@ -1,5 +1,6 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import NavBar from '@/components/megaMenu/megaMenu'
+import { cartService  } from '~/services'
 
 export default {
   name: 'TheHeader',
@@ -7,7 +8,6 @@ export default {
     SvgIcon,
     NavBar
   },
-
   data: () => ({
     showMenu: false,
     drawer: false,
@@ -117,16 +117,52 @@ export default {
 
     }]
   }),
+
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem("token");
+      }
+    },
+    cart() {
+      return this.$store.state.cart
+    },
+  },
   methods: {
+    async getCart() {
+
+      try {
+        const res = await cartService.getCart()
+        this.$store.commit('setCart', res.entity?.cart)
+        console.log(res.entity?.cart)
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+
+
+    },
+    goToCart(){
+      if(this.cart?.items?.length  > 0){
+        this.$router.push('/cart')
+      }else {
+        this.$toast.error('سبد خرید خالی است ', {
+          timeout: 4000,
+        })
+      }
+
+    },
     openSearch() {
       this.showSearch = true
     },
   },
-
-  watch: {
-
-  },
-
+mounted() {
+  this.menuItems = this.$store.state.categories
+  if(this.authenticate){
+    this.getCart()
   }
+}
+
+}
 
 

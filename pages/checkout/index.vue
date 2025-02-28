@@ -42,11 +42,8 @@
       <div class="cart-block">
         <div class="cart-block-list">
           <div class="pro">
-            <div class="box">
-              <Product :typeProduct="'cart'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'cart'"/>
+            <div class="box" v-for="(item, index) in cartItems">
+              <Product :typeProduct="'cart'" :items="item" @refreshData="refreshData"/>
             </div>
           </div>
         </div>
@@ -84,33 +81,35 @@
 
                   <v-col cols="12">
                     <v-radio
-                      value="2"
+                      :value="wallet?.wallet?.method"
                       label="کیف پول"
                       color="primary"
                     ></v-radio>
-                    <p class="text">موجودی : 10.000 ت</p>
-                    <p class="amount">میزان کسری از کیف پول : 10.000 ت</p>
+                    <p class="text">موجودی : {{formatPrice(wallet?.remaining)}} ت</p>
+                    <p class="amount">میزان کسری از کیف پول : {{formatPrice(wallet?.wallet_lacke)}} ت</p>
                   </v-col>
                 </v-row>
+
               </v-radio-group>
 
           </div>
           <div class="block-info">
             <div class="totalPrice">
-              <label>جمع خرید : </label>
-              <span>130.000 ت</span>
+              <label >جمع خرید : </label>
+              <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
-            <div class="benefit-buy">
+            <div class="benefit-buy"  v-if="$store.state.cart.discount > 0">
               <label> سود شما از خرید : </label>
-              <span>130.000 ت</span>
+              <span> {{formatPrice(parseInt(cart?.discount))}} ت</span>
             </div>
             <div class="totalPayment">
               <label> قابل پرداخت : </label>
-              <span>200.000 ت</span>
+              <span> {{formatPrice(parseInt(cart?.payable))}} ت</span>
             </div>
           </div>
          <div class="submit">
-           <button >
+           <v-btn           @click="saveCheckout"         :loading="loading"
+           >
              <div class="icon">
                <SvgIcon
                  name="arrow"
@@ -120,7 +119,7 @@
                />
              </div>
              <span> پرداخت</span>
-           </button>
+           </v-btn>
 
          </div>
 
@@ -134,6 +133,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import { cartService  } from '~/services'
 
 export default {
   head: {
@@ -161,12 +161,82 @@ export default {
       ],
       activeButton: null,
       selectedGateway: 1,
+      wallet:0,
+      cartItems:[],
+      cart:[],
+      selectedPayment: 0,
+      selectedPaymethod: 3,
+      payMethods: [],
+      loading:false,
     }
   },
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem('token')
+      }
+    },
+  },
+
   methods: {
+    refreshData(newValue) {
+      if(newValue ){
+        this.getCheckout()
+      }
+    },
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    async getCheckout() {
+
+        try {
+          const res = await cartService.getCheckOut()
+          this.cartItems = res.entity.cart.items
+          this.cart = res.entity.cart
+          this.payMethods = res.entity.online_payments
+          this.wallet = res.entity
+          // if (this.payMethods.length > 0)
+          //   this.selectedPayment = this.payMethods[0]?.id
+
+        } catch (error) {
+          console.error('خطا در دریافت کاربران:', error)
+        }
 
 
-  }
+    },
+    async saveCheckout() {
+      this.loading = true;
+      let body = {
+        'method':this.selectedPaymethod,
+        'payment_method_id': this.selectedPayment,
+      }
+      try {
+        const { action, id } = await cartService.saveCheckoutDetail(body)
+        this.loading = false;
+        if (action) window.location.href = action
+        else this.$router.push(`profile/order/${id}`)
+
+
+      } catch (error) {  this.loading = false;}
+    },
+  },
+  // getCheckOut
+  async mounted() {
+    if(this.cart?.items?.length === 0){
+      let path = localStorage.getItem('lastUrL')
+      window.location.replace(path ? path : '/')
+      return
+    }
+
+    if (!this.authenticate) {
+      localStorage.setItem('lastUrL' , '/checkout')
+      this.$router.push('/signIn')
+    } else {
+      this.getCheckout()
+    }
+  },
 };
 </script>
 

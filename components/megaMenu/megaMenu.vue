@@ -16,26 +16,26 @@
               <i class="fa fa-angle-right pl-2" aria-hidden="true"></i>
             </div>
           </li>
-          <li v-for="(menuItem, index) in menuLink" :key="index" class="mega-menu">
+          <li  class="mega-menu">
             <a href="#" class="nav-link">
 
-              <span  v-if="menuItem.category"> {{ menuItem.name }}</span>
+              <span > دسته بندی ها</span>
             </a>
 
-            <div class="mega-menu-container" v-if="menuItem.category">
+            <div class="mega-menu-container" >
               <div class="block">
-               <div v-for="(items, d) in menuItem.category" :key="d" class="box">
+               <div v-for="(items, d) in menuLink" :key="d"  class="box">
                  <div class="title" >
-                   <img :src="getImgUrl(titleBlock[d].pic)" :alt="titleBlock[index].name" />
-                   <span>{{titleBlock[d].name}}</span>
+                   <img :src="getImgUrl(titleBlock[d].pic)" :alt="items?.name" />
+                   <span>{{items?.name}}</span>
                  </div>
                 <ul class="parent-link" >
-                  <li v-for="(childrenItem, index) in items" :key="index">
-                    <a href="#" class="parent-box">{{ childrenItem.name }}</a>
+                  <li v-for="(childrenItem, index) in items.children" :key="index">
+                    <nuxt-link :to="'product?category='+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
                   </li>
                   <li>
                     <nuxt-link
-                      to='/linomag'
+                      :to="'/product?categor='+items?.id"
                       class="nav-link">
                       <SvgIcon
                         name="arrow"
@@ -216,6 +216,12 @@ export default {
       .parent-link{
         flex: 25%;
         max-width: 25%;
+        li{
+          &:last-child{
+            position: absolute;
+            bottom: 30px;
+          }
+        }
         a{
           color: #A1A1A1!important;
           font-size: 20px!important;

@@ -31,30 +31,24 @@
           <v-divider class="head-divider" color="#ccc"></v-divider>
 
           <v-list class="top-level-list">
-            <div v-for="(link, i) in menuItems" :key="i" class="list-parent hasChild">
-              <v-list-item v-if="!link.category">
-                <v-list-item-title>{{ link.name }}</v-list-item-title>
-              </v-list-item>
+            <div class="list-parent hasChild">
 
-              <v-list-group v-else-if="link.category"
+
+              <v-list-group
               ><!--FIRST DROPDOWN-->
                 <template v-slot:activator>
                   <v-list-item
                     to="/home"
                     class="parent-link">
-                    <v-list-item-title>{{ link.name }}</v-list-item-title>
+                    <v-list-item-title>دسته بندی ها</v-list-item-title>
                   </v-list-item>
                 </template>
 
-                <div v-for="(child, j) in link.category" :key="j">
-                  <v-list-item
-                    v-if="!child.category"
-                    to="home">
-                    <v-list-item-title>{{ child.name }}</v-list-item-title>
-                  </v-list-item>
+                <div v-for="(child, j) in menuItems" :key="j">
+
                   <!--END OF FIRST SUBMENU-->
 
-                  <v-list-group sub-group v-else>
+                  <v-list-group sub-group >
                     <template v-slot:activator>
                       <v-list-item
                         to="
@@ -66,12 +60,12 @@
                     </template>
 
                     <div
-                      v-for="(grandchild, k) in child.category"
+                      v-for="(grandchild, k) in child.children"
                       :key="k"
                       class="latest-child"
                     >
                       <v-list-item
-                        v-if="!!grandchild.category"
+
                         to="
                      /home
                     "
@@ -125,10 +119,10 @@
 
           </div>
           <div class="logo-mobile"><nuxt-link to="/"><img src="~/assets/img/logo/logo4.png"/></nuxt-link></div>
-          <nuxt-link to="/signin" class="signIn" v-if="false">
+          <nuxt-link to="/signin" class="signIn" v-if="!authenticate">
               <span>ورود  <v-divider vertical /> عضویت</span>
           </nuxt-link>
-          <nuxt-link to="/page/userManager" class="signIn" v-else>
+          <nuxt-link to="/page/userManager" class="signIn"  v-if="authenticate">
 
           <SvgIcon
               name="user"
@@ -138,15 +132,15 @@
             />
 
           </nuxt-link>
-          <nuxt-link to="/cart" class="cart">
+          <div  class="cart" @click="goToCart()">
             <SvgIcon
               name="cart"
               color=#676767
               size="28px"
               className="rounded-full"
             />
-            <div class="isFill"></div>
-          </nuxt-link>
+            <div class="isFill" v-if="cart?.items?.length > 0"></div>
+          </div>
         </div>
       </nav>
       <div class="search-box" :class="showSearch ? 'showSearch' : ''">

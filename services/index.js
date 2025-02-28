@@ -1,9 +1,5 @@
-export let context
-
-export function setCTX(ctx) {
-  context = ctx
-}
-
-export function getCTX() {
-  return context
-}
+export { apiService } from './api'
+export { authService } from './auth'
+export { homeService } from './Home'
+export { cartService } from './Cart'
+export { productService } from './Product'

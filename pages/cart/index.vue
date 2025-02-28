@@ -43,12 +43,15 @@
       <div class="cart-block">
         <div class="cart-block-list">
           <div class="pro">
-            <div class="box">
-              <Product :typeProduct="'cart'"/>
+            <div class="emptyProduct" v-if="cartItems?.length === 0">
+              <img src="~/assets/img/icon/empty.png" alt="">
+              <p>محصولی موجود نیست </p>
             </div>
-            <div class="box">
-              <Product :typeProduct="'cart'"/>
+            <div class="box" v-for="(item, index) in cartItems"  v-else>
+              <Product :typeProduct="'cart'" :items="item"  @refreshData="refreshData"  />
             </div>
+
+
           </div>
         </div>
         <div class="cart-block-forms">
@@ -65,11 +68,11 @@
             </div>
             <div class="totalPrice">
               <label for="code">جمع خرید : </label>
-              <span>130.000 ت</span>
+              <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
-            <div class="benefit-buy">
+            <div class="benefit-buy"  v-if="$store.state.cart.discount > 0">
               <label for="code"> سود شما از خرید : </label>
-              <span>130.000 ت</span>
+              <span> {{formatPrice(parseInt(cart?.discount))}} ت</span>
             </div>
           </div>
           <div class="warning-cart">
@@ -82,7 +85,7 @@
             <p>حتما قبل از پرداخت VPN را قطع کنید.</p>
           </div>
          <div class="submit">
-           <button @click="goToPayment()">
+           <v-btn @click="goToPayment()" :disabled="cartItems?.length === 0">
              <div class="icon">
                <SvgIcon
                  name="arrow"
@@ -92,7 +95,7 @@
                />
              </div>
              <span>تکمیل خرید و پرداخت</span>
-           </button>
+           </v-btn>
 
          </div>
 
@@ -106,6 +109,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import { cartService  } from '~/services'
 
 export default {
   head: {
@@ -127,15 +131,69 @@ export default {
   },
   data () {
     return {
-
+      cartItems:[],
+      cart:[],
     }
   },
+
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem("token");
+      }
+    },
+
+  },
   methods: {
-    goToPayment(){
-      this.$router.push('/payment')
+    refreshData(newValue) {
+    if(newValue ){
+      this.getCart()
     }
 
-  }
+    },
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    goToPayment(){
+      if(!this.authenticate){
+        this.$router.push('/signIn')
+       localStorage.setItem('lastUrL' , '/cart')
+      }else{
+        this.$router.push('/checkout')
+      }
+
+    },
+    async getCart() {
+      if(!this.authenticate){
+        this.cartItems = this.$store.state.cart.items
+        this.cart = this.$store.state.cart
+      }else{
+        try {
+          const res = await cartService.getCart()
+          this.cart = res.entity?.cart
+          this.cartItems = res.entity?.cart?.items
+          this.$store.commit('setCart', res.entity?.cart)
+
+
+        } catch (error) {
+          console.error('خطا در دریافت کاربران:', error)
+        }
+      }
+
+    },
+
+
+  },
+  beforeMount() {
+    this.getCart()
+    if ((!this.authenticate && this.cart?.items === undefined) ) {
+      this.$router.push('/signIn')
+    }
+  },
+
+
 };
 </script>
 
@@ -182,7 +240,16 @@ export default {
     }
   }
 }
-
+.emptyProduct{
+  width: 315px;
+  height: 230px;
+  margin: auto;
+  text-align: center;
+  p{
+    font-size: 20px;
+    font-width: bold;
+  }
+}
 .cart{
 
 &-block{
@@ -329,7 +396,7 @@ export default {
         background: #AAE73E;
         height: 54px;
         border-radius: 15px;
-        border: 3px solid #fff;
+        border: 3px solid #AAE73E;
         display: flex;
         padding:12px 7px;
         font-size: 18px;
@@ -338,10 +405,14 @@ export default {
         align-items: center;
         cursor: pointer;
         transition: all 0.3s ease;
+        &.v-btn--disabled{
+          border: 3px solid #ccc;
+          background: #ccc;
+          opacity: 0.4;
+        }
 
         &:hover{
           background: #fff;
-          border: 3px solid #AAE73E;
           transition: all 0.3s ease;
 
         }
@@ -351,7 +422,7 @@ export default {
           background: #000;
           text-align: center;
           border-radius: 50px;
-          padding: 5px;
+          padding: 3px 0;
         }
         span{
           font-size: 16px;

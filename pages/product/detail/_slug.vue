@@ -11,14 +11,14 @@
           height="580px"
 
         >
-          <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <nuxt-link :to="slide.url">
+          <v-carousel-item v-for="(slide, i) in product?.images" :key="i">
+            <nuxt-link :to="slide?.full_url">
               <v-sheet height="100%">
                 <div class="slide-back">
                   <img
                     :src="
 
-                      slide.imagePath +
+                      slide?.full_url +
                       '?width=auto&height=300'
                     "
 
@@ -37,14 +37,14 @@
           height="250px"
 
         >
-          <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <nuxt-link :to="slide.url">
+          <v-carousel-item v-for="(slide, i) in  product?.images" :key="i">
+            <nuxt-link :to="slide.full_url">
               <v-sheet height="100%">
                 <div class="slide-back">
                   <img
                     :src="
 
-                      slide.imagePath +
+                      slide.full_url +
                       '?width=auto&height=300'
                     "
 
@@ -60,7 +60,7 @@
       </section>
       <section class="productDetail-description" >
         <div class="head-pro">
-          <h1>فونت کوت</h1>
+          <h1>{{product.name}}</h1>
 
           <button @click="scrollToBottom">
             <div class="icon">
@@ -75,116 +75,56 @@
           </button>
         </div>
 
-        <p >        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.
-        </p>
+        <p>{{product.short_description}}</p>
       </section>
       <section class="productDetail-fontPack" >
         <div class="fontPack-block">
-          <div class="box" id="version">
+          <div class="box" id="version"
+               v-for="(item, index) in product?.prices"
+          >
             <div class="box-head">
-              <div class="weight">10 وزن</div>
+              <div class="weight">{{item.description}}</div>
               <div class="rate-and-type">
-                <div class="types">نسخه پرو</div>
+                <div class="types">{{item.name}}</div>
               </div>
             </div>
             <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
+              <img :src="item?.preview_path" :alt="item.name">
             </div>
             <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
+              <div class="price">  {{  formatPrice(item.price) }} ت</div>
+              <button class="add-to-cart"  @click="addToCart(item)">
                 <SvgIcon
                   name="arrow"
                   color="#fff"
                   size="16px"
                   className="rounded-full"
+
                 />
                 خرید
               </button>
             </div>
           </div>
-          <div class="box">
-            <div class="box-head">
-              <div class="weight">10 وزن</div>
-              <div class="rate-and-type">
-                <div class="types">نسخه پرو</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
-            </div>
-            <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-                />
-               خرید
-              </button>
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-head">
-              <div class="weight">10 وزن</div>
-              <div class="rate-and-type">
-                <div class="types">نسخه پرو</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img src="~/assets/img/element/font.jpg" alt="font">
-            </div>
-            <div class="box-footer">
-              <div class="price">450.000 ت</div>
-              <button class="add-to-cart">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-                />
-               خرید
-              </button>
-            </div>
-          </div>
+
         </div>
       </section>
       <section class="productDetail-tiny-banners">
-        <div class="banners-block">
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/ban1.jpg" alt="">
-            </nuxt-link>
-          </div>
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/ban2.jpg" alt="">
-            </nuxt-link>
-          </div>
-        </div>
-<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+        <p>{{product.description}}</p>
       </section>
-
-
-
     </div>
-
       <section class="creator">
         <div class="pic">
-          <img src="~/assets/img/element/creator.jpg" alt="creator">
-          <h3>مسعود سپهر</h3>
+          <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
+          <h3> {{product?.designer?.full_name}}</h3>
         </div>
         <div class="info-creator">
-          <h3>مسعود سپهر</h3>
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+          <h3> {{product?.designer?.full_name}}</h3>
+          <p>{{product?.designer?.avatar_url}}</p>
         </div>
 
       </section>
       <section class="type-font">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+        <p>{{product.short_description_2}}</p>
       </section>
 
     </div>
@@ -196,6 +136,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
 
+import { productService } from '~/services'
 
 export default {
   head: {
@@ -223,6 +164,7 @@ export default {
       itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
       filter: 'جدیدترین',
       page: 1,
+      product:[],
       slides: [
         {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg'},
         {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg'},
@@ -233,6 +175,12 @@ export default {
     }
   },
   methods: {
+
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     scrollToBottom() {
       const element = document.getElementById('version');
       element.scrollIntoView({
@@ -240,7 +188,39 @@ export default {
         block: 'center',
         inline: 'center'
       });
-    }
+    },
+    async getProduct(id) {
+      try {
+        const product = await productService.getProduct(id)
+        this.product = product?.entity?.product
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+      }
+    },
+    async addToCart(pro) {
+      let body = {
+        product_price: pro.id,
+      };
+      try {
+        const data = await productService.postProduct(body)
+        this.$store.commit('setCart', data)
+        this.$store.commit('setDialogCart', true)
+        this.$toast.success('محصول به سبد خرید اضافه شد')
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+      }
+    },
+
+
+  },
+  computed: {
+    currentPath() {
+
+      return this.$route.params.slug
+    },
+  },
+  mounted() {
+    this.getProduct(this.currentPath);
 
 
   }
@@ -457,11 +437,11 @@ export default {
             background: #AAE73E;
             border-radius: 10px;
             text-align: center;
-            width: 180px;
+            width: 100px;
             height: 50px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: center;
             gap: 10px;
             transition: all 0.3s ease;
             color: #fff;
@@ -553,8 +533,10 @@ export default {
     align-items: center;
     @include breakpoint(medium) {
       min-width: 283px;
-      min-height: 283px;;
+      min-height: 283px;
+      width: 283px;
       display: inline-block;
+      border: 1px solid #d6d6d6;
       gap:0;
     }
       img{

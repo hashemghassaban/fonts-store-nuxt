@@ -1,34 +1,15 @@
-import { context } from './index'
+import { apiService } from './api'
 
-export default {
-  type: 'Home',
-  GetHomeBanners,
-  GetHomeBrands,
-  GetHomeProduct
+class HomeService {
+  async getHome() {
+    const response = await apiService.get('api/v1/home/web')
+    return response.data
+  }
+  async newsLetter(body) {
+    const response = await apiService.post('api/v1/users/newsletters' , body)
+    return response.data
+  }
+
 }
 
-export function GetHomeBanners() {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetHomePageBanners',
-
-  })
-}
-
-export function GetHomeBrands() {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetHomePageBrands',
-
-  })
-}
-
-
-export function GetHomeProduct() {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetHomePageProducts',
-
-  })
-}
-
+export const homeService = new HomeService()

@@ -1,19 +1,20 @@
 <template>
   <div class="post">
     <div class="post-list">
-      <nuxt-link to="/blogDetail">
+      <nuxt-link  :to="'/blogDetail/'+items.id"
+      >
       <div class="post-list-top">
         <div class="background">
-          <img src="~/assets/img/banner/post.jpg" alt="">
+          <img :src="items.thumbnail_url" :alt="items.title">
         </div>
 
       </div>
       <div class="post-list-bottom">
         <div class="post-top">
           <h3 class="type">
-            پژوهشی
+            {{items.title}}
           </h3>
-          <span class="date">1403/02/02</span>
+          <span class="date"> {{items.created_at}}</span>
         </div>
       </div>
       </nuxt-link>
@@ -33,6 +34,10 @@ export default {
       type: String,
       default: null,
     },
+    items:{
+      type: Array,
+      default: [],
+    }
   },
 }
 </script>
@@ -41,6 +46,8 @@ export default {
   position: relative;
   &-list{
     &-top{
+      border-radius: 10px;
+      overflow: hidden;
   .background{
     display: flex;
     width: 100%;

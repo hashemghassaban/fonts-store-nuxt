@@ -14,14 +14,18 @@
           <h2 class="text">دسته بندی فونت</h2>
         </div>
         <div class="category-block">
-          <div class="col-3">
+          <div class="col-3" v-for="(item, i) in (category)?.slice(0, 4)" :key="i">
             <div class="box">
-              <div class="count">+65</div>
+              <div class="count">+{{item.products_count}}</div>
               <div class="icon">
-                <img src="~/assets/img/element/box01.png" alt="">
+                <img
+                  :src="require(`~/assets/img/element/box0${i+1}.png`)"
+                  alt=""
+                />
+
               </div>
               <div class="text">
-                <span>کالیگرافی</span>
+                <span>{{item.name}}</span>
                 <button> <SvgIcon
                   name="arrow"
                   color="#AAE73E"
@@ -33,57 +37,7 @@
             </div>
 
           </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box02.png" alt="">
-              </div>
-              <div class="text">
-                <span>هندسی</span>
-                <button>            <SvgIcon  icon="Arrow" size="md" color="#c8c8c8"  />              </button>
 
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box03.png" alt="">
-              </div>
-              <div class="text">
-                <span>دست نویس</span>
-                <button>
-                  <SvgIcon
-                    name="arrow"
-                    color="#AAE73E"
-                    size="1.3rem"
-                    className="rounded-full"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box04.png" alt="">
-              </div>
-              <div class="text">
-                <span>نمایشی</span>
-                <button>
-                  <SvgIcon
-                    name="arrow"
-                    color="#AAE73E"
-                    size="1.3rem"
-                    className="rounded-full"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
 
         </div>
 
@@ -191,6 +145,7 @@ export default {
       itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
       filter: 'جدیدترین',
       page: 1,
+      category:[]
 
     }
   },
@@ -198,6 +153,9 @@ export default {
 
 
 
+  },
+  mounted() {
+    this.category = this.$store.state.categories
   }
 };
 </script>
@@ -210,15 +168,14 @@ export default {
     margin-top: 50px;
     padding: 0 ;
     flex-wrap: wrap;
-    @include breakpoint(medium) {
-      padding: 0 10%;
-    }
     .col-3{
       width: 50%;
       flex: 50%;
+      min-width: 50%;
       @include breakpoint(medium) {
         width: 25%;
         flex: 25%;
+        min-width: 25%;
       }
     }
     .box{
@@ -231,7 +188,9 @@ export default {
       cursor: pointer;
       transition: all 0.3s ease;
       @include breakpoint(medium) {
-        height: 300px;
+        height: 250px;
+        width: 250px;
+        margin: auto;
       }
 
       &:hover{

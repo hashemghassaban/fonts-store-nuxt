@@ -1,0 +1,44 @@
+import { apiService } from './api'
+
+class AuthService {
+
+  async login(credentials) {
+    try {
+      const response = await apiService.post('/api/v1/auth/login', credentials)
+      return response.data
+    } catch (error) {
+      throw error
+    }
+  }
+
+
+  async sendSMS(credentials) {
+    try {
+      const response =  await apiService.post('api/v1/auth/verify', credentials)
+      return response.data
+    } catch (error) {
+      localStorage.removeItem('token')
+      throw error
+    }
+  }
+  async logout() {
+    localStorage.removeItem('token')
+    // پاک کردن توکن از سرور
+    await apiService.post('/auth/logout')
+  }
+
+  async getCurrentUser() {
+    const token = localStorage.getItem('token')
+    if (!token) return null
+
+    try {
+      const response = await apiService.get('/auth/me')
+      return response.data
+    } catch (error) {
+      localStorage.removeItem('token')
+      throw error
+    }
+  }
+}
+export const authService = new AuthService()
+

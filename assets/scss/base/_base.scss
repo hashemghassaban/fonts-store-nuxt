@@ -98,6 +98,7 @@ body {
   }
 }
 .v-btn{
+  box-shadow: none!important;
 
   &.primary{
 
@@ -827,6 +828,15 @@ input[type=number] {
   font-family: 'IRANYekanBold' !important;
   direction: rtl !important;
   font-size: 12px !important;
+  color: #fff!important;
+}
+.Vue-Toastification__icon{
+  path{
+    color: #fff!important;
+    stroke: #fff!important;
+    fill: #fff!important;
+  }
+
 }
 
 
@@ -897,12 +907,14 @@ input[type=number] {
 .textHighlight {
   background: #e3e2e2;
   line-height: 35px;
-  padding: 14px;
   margin: 10px 0;
   border-radius: 10px;
   text-align: center;
   padding: 15px 10px;
 }
+
+
+
 
 .titlePage {
   font-size: 22px;

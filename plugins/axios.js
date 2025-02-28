@@ -1,13 +1,13 @@
-// Load Services
 
-import store from '../store'
-export default async function ({ app, $axios, $toast, error, store }) {
+
+export default async function (
+  { app, $axios, $toast, error, store, req },
+  inject
+) {
   let refreshAttempts = 0;
   // Axios configuration
   $axios.onRequest((config) => {
-    if (config.progress) {
-      store.commit('setLoading', true)
-    }
+    store.commit('setLoading', true)
   })
 
   $axios.onResponse((res) => {
@@ -16,69 +16,54 @@ export default async function ({ app, $axios, $toast, error, store }) {
         $toast.success(res.config.msg)
       } catch (e) {}
     }
-    if (res.config.progress) {
-      setTimeout(() => {
-        store.commit('setLoading', false)
-      }, 500)
+
+    if (res.status === 200) {
+      store.commit('setLoading', false)
     }
+    // return (res.data)
   })
 
   $axios.onError((e) => {
-
-    if (e.response.status === 401) {
-      let tokenString = process.client ? localStorage.getItem('token') : '';
-      let newTokenString =  tokenString.slice (7)
-        refreshAttempts++;
-        if (refreshAttempts > 3) {
-         store.commit('LOGOUT')
-        return Promise.reject(error);
-        }
-       else {
-        let param = {
-          'refreshToken': newTokenString,
-        }
-      store.dispatch('Account/RefreshToken', param, {
-        headers: {
-          Authorization: 'bearer' + !!window.localStorage.getItem('token'),
-        },
-      })
-
-    }
-      const message =
-        (e.response && e.response.data.error) ||
-        (e.response && e.response.data.message) ||
-        (e.response && e.response.statusText)
-
-      if (e.response && e.response.data.errors) {
-        e.erros = e.response.data.errors
-      }
-
-      const statusCode = parseInt(e.response && e.response.status)
-      if (e.config.toast === true) {
-        try {
-          if (typeof message === 'string') $toast.error(message)
-          // else
-        } catch (e) {}
-      }
-
-      if (e.config.progress) {
-        setTimeout(() => {
-          store.commit('setLoading', false)
-        }, 500)
-      }
-
-      if (e.config.raise === true) {
-        error({ statusCode, message })
-      }
-    }
+    console.log(e)
+    // default response message or api response message
+    // if (e.config.forceLogin && e.response && e.response.status === 401) {
+    //   app.router.go(-1)
+    //   store.commit('openLogin')
+    // }
+    // const message =
+    //   (e.response && e.response.data.error) ||
+    //   (e.response && e.response.data.message) ||
+    //   (e.response && e.response.statusText)
+    //
+    // if (e.response && e.response.data.errors) {
+    //   e.erros = e.response.data.errors
+    // }
+    //
+    // const statusCode = parseInt(e.response && e.response.status)
+    // if (e.config.toast === true) {
+    //   try {
+    //     if (typeof message === 'string') $toast.error(message)
+    //     // else
+    //   } catch (e) {}
+    // }
+    //
+    // if (e.config.progress) {
+    //   setTimeout(() => {
+    //     store.commit('setLoading', false)
+    //   }, 500)
+    // }
+    //
+    // if (e.config.raise === true) {
+    //   error({ statusCode, message })
+    // }
   })
 
   $axios.interceptors.response.use(
     (response) => {
-      return response?.data?.entity || response?.data
+      return response.data.entity || response.data
     },
     (e) => Promise.reject(e)
   )
 
-  // dynamic service generation
 }
+

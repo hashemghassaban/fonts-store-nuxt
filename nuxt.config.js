@@ -36,6 +36,7 @@ export default {
   plugins: [
     '~/plugins/icons',
     '~/plugins/axios',
+
   ],
   server: {
     port: 8089,
@@ -50,11 +51,14 @@ export default {
 
   modules: [
     '@nuxtjs/axios',
-    // 'nuxt-lazy-load',
+    [
+      'vue-toastification/nuxt',
+      {
+        timeout: 10000,
+        draggable: false,
+      },
+    ],
     '@nuxt/icon',
-
-
-    // '@nuxtjs/pwa',
     '@nuxtjs/style-resources',
   ],
   icon: {
@@ -66,17 +70,52 @@ export default {
     ]
   },
 
-
-
-  axios: {
-    baseURL: 'https://gateway.alasaz.com',
+  toast: {
+    position: 'bottom-left',
+    iconPack: 'custom-class',
+    duration: 3000,
+    icon: {
+      name: 'toast-info',
+    },
+    action: {
+      icon: 'toast-close',
+      onClick: (e, toastObject) => {
+        toastObject.goAway(0)
+      },
+    },
   },
-
+  axios: {
+    prefix: process.env.API_PREFIX,
+    withCredentials: true,
+    proxy: true,
+    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
+    // baseURL: process.env.NODE_ENV === 'production' ? '/api/v1' : 'http://faryadresan.ir/api/v1',
+  },
+  proxy: {
+    '/api/v1': process.env.SERVER_HOST,
+    '/v1': process.env.SERVER_HOST,
+  },
   generate: {
     fallback: true,
   },
 
-
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          required: true,
+          type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/api/login', method: 'post' },
+          logout: { url: '/api/logout', method: 'post' },
+          user: { url: '/api/user', method: 'get' }
+        }
+      }
+    }
+  },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     rtl: true,
@@ -106,15 +145,7 @@ export default {
       },
     },
   },
-
   build: {
     extractCSS: true,
-    loaders: {
-      raw: {
-        test: /\.svg$/,
-        loader: 'raw-loader'
-      }
-    }
-
   },
 }

@@ -1,10 +1,17 @@
 <template>
   <div id="timer" class="timer">
-    {{ formattedTime }}
-    <div class="controls" v-if="showControls">
-      <button @click="startCountdown">شروع</button>
-      <button @click="stopCountdown">توقف</button>
-      <button @click="resetCountdown">ریست</button>
+    <SvgIcon
+      name="timer"
+      color=#FF7A00
+      size="28px"
+      className="rounded-full"
+      v-if="formattedTime !== '00:00'"
+    />
+    <span v-if="formattedTime !== '00:00'">
+  {{ formattedTime }}
+    </span>
+    <div class="controls" v-else>
+      <button @click="resetCountdown">ارسال مجدد</button>
     </div>
   </div>
 </template>
@@ -77,8 +84,14 @@ export default {
     },
 
     resetCountdown() {
-      this.stopCountdown()
+
+
       this.remainingSeconds = this.totalSeconds
+      setTimeout(()=>{
+        this.stopCountdown()
+        this.startCountdown()
+      },1000)
+
     }
   },
 
@@ -94,26 +107,35 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 .timer {
-  font-size: 20px;
-  color: #ff5722;
-  display: inline-block;
+  display: flex;
   margin: 10px 0;
-  width: 50px;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  span{
+    font-size: 20px;
+    color: #ff5722;
+  }
 }
 
 .controls {
-  margin-top: 10px;
+  margin-top: 0;
+  font-size: 14px;
 }
 
 .controls button {
-  margin: 0 5px;
+  margin: 0 10px;
   padding: 5px 10px;
   cursor: pointer;
+  background: #ff7a00;
+  color: #fff;
+  border-radius: 6px;
+
 }
 
 .controls button:hover {
-  background-color: #f0f0f0;
+  /*background-color: #f0f0f0;*/
 }
 </style>

@@ -5,7 +5,12 @@
       <Nuxt class="onContent" />
       <TheFooter />
     </v-main>
-    <Loading v-if="isLoading" />
+
+    <transition name="fade">
+      <client-only>
+        <Loading v-if="loading" />
+      </client-only>
+    </transition>
   </v-app>
 </template>
 
@@ -14,10 +19,13 @@ import { mapState } from "vuex";
 
 const TheHeader = () => import("../components/TheHeader/TheHeader.component.vue");
 const TheFooter = () => import("../components/TheFooter/TheFooter.component.vue");
+const Loading = () => import("../components/loading.vue");
+
 export default {
   components: {
     TheHeader,
     TheFooter,
+    Loading
   },
 
   beforeMount() {
@@ -34,22 +42,11 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      isLoading: (state) => state.isLoading,
-    }),
+    loading() {
+      return this.$store.state.loading
+    },
   },
 
-  methods: {
-
-
-    // handleScroll() {
-    //   if (window.pageYOffset > 0) {
-    //     if (this.view.topOfPage) this.view.topOfPage = false;
-    //   } else {
-    //     if (!this.view.topOfPage) this.view.topOfPage = true;
-    //   }
-    // },
-  },
 };
 </script>
 <style lang="scss" scoped>

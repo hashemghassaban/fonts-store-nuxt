@@ -11,28 +11,22 @@
         <h2>ورود / عضویت</h2>
       </div>
       <div class="signIn-block" v-if="step === 1">
-
-
         <div class="signIn-box">
           <TextInput
             validators="subject"
             class="my-2"
             :isValid.sync="isValid"
-            v-model="fullName"
-            label="نام و نام خانوادگی"
+            v-model="mobile"
+            label="شماره موبایل"
+            maxlength="11"
           />
-          <TextInput
-            validators="subject"
-            class="my-2"
-            :isValid.sync="isValid"
-            v-model="email"
-            label="ایمیل "
-          />
+
           <v-btn
             elevation="0"
             class="secondary btn"
             :loading="loading"
-            @click="step = 2"
+            @click="getSMS()"
+            :disabled="loading || mobile.length !== 11"
           >  <SvgIcon
             name="arrow"
             color="#000"
@@ -41,44 +35,40 @@
             style="margin-left: 15px"
           />   ادامه </v-btn
           >
+
         </div>
       </div>
       <div class="signIn-block"  v-if="step === 2">
-
-
         <div class="signIn-box">
           <TextInput
             validators="subject"
+            v-if="isRegisterd === false"
             class="my-2"
-            :isValid.sync="isValid"
-            v-model="fullName"
-            label="شماره تماس"
+            v-model="firstName"
+            label=" نام "
+          />
+          <TextInput
+            v-if="isRegisterd === false"
+            validators="subject"
+            class="my-2"
+            v-model="lastName"
+            label=" نام خانوادگی "
           />
           <v-otp-input
             v-model="otp"
             length="5"
 
           ></v-otp-input>
-          <div class="code" v-if="false">
-            <SvgIcon
-              name="timer"
-              color=#FF7A00
-              size="28px"
-              className="rounded-full"
+          <div class="code" v-if="true">
+            <p> <Timer
+              :target-minutes="2"
+              :show-controls="true"
             />
-            <p >   <Timer
-              target-minutes="3"
-              :show-controls="false"
-              @complete="handleComplete"
-            />
-              کد ارسال شده
             </p>
           </div>
           <div class="code modify">
-
-
-            <p >کد به شماره: ۲۲ ۱۱ ۰۰۰ ۹۱۲ ارسال شده</p>
-            <div class="edit">
+            <p> کد به شماره {{mobile}} ارسال شده</p>
+            <div class="edit" @click="step = 1">
               <SvgIcon
                 name="edit"
                 color=#000
@@ -91,7 +81,8 @@
           <v-btn
             elevation="0"
             class="secondary btn"
-            @click="step = 1"
+            @click="login()"
+            :disabled="loading || otp?.length !== 5"
             :loading="loading"
           >  <SvgIcon
             name="arrow"
@@ -103,6 +94,7 @@
           >
         </div>
       </div>
+
 
     </section>
   </client-only>

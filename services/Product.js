@@ -1,68 +1,49 @@
-import { context } from './index'
+import { apiService } from './api'
 
+class ProductService {
+  async getProduct(id) {
+    try {
+      const response = await apiService.get(`/api/v1/products/${id}`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
+  async postProduct(body) {
+    try {
+      const response = await apiService.post('/api/v1/carts', body)
+      return response.data.entity
+    } catch (error) {
+      throw error.response?.entity || error
+    }
+  }
+  async likeProduct(id) {
+    try {
+      const response = await apiService.post('/api/v1/products/' + id + '/like')
+      return response.data.entity
+    } catch (error) {
+      throw error.response?.entity || error
+    }
+  }
 
-export default {
-  type: 'Home',
-  GetProductDetails,
-  GetCategoryProducts,
+  async dislikeProduct(id) {
+    try {
+      const response = await apiService.post('/api/v1/products/' + id + '/dislike')
+      return response.data.entity
+    } catch (error) {
+      throw error.response?.entity || error
+    }
+  }
+
+  async removePro(id) {
+    try {
+      const response = await apiService.delete(`/api/v1/carts/items/${id}`)
+      return response.data.entity
+    } catch (error) {
+      throw error.response?.entity || error
+    }
+  }
 }
 
-export function GetProductDetails(data) {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetProductDetails',
-    params: data,
-    headers: {
-     Authorization:  process.client ? localStorage.getItem('token') : '',
-    },
-  })
-}
-export function GetProducts(data) {
-  return context.$axios({
-    method: 'POST',
-    url: '/Product/Product/GetProducts',
-    data: data,
-    headers: {
-     Authorization:  process.client ? localStorage.getItem('token') : '',
-     'Content-Type': 'application/json-patch+json',
-    },
-  })
-}
-export function GetProductsShortData(data) {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetProductsShortData',
-    params: data,
-        headers: {
-     Authorization:  process.client ? localStorage.getItem('token') : '',
-    },
-  })
-}
-export function GetCategoryProducts(data) {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetCategoryProducts',
-    params: data,
-  })
-}
-
-export function GetCategoryList() {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetCategories',
-  })
-}
-export function GetBrandProducts(data) {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetBrandProducts',
-    params: data,
-  })
-}
-export function GetWarrantyProducts(data) {
-  return context.$axios({
-    method: 'GET',
-    url: '/Product/Product/GetWarrantyProducts',
-    params: data,
-  })
-}
+export const productService = new ProductService()

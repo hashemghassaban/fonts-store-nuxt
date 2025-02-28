@@ -3,29 +3,30 @@
 <div class="product-list">
 
   <div class="product-list-top" >
-    <div class="heart" v-if="typeProduct !== 'profile'"  :class="{ 'is-active': isActive }"
-         @click="toggleHeart">
+    <v-btn icon class="heart" v-if="typeProduct !== 'profile'"
+         @click="toggleHeart(items)">
+      <SvgIcon
+        name="heart1"
+        color="#F44336"
+        v-if="items?.is_favourited"
+        size="28px"
+        className="rounded-full"
+      />
       <SvgIcon
         name="heart"
         color="#fff"
         size="25px"
-        v-if="!isActive"
+       v-else
         className="rounded-full"
       />
-      <SvgIcon
-        name="heart1"
-        color="#F44336"
-        v-if="isActive"
-        size="28px"
-        className="rounded-full"
-      />
-    </div>
-    <nuxt-link to="/productDetail">
-    <div class="background" :class="typeProduct === 'no-product' ? '':'no-product'">
-      <img src="~/assets/img/banner/product.jpg" alt="">
-      <div class="percent" v-if="typeProduct === 'product'">
+
+    </v-btn>
+    <nuxt-link to="/detail/123">
+    <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
+      <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
+      <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer || items?.discount_percent !== 0) " >
         <img src="~/assets/img/icon/star.png" alt="">
-        <span>%20</span>
+        <span>{{ typeProduct === 'product' || typeProduct === 'noProduct' ? items?.lowest_price?.offer_percent:  items?.discount_percent + '%'}}</span>
       </div>
     </div>
     </nuxt-link>
@@ -43,22 +44,30 @@
   </div>
   <div class="product-list-bottom">
     <div class="title">
-    <h3>  فونت اسپیک</h3>
+    <h3>  {{items?.name || items?.product?.name}}</h3>
       <div class="type" v-if=" typeProduct === 'cart'">
-        <img src="~/assets/img/icon/version-1.png" alt="">
+<!--        <img-->
+<!--          :src="require(`~/assets/img/icon/version-${items?.product?.rate ? items?.product?.rate : items?.rate }.png`)"-->
+<!--          alt=""-->
+<!--        />-->
         <b>نسخه پایه</b>
         <span> 3 وزن </span>
       </div>
     </div>
     <div class="action-product" >
-      <SvgIcon
-        v-if="typeProduct === 'cart'"
-        name="trash"
-        color="#FF0000"
-        size="18px"
-        className="trash"
-      />
-      <button v-if="typeProduct !== 'profile' && typeProduct !== 'cart'">
+      <v-btn icon  v-if="typeProduct === 'cart'"   @click="remove(items.id)">
+
+        <SvgIcon
+
+          name="trash"
+          color="#FF0000"
+          size="18px"
+          className="trash"
+
+        />
+      </v-btn>
+
+      <v-btn v-if="typeProduct !== 'profile' && typeProduct !== 'cart'" @click="addToCart(items)" :loading="loading">
         <SvgIcon
           name="arrow"
           color="#fff"
@@ -66,31 +75,32 @@
           className="rounded-full"
         />
         <span>خرید</span>
-      </button>
+      </v-btn>
       <p v-if=" typeProduct === 'profile'">نسخه 10.6 | 1403/06/03</p>
-      <div class="price"  v-if="typeProduct === 'product' || typeProduct === 'cart' || typeProduct !== 'profile'">
+      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || typeProduct !== 'profile'">
         <div class="price-main">
-          150.000 ت
+          {{typeProduct === 'product' ? formatPrice(items?.lowest_price?.offer_price) : typeProduct === 'noProduct' ? formatPrice(items?.lowest_price?.price): formatPrice(items?.payable_price)}} ت
+
         </div>
-        <div class="price-old">
-          180.000 ت
+        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart') && !!items?.lowest_price?.has_offer)">
+          {{formatPrice(parseInt(items?.lowest_price?.price))}} ت
         </div>
       </div>
     </div>
   </div>
-
-
-
 </div>
   </div>
 </template>
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import {  productService } from '~/services'
+import { authService } from '../../services'
 
 export default {
   data() {
     return {
-      isActive: false
+      isActive: false,
+      loading:false
     }
   },
   components: {
@@ -102,12 +112,72 @@ export default {
       type: String,
       default: null,
     },
+    items:{
+      type: Array,
+    },
+
   },
   methods: {
-    toggleHeart() {
-      this.isActive = !this.isActive
-    }
-  }
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    async toggleHeart(item) {
+      if (!this.authenticate) {
+        let url  = ""
+        if (process.client) {
+          url = window.location?.pathname
+        }
+        localStorage.setItem('lastUrL' , url)
+        this.$router.push('/signIn')
+        return
+      }
+      try {
+        if (item.is_favourited)
+          await productService.dislikeProduct(item.id)
+        else await productService.likeProduct(item.id)
+        item.is_favourited = !item.is_favourited
+        this.$emit('refreshData', true);
+      } catch (e) {}
+    },
+    async addToCart(pro) {
+      this.loading = true
+      let body = {
+        product_price: pro.id,
+      };
+      try {
+        const data = await productService.postProduct(body)
+        this.$store.commit('setCart', data)
+        this.$store.commit('setDialogCart', true)
+        this.$toast.success('محصول به سبد خرید اضافه شد')
+        this.loading = false;
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+        this.loading = false;
+      }
+    },
+    async remove(id){
+      try {
+  await productService.removePro(id)
+        this.$emit('refreshData', true);
+
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+
+  },
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem("token");
+      }
+    },
+
+  },
+
 }
 </script>
 <style scoped lang="scss">
@@ -118,8 +188,6 @@ export default {
   overflow: hidden;
   @include breakpoint(medium) {
     background: inherit;
-
-
   }
   &-list{
     &:hover{
@@ -132,44 +200,42 @@ export default {
           color: #ff5722!important;
           transition: all 0.3s ease;
         }
-
       }
-
-
     }
     &-top{
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
       .heart{
         position: absolute;
         top: 20px;
         cursor: pointer;
         left: 20px;
-        width: 35px;
-        height: 35px;
-        background: #17190d33;
-        border-radius: 50px;
+        width: 42px;
+        height: 42px;
         text-align: center;
-        line-height: 50px;
+        border-radius: 100px;
+        line-height: 35px;
         z-index: 1;
+        background: inherit;
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+        min-width: 35px;
         @include breakpoint(medium) {
           left: 20px;
-
-
         }
-        &.is-active {
-          i{
-            color:red!important;
-          }
-
+        i{
+          color:red!important;
         }
       }
       .background{
         height: 414px;
         width: 100%;
-        border-radius: 15px;
         overflow: hidden;
         position: relative;
 
-        &.no-product{
+        &.noProduct {
           height: 180px;
           @include breakpoint(medium) {
             height: 290px;
@@ -180,9 +246,6 @@ export default {
           height: 100%;
           object-fit: cover;
           transition: all 0.3s ease;
-
-
-
         }
         .percent{
           width: 50px;
@@ -208,9 +271,7 @@ export default {
             right: 8px;
             top: 12px;
             font-size: 18px;
-            direction: ltr;
             font-weight: 700;
-
             @include breakpoint(medium) {
               right: 33px;
               top: 34px;
@@ -358,22 +419,25 @@ export default {
             }
           }
         }
-        button{
+        .v-btn{
           width: 100%;
           height: 45px;
           background: #17190D;
-          border-radius: 10px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 13px;
+          padding: 0 10px;
           border: 2px solid #17190D;
+          box-shadow: none;
+          overflow: hidden;
           transition: all 0.3s ease;
+          border-radius: 100px;
           @include breakpoint(medium) {
             width: 100px;
             height: 40px;
             gap: 20px;
           }
+
 
           &:hover{
             background: #fff;
@@ -390,7 +454,21 @@ export default {
               }
             }
           }
+          &.v-btn--loading{
+            background: #fff;
+            border: 2px solid #ff5722;
+            overflow: hidden;
+            ::v-deep{
+              .v-progress-circular{
+                svg{
+                  circle{
+                    stroke: #ff5722;
+                  }
+                }
+              }
+            }
 
+          }
           img{
             margin-left: auto;
             width: 15px;
@@ -425,6 +503,11 @@ export default {
         }
       }
     }
+  }
+  .v-btn--icon{
+    background: inherit !important;
+    border: 0 !important;
+    width: 42px !important;
   }
 }
 

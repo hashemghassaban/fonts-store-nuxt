@@ -3,60 +3,69 @@
     <client-only>
 
 <section class="banner-main">
+    <div v-if="loadingPage" class="carouselMain-desktop-skeleton">
+      <v-sheet color="grey lighten-2">
+        <v-skeleton-loader type="image" class="elevation-0"></v-skeleton-loader>
+      </v-sheet>
+    </div>
+    <v-carousel
+      cycle
+      class="carouselMain-desktop"
+      height="580px"
+      v-else
+    >
+      <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
+        <nuxt-link :to="'/'">
+          <v-sheet height="100%">
+            <div class="slide-back">
+              <img
+                :src="
 
-  <v-carousel
-    cycle
-    class="carouselMain-desktop"
-    height="580px"
-
-  >
-    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-      <nuxt-link :to="slide.url">
-        <v-sheet height="100%">
-          <div class="slide-back">
-            <img
-              :src="
-
-                      slide.imagePath +
+                      slide.image_url +
                       '?width=auto&height=300'
                     "
 
-              alt="banner"
-              height="100%"
-              class="desktop"
-            />
-          </div>
-        </v-sheet>
-      </nuxt-link>
-    </v-carousel-item>
-  </v-carousel>
-  <v-carousel
-    cycle
-    class="carouselMain-mobile"
-    height="250px"
-    :show-arrows="false"
+                :alt="slide.title"
+                height="100%"
+                class="desktop"
+              />
+            </div>
+          </v-sheet>
+        </nuxt-link>
+      </v-carousel-item>
+    </v-carousel>
+    <div v-if="loadingPage" class="carouselMain-mobile-skeleton">
+      <v-sheet color="grey lighten-2">
+        <v-skeleton-loader type="image" class="elevation-0"></v-skeleton-loader>
+      </v-sheet>
+    </div>
+    <v-carousel
+      cycle
+      class="carouselMain-mobile"
+      height="250px"
+      :show-arrows="false"
+      v-else
+    >
+      <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
+        <nuxt-link :to="'/'">
+          <v-sheet height="100%">
+            <div class="slide-back">
+              <img
+                :src="
 
-  >
-    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-      <nuxt-link :to="slide.url">
-        <v-sheet height="100%">
-          <div class="slide-back">
-            <img
-              :src="
-
-                      slide.imagePath +
+                      slide.mobile_image_url +
                       '?width=auto&height=300'
                     "
 
-              alt="banner"
-              height="100%"
-              class="desktop"
-            />
-          </div>
-        </v-sheet>
-      </nuxt-link>
-    </v-carousel-item>
-  </v-carousel>
+                :alt="slide.title"
+                height="100%"
+                class="desktop"
+              />
+            </div>
+          </v-sheet>
+        </nuxt-link>
+      </v-carousel-item>
+    </v-carousel>
 </section>
 
       <section class="category">
@@ -71,15 +80,27 @@
           </div>
           <h2 class="text">دسته بندی فونت</h2>
         </div>
-        <div class="category-block">
-          <div class="col-3">
+        <div v-if="loadingPage" class="loading-box">
+            <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
+              <v-skeleton-loader
+                class="elevation-0"
+                type="image"
+              ></v-skeleton-loader>
+            </v-sheet>
+        </div>
+        <div class="category-block" v-else>
+          <div class="col-3" v-for="(item, i) in (dataResult?.categories)?.slice(0, 4)" :key="i">
             <div class="box">
-              <div class="count">+65</div>
+              <div class="count">+{{item.products_count}}</div>
               <div class="icon">
-                <img src="~/assets/img/element/box01.png" alt="">
+                <img
+                  :src="require(`~/assets/img/element/box0${i+1}.png`)"
+                  alt=""
+                />
+
               </div>
               <div class="text">
-                <span>کالیگرافی</span>
+                <span>{{item.name}}</span>
                 <button> <SvgIcon
                   name="arrow"
                   color="#AAE73E"
@@ -91,57 +112,7 @@
             </div>
 
           </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box02.png" alt="">
-              </div>
-              <div class="text">
-                <span>هندسی</span>
-                <button>            <SvgIcon  icon="Arrow" size="md" color="#c8c8c8"  />              </button>
 
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box03.png" alt="">
-              </div>
-              <div class="text">
-                <span>دست نویس</span>
-                <button>
-                  <SvgIcon
-                    name="arrow"
-                    color="#AAE73E"
-                    size="1.3rem"
-                    className="rounded-full"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="col-3">
-            <div class="box">
-              <div class="count">+65</div>
-              <div class="icon">
-                <img src="~/assets/img/element/box04.png" alt="">
-              </div>
-              <div class="text">
-                <span>نمایشی</span>
-                <button>
-                  <SvgIcon
-                    name="arrow"
-                    color="#AAE73E"
-                    size="1.3rem"
-                    className="rounded-full"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
 
         </div>
 
@@ -158,65 +129,52 @@
           </div>
           <h2 class="text"> شگفت‌انگیز</h2>
         </div>
-        <div class="latest-font-block">
-          <div class="box">
-            <Product :typeProduct="'product'"/>
+        <div v-if="loadingPage" class="loading-box-2">
+          <v-sheet color="grey lighten-2">
+            <v-skeleton-loader
+              class="elevation-0"
+              type="image"
+            ></v-skeleton-loader>
+          </v-sheet>
+        </div>
+        <div class="latest-font-block" v-else>
+
+          <div class="box" v-for="(item, i) in dataResult?.promoted_products" >
+            <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
           </div>
-          <div class="box">
-            <Product :typeProduct="'product'"/>
-          </div>
-          <div class="box">
-            <Product :typeProduct="'product'"/>
-          </div>
-          <div class="box">
-            <Product :typeProduct="'product'"/>
-          </div>
+
         </div>
       </section>
       <section class="banners">
-        <div class="banners-block">
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/post.jpg" alt="">
-              <button class="btn">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="10px"
-                  className="rounded-full"
-                />
-                <span>خرید</span>
-              </button>
-            </nuxt-link>
+        <div v-if="loadingPage"  class="loading-box-3">
+          <v-sheet color="grey lighten-2" v-for="(item, i) in 3">
+            <v-sheet color="grey lighten-2">
+              <v-skeleton-loader
+                class="elevation-0"
+                type="card-avatar, article"
+              ></v-skeleton-loader>
+            </v-sheet>
+          </v-sheet>
+        </div>
+        <div class="banners-block" v-else>
+          <div class="banners-box" v-for="(item, i) in dataResult?.slids?.side" >
+            <div class="box">
+              <nuxt-link :to="'product/detail/'+item.id" >
+                <img :src="item.mobile_image_url" alt="">
+                <button class="btn">
+                  <SvgIcon
+                    name="arrow"
+                    color="#fff"
+                    size="10px"
+                    className="rounded-full"
+                  />
+                  <span>خرید</span>
+                </button>
+              </nuxt-link>
+            </div>
+
           </div>
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/post.jpg" alt="">
-              <button class="btn">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="10px"
-                  className="rounded-full"
-                />
-                <span>خرید</span>
-              </button>
-            </nuxt-link>
-          </div>
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/post.jpg" alt="">
-              <button class="btn">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="10px"
-                  className="rounded-full"
-                />
-                <span>خرید</span>
-              </button>
-            </nuxt-link>
-          </div>
+
         </div>
       </section>
 
@@ -231,22 +189,24 @@
             />
           </div>
           <h2 class="text">   فونت های ویژه</h2>
-          <nuxt-link to="/" class="show-More">
+          <nuxt-link to="/product" class="show-More">
              همه </nuxt-link>
         </div>
         <div class="latest-font-block">
-          <div class="box">
-            <Product :typeProduct="'noProduct'"/>
+          <div v-if="loadingPage"  class="loading-box-4">
+            <v-sheet color="grey lighten-2" v-for="(item, i) in 4">
+              <v-sheet color="grey lighten-2">
+                <v-skeleton-loader
+                  class="elevation-0"
+                  type="card-avatar, article"
+                ></v-skeleton-loader>
+              </v-sheet>
+            </v-sheet>
           </div>
-          <div class="box">
-            <Product :typeProduct="'noProduct'"/>
+          <div class="box" v-for="(item, i) in dataResult?.top_sell" v-else>
+            <Product :typeProduct="'noProduct'" :items="item" @refreshData="refreshData"/>
           </div>
-          <div class="box">
-            <Product :typeProduct="'noProduct'"/>
-          </div>
-          <div class="box">
-            <Product :typeProduct="'noProduct'"/>
-          </div>
+
         </div>
       </section>
 
@@ -294,7 +254,7 @@
         </div>
         <div class="call-to-action-form">
           <TextInput
-            validators="subject"
+            validators="email"
             class="my-2"
             :isValid.sync="isValid"
             v-model="email"
@@ -304,7 +264,8 @@
           <v-btn
             elevation="0"
             class="primary btn"
-            :loading="loading"
+            :loading="newsLoading"
+            @click="sendNewsLetter()"
           >  <SvgIcon
             name="arrow"
             color="#000"
@@ -319,77 +280,64 @@
   <h2>طراحان</h2>
   <nuxt-link to="/" class="show-More">
     همه </nuxt-link>
-  <VueSlickCarousel v-bind="settingsDesigner" v-if="DesignerData?.length > 0" ref="carousel" >
-    <div v-for="(item, i) in DesignerData" :key="i" class="product">
-      <div class="product-data">
-        <nuxt-link
-          :to="'/brand/' + '/' + item.name.replaceAll(' ', '-')"
-          class="pro-pic brand-logo"
-        >
-          <div class="pic">
-            <img
-              draggable="false"
-              loading="lazy"
-              onmousedown="return false"
-              style="user-drag: none"
-              :src="
+  <div v-if="loadingPage" class="loading-box">
+    <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
+      <v-skeleton-loader
+        class="elevation-0"
+        type="image"
+      ></v-skeleton-loader>
+    </v-sheet>
+  </div>
+  <div v-else>
+    <VueSlickCarousel v-bind="settingsDesigner" v-if="dataResult?.collections?.length > 0"  ref="carousel" >
+      <div v-for="(item, i) in  dataResult?.collections" :key="i" class="product">
+        <div class="product-data">
+          <nuxt-link
+            :to="'/brand/' + '/' + item.title.replaceAll(' ', '-')"
+            class="pro-pic brand-logo"
+          >
+            <div class="pic">
+              <img
+                draggable="false"
+                loading="lazy"
+                onmousedown="return false"
+                style="user-drag: none"
+                :src="
 
-                      item.imagePath +
+                      item.icon_url +
                       '?width=auto&height=300'
                     "
-              :alt="item.name"
-              v-if="item.imagePath"
-            />
-          </div>
-          <h3>{{ item.name }}</h3>
-        </nuxt-link>
+                :alt="item.title"
+                v-if="item.icon_url"
+              />
+            </div>
+            <h3>{{ item.title }}</h3>
+          </nuxt-link>
+        </div>
       </div>
-    </div>
 
-  </VueSlickCarousel>
-  <button @click="previous" class="custom-prev">  <v-icon>mdi-chevron-left</v-icon></button>
-  <button @click="next" class="custom-next">  <v-icon>mdi-chevron-right</v-icon></button>
+    </VueSlickCarousel>
+    <button @click="previous" class="custom-prev">  <v-icon>mdi-chevron-left</v-icon></button>
+    <button @click="next" class="custom-next">  <v-icon>mdi-chevron-right</v-icon></button>
+  </div>
+
 
 </section>
-      <section class="brands d-none" style="display:none">
-        <h2>مشتریان ما</h2>
-
-        <div class="carousel-wrapper pt-10">
-          <VueSlickCarousel v-bind="settingsBrand" v-if="BrandData?.length > 0">
-            <div v-for="(item, i) in BrandData" :key="i" class="product">
-              <div class="product-data">
-                <div
-                  class="pro-pic brand-logo"
-                >
-                  <img
-                    draggable="false"
-                    loading="lazy"
-                    onmousedown="return false"
-                    style="user-drag: none"
-                    :src="
-                      item.imagePath +
-                      '?width=177&height=177'
-                    "
-                    :alt="item.name"
-                    v-if="item.imagePath"
-                  />
-                </div>
-              </div>
-            </div>
-          </VueSlickCarousel>
-        </div>
-      </section>
       <section class="postMain">
         <h2>  لاینومگ</h2>
-        <nuxt-link to="/" class="show-More">
+        <nuxt-link to="/blog" class="show-More">
           همه </nuxt-link>
-        <div class="postMain-block">
-          <div class="box"><Post /></div>
-          <div class="box"><Post /></div>
+        <div v-if="loadingPage" class="loading-box">
+          <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
+            <v-skeleton-loader
+              class="elevation-0"
+              type="image"
+            ></v-skeleton-loader>
+          </v-sheet>
+        </div>
+        <div class="postMain-block" v-else>
+          <div class="box"  v-for="(item, i) in (dataResult?.posts)?.slice(0, 4)"><Post :items="item" /></div>
 
-          <div class="box"><Post /></div>
-
-          <div class="box"><Post /></div>
 
         </div>
 
@@ -407,6 +355,8 @@ import TextInput from "@/components/TextInput/TextInput";
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
+import { homeService  } from '~/services'
+
 
 export default {
 
@@ -414,7 +364,7 @@ export default {
   head() {
     return {
       script: [{ type: "application/ld+json" }],
-      title: "صفحه اصلی  - لینو تایپ",
+      title: "صفحه اصلی  - لاینو تایپ",
       htmlAttrs: {
         lang: "fa",
       },
@@ -422,7 +372,7 @@ export default {
         {
           hid: "og:site-name",
           property: "og:site_name",
-          content: "لینو تایپ",
+          content: "لاینو تایپ",
         },
         {
           hid: "google-site-verification",
@@ -435,7 +385,7 @@ export default {
         {
           hid: "og-title",
           property: "og:title",
-          content: "صفحه اصلی - لینو تایپ",
+          content: "صفحه اصلی - لاینو تایپ",
         },
         {
           hid: "og-description",
@@ -476,7 +426,7 @@ export default {
         {
           hid: "twitter-title",
           name: "twitter:title",
-          content: "صفحه اصلی  - لینوتایپ",
+          content: "صفحه اصلی  - لاینوتایپ",
         },
         {
           hid: "twitter-description",
@@ -499,52 +449,13 @@ export default {
       isValid: false,
       email:'',
       loading: false,
+      dataResult:[],
+      loadingPage: true,
+      newsLoading:false,
       dialogVideo:false,
       videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
       phoneNumber:'',
       currentTime: 0,
-      slides: [
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg'},
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg'},
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg'}
-      ],
-      BrandData: [
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-      ],
-      DesignerData: [
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://cdn.vuetifyjs.com/images/cards/docks.jpg' , name:'مسعود سپهری' },
-
-      ],
       settingsDesigner: {
         autoplay: true,
         slidesToShow: 5,
@@ -624,6 +535,12 @@ export default {
     }
   },
   methods: {
+    refreshData(newValue) {
+      if(newValue ){
+        this.getHomeBanners()
+      }
+
+    },
     previous() {
       this.$refs.carousel.prev()
     },
@@ -642,24 +559,126 @@ export default {
         this.$refs.videoPlayer.pause();
       });
     },
-    async getHomeProduct() {
-      await this.$store.dispatch("Home/GetHomeProduct").then((res) => {
-        let data = res;
+    async sendNewsLetter() {
+      if(this.isValid){
+      if(this.email?.length === 0){
+        this.$toast.error('ایمیل نباید خالی باشد ', {
+          timeout: 4000,
+        })
+        return;
+      }
+      let body = {
+        email : this.email
+      }
+      this.newsLoading = true;
+      try {
+       await homeService.newsLetter(body)
+        this.newsLoading = false;
+      } catch (error) {
+        this.newsLoading = false;
 
+        console.error('خطا در دریافت کاربران:', error)
+      }
+      }
+    },
+      async getHomeBanners() {
+      try {
+        const res = await homeService.getHome()
         setTimeout(() => {
-
+          this.dataResult = res?.entity
+          this.loadingPage = false;
         }, 2000);
-      });
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
     },
 
   },
   mounted() {
-    this.getHomeProduct();
+    this.getHomeBanners();
+
 
   }
 };
 </script>
 <style lang="scss" scoped>
+.loading-box{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4%;
+  margin: 62px 14%;
+  .v-sheet{
+    flex: 30%;
+    max-width: 30%;
+  }
+}
+.loading-box-2{
+  margin: 62px 0 0;
+  min-height: 300px;
+  height: 300px;
+  display: block;
+  ::v-deep {
+    .v-skeleton-loader__image {
+      min-height: 300px;
+      height: 300px;
+    }
+  }
+
+}
+.loading-box-3{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4%;
+  margin: 62px 20%;
+  .v-sheet{
+    max-width: 100%;
+    flex: auto;
+  }
+}
+.loading-box-4{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4%;
+  margin: 62px 0;
+  width: 100%;
+  .v-sheet{
+    max-width: 100%;
+    flex: 47%;
+    margin-bottom: 50px;
+  }
+
+}
+.carouselMain-desktop-skeleton {
+  min-height: 580px;
+  height: 580px;
+  display: none;
+  @include breakpoint(medium) {
+    display: block;
+  }
+  ::v-deep {
+    .v-skeleton-loader__image {
+      min-height: 580px;
+      height: 580px;
+    }
+  }
+}
+.carouselMain-mobile-skeleton {
+  min-height: 300px;
+  height: 300px;
+  display: block;
+  @include breakpoint(medium) {
+    display: block;
+  }
+  ::v-deep {
+    .v-skeleton-loader__image {
+      min-height: 300px;
+      height: 300px;
+    }
+  }
+  @include breakpoint(medium) {
+    display: none;
+  }
+}
 .designer {
   padding: 36px 12% 0;
   display: block;
@@ -806,6 +825,7 @@ export default {
       @include breakpoint(medium) {
         height: 250px;
         width: 250px;
+        margin: auto;
       }
 
       &:hover{
@@ -1032,6 +1052,9 @@ export default {
   &-form{
     display: flex;
     flex-direction: column;
+    .v-btn{
+      margin: 17px 0;
+    }
 
   }
 }
@@ -1160,25 +1183,35 @@ export default {
   &-block{
     display: flex;
     gap: 20px;
-    align-items: center;
-    justify-content: center;
     margin: 0 0 100px;
     padding: 0 5%;
     flex-wrap: wrap;
+    flex: 1 1 auto;
+    margin: -12px;
     @include breakpoint(medium) {
       margin: 150px 0;
       padding: 0 15%;
-      justify-content: space-between;
     }
 
   }
   &-box{
-    width: 100%;
-    height: 200px;
+    flex: 100%;
+    max-width:100%;
+    border-radius: 10px;
+    overflow: hidden;
     position: relative;
     @include breakpoint(medium) {
-      width: 366px;
-      height: 366px;
+      flex: 33.33%;
+      max-width: 33.33%;
+    }
+    .box{
+      width: 100%;
+      height: 200px;
+      position: relative;
+      @include breakpoint(medium) {
+        width: 366px;
+        height: 366px;
+      }
     }
 
     a{

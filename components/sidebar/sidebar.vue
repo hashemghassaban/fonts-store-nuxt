@@ -8,9 +8,26 @@
             color=#AAE73E
             size="30px"
             className="rounded-full"
+            v-if="!avatarUrl"
+          />
+          <img
+            v-else
+            :src="avatarUrl"
+            alt="avatar"
+            class="avatar-preview"
+            @click="triggerUpload"
+          />
+          <input
+            ref="fileInput"
+            type="file"
+            accept="image/*"
+            style="display: none"
+            @change="handleFileSelect"
           />
         </div>
-        <v-btn density="default" class="add" @click="" > <v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn density="default" class="add"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
+
+
         <div class="name">
           <nuxt-link to="/page/userManager">
 
@@ -43,25 +60,17 @@
     </div>
     <v-card class="mx-auto sidebar-block mb-10" max-width="100%">
       <v-list flat>
-        <v-list-item-group v-model="selectedItem" color="primary">
+        <v-list-item-group  color="primary">
           <v-list-item
             v-for="(item, i) in items"
             :key="i"
-            @click="goToLink(item.link, true)"
+            :to="item.link"
             v-if="i < 5"
-          >
+            @click="menuActionClick(item.action)"
 
+          >
             <v-list-item-content>
               <v-list-item-title v-text="item.text"></v-list-item-title>
-              <v-icon>mdi-chevron-left</v-icon>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item
-
-          >
-
-            <v-list-item-content>
-              <v-list-item-title>خروج</v-list-item-title>
               <v-icon>mdi-chevron-left</v-icon>
             </v-list-item-content>
           </v-list-item>
@@ -76,28 +85,40 @@
 <script>
 export default {
   data: () => ({
-    selectedItem: null,
-    selectedItemPages: null,
     drawerPage: false,
+    avatarUrl: null,
+
+
     items: [
-      { text: 'سفارش ها', link: '/page/order' },
-      { text: 'کیف پول من', link: '/page/wallet' },
-      { text: 'فونت های مورد علاقه', link: '/page/favorite' },
+      { text: 'سفارش ها', link: '/page/order' , action:''},
+      { text: 'کیف پول من', link: '/page/wallet' , action:''},
+      { text: 'فونت های مورد علاقه', link: '/page/favorite', action:'' },
+      { text: 'خروج', link: '', action:'logout' },
+
 
     ],
   }),
-  props: {},
 
   methods: {
-    goToLink(link, type) {
-      this.$router.push(link)
-      if (type) {
-        this.selectedItemPages = null
-      } else {
-        this.selectedItem = null
-      }
-      this.drawerPage = false
+    triggerUpload() {
+      this.$refs.fileInput.click()
     },
+    handleFileSelect(event) {
+      const file = event.target.files[0]
+      if (!file) return
+
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        this.avatarUrl = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    menuActionClick(action) {
+      if (action === "logout") {
+        window.localStorage.removeItem('token');
+        window.location.replace( '/')
+      }
+    }
   },
 }
 </script>
@@ -322,6 +343,7 @@ export default {
     overflow: hidden;
     text-align: center;
     line-height: 80px;
+    border: 2px solid #626262;
     @include breakpoint(small) {
       line-height: 145px;
       min-width: 145px;
@@ -338,6 +360,11 @@ export default {
         margin: 20px auto 0;
 
       }
+    }
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
   .add{
@@ -378,6 +405,11 @@ export default {
       width: 100%;
       @include breakpoint(small) {
         font-size: 23px;
+      }
+      &.nuxt-link-active{
+        i{
+          color:#ff5722!important;
+        }
       }
     }
     i{
