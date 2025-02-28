@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    container_name: linonuxt
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+    networks:
+      - linotype-website
+networks:
+  linotype-website:
