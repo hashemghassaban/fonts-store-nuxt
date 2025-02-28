@@ -119,10 +119,10 @@
 
           </div>
           <div class="logo-mobile"><nuxt-link to="/"><img src="~/assets/img/logo/logo4.png"/></nuxt-link></div>
-          <nuxt-link to="/signin" class="signIn" v-if="!authenticate">
+          <nuxt-link to="/signin" class="signIn" v-show="!authenticate">
               <span>ورود  <v-divider vertical /> عضویت</span>
           </nuxt-link>
-          <nuxt-link to="/page/userManager" class="signIn"  v-if="authenticate">
+          <nuxt-link to="/page/userManager" class="signIn"  v-show="authenticate">
 
           <SvgIcon
               name="user"
@@ -139,7 +139,7 @@
               size="28px"
               className="rounded-full"
             />
-            <div class="isFill" v-if="cart?.items?.length > 0"></div>
+            <div class="isFill" v-show="cart?.items?.length > 0"></div>
           </div>
         </div>
       </nav>
