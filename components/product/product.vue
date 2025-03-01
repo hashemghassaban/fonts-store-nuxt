@@ -144,7 +144,7 @@ export default {
     async addToCart(pro) {
       this.loading = true
       let body = {
-        product_price: pro.id,
+        product_price: pro.prices[0].id,
       };
       try {
         const data = await productService.postProduct(body)
