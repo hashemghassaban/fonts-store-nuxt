@@ -10,18 +10,11 @@
             <h2>علاقه مندی های من</h2>
           </div>
           <div class="latest-font-block">
-            <div class="box">
-              <Product :typeProduct="'product'"/>
+
+            <div class="box" v-for="(item, index) in favourites">
+              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
             </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
+
           </div>
           <v-pagination
             v-model="page"

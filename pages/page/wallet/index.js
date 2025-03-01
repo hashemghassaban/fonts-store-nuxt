@@ -1,22 +1,25 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import sidebar from '@/components/sidebar/sidebar'
 import TextInput from "@/components/TextInput/TextInput";
+import { profileService  } from '~/services'
 
 
 export default {
   name: 'wallet',
   data: () => ({
+    transactions:null,
+    last:null,
     amounts: [{
-      name:'10000 ت',value:10000
+      name:'10.000 ت',value:10000
     },
       {
-        name:'20000 ت',value:20000
+        name:'20.000 ت',value:20000
       }
       ,{
-        name:'30000 ت',value:30000
+        name:'30.000 ت',value:30000
       }
       ,{
-        name:'40000 ت',value:40000
+        name:'40.000 ت',value:40000
       }
       ,{
         name:'مبلغ دلخواه',value:''
@@ -44,6 +47,11 @@ export default {
     },
   },
   methods: {
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
     handleButtonClick(index) {
       this.activeButton = index;
       this.selectedAmount = this.amounts[index].value;
@@ -54,8 +62,16 @@ export default {
           this.selectedAmount = '';
         }, 100);
       }
-    }
+    },
+    async getData() {
+      this.transactions = await profileService.getWallets()
+      if(this.transactions[0])
+        this.last = this.transactions[0].cumulative_sum
+    },
+  },
+  mounted() {
+    this.getData()
+  },
 
-  }
 
 }

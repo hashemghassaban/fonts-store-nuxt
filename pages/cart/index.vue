@@ -58,12 +58,11 @@
           <div class="block-info">
             <div class="discount">
               <div class="discount-field">
-                <input type="text" placeholder="کد تخفیف" id="code">
-                <button>
-
+                <input type="text" placeholder="کد تخفیف" id="code" v-model="discount">
+                <v-btn @click="applyCoupon" :loading="loadingDiscount">
                   <img src="~/assets/img/icon/starBuy.png" alt="">
                   <span>اعمال</span>
-                </button>
+                </v-btn>
               </div>
             </div>
             <div class="totalPrice">
@@ -85,7 +84,7 @@
             <p>حتما قبل از پرداخت VPN را قطع کنید.</p>
           </div>
          <div class="submit">
-           <v-btn @click="goToPayment()" :disabled="cartItems?.length === 0">
+           <v-btn @click="goToPayment()" :loading="loading" :disabled="cartItems?.length === 0">
              <div class="icon">
                <SvgIcon
                  name="arrow"
@@ -96,12 +95,8 @@
              </div>
              <span>تکمیل خرید و پرداخت</span>
            </v-btn>
-
          </div>
-
         </div>
-
-
       </div>
     </section>
   </client-only>
@@ -131,6 +126,9 @@ export default {
   },
   data () {
     return {
+      discount:"",
+      loadingDiscount:false,
+      loading:false,
       cartItems:[],
       cart:[],
     }
@@ -149,19 +147,46 @@ export default {
     if(newValue ){
       this.getCart()
     }
-
     },
     formatPrice(value) {
       if(isNaN(value)) return  0
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    async applyCoupon(){
+      if(this.discount === ""){
+        this.$toast.error('فیلد کد تخفیف نباید خالی باشد', {
+          timeout: 4000,
+        })
+      }else{
+        this.loadingDiscount = true;
+
+        let body = {
+          "discount":this.discount
+        }
+        try {
+          await cartService.applyCoupon(body)
+          this.getCart()
+          this.loadingDiscount = false;
+        } catch (error) {
+          this.loadingDiscount = false;
+          console.error('خطا در دریافت کاربران:', error)
+        }
+      }
+
+    },
     goToPayment(){
       if(!this.authenticate){
         this.$router.push('/signIn')
        localStorage.setItem('lastUrL' , '/cart')
       }else{
+        this.loading = true;
         this.$router.push('/checkout')
+
+        setTimeout(()=>{
+          this.loading = false;
+        },1000)
+
       }
 
     },
@@ -327,6 +352,10 @@ export default {
             justify-content: center;
             transition: all 0.3s ease;
             gap: 10px;
+            &.v-btn--loading{
+              background: #fff;
+
+            }
             &:hover{
               background: #000;
               border: 2px solid #000;

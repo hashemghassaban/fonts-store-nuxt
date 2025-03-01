@@ -50,26 +50,26 @@
         <div class="cart-block-forms">
           <div class="payment-method">
               <h3 class="title">انتخاب روش پرداخت</h3>
-              <v-radio-group v-model="paymentMethod" mandatory>
+              <v-radio-group v-model="selectedPaymethod" mandatory>
                 <v-row>
                   <v-col cols="12" >
                     <v-radio
-                      value="1"
+                      :value=3
                       label="پرداخت آنلاین"
                       color="primary"
                     ></v-radio>
                     <p class="text">از طریق کارت های اعتباری بانکی</p>
-                    <div class="gateway-select" v-if="paymentMethod === '1'">
+                    <div class="gateway-select" v-show="selectedPaymethod === 3">
                       <div class="gateway-options">
                         <div
-                          v-for="gateway in gateways"
-                          :key="gateway.id"
-                          :class="{ 'gateway-item': true, 'active': selectedGateway === gateway.id }"
-                          @click="selectedGateway = gateway.id"
+                          v-for="payMethod in payMethods"
+                          :key="payMethod.id"
+                          :class="{ 'gateway-item': true, 'active': selectedGateway === payMethod.id }"
+                          @click="selectedPayment = payMethod.id"
                         >
                           <img
-                            src="~/assets/img/element/zarinpall.jpg"
-                            :alt="gateway.name"
+                            :src="payMethod.icon_url"
+                            :alt="payMethod.title"
                             loading="lazy"
                           />
 
@@ -85,8 +85,8 @@
                       label="کیف پول"
                       color="primary"
                     ></v-radio>
-                    <p class="text">موجودی : {{formatPrice(wallet?.remaining)}} ت</p>
-                    <p class="amount">میزان کسری از کیف پول : {{formatPrice(wallet?.wallet_lacke)}} ت</p>
+                    <p class="text"  v-show="selectedPaymethod === 4">موجودی : {{formatPrice(wallet?.remaining)}} ت</p>
+                    <p class="amount"  v-show="selectedPaymethod === 4">میزان کسری از کیف پول : {{formatPrice(wallet?.wallet_lacke)}} ت</p>
                   </v-col>
                 </v-row>
 
@@ -108,7 +108,7 @@
             </div>
           </div>
          <div class="submit">
-           <v-btn           @click="saveCheckout"         :loading="loading"
+           <v-btn  @click="saveCheckout" :loading="loading"
            >
              <div class="icon">
                <SvgIcon
@@ -155,7 +155,7 @@ export default {
   },
   data () {
     return {
-      paymentMethod: '1',
+      paymentMethod: '3',
       gateways: [
         { id: 1, name: 'زرین پال' , url:'zarinpall' },
       ],
@@ -197,8 +197,8 @@ export default {
           this.cart = res.entity.cart
           this.payMethods = res.entity.online_payments
           this.wallet = res.entity
-          // if (this.payMethods.length > 0)
-          //   this.selectedPayment = this.payMethods[0]?.id
+          if (this.payMethods.length > 0)
+            this.selectedPayment = this.payMethods[0]?.id
 
         } catch (error) {
           console.error('خطا در دریافت کاربران:', error)
@@ -481,7 +481,7 @@ export default {
   img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 .gateway-item:hover {

@@ -14,6 +14,7 @@
             <TextInput
               validators="subject"
               class="my-2"
+              :isValid.sync="isValid"
               placeholder="نام  خود را وارد کنید"
               v-model="firstName"
               label="نام"
@@ -24,6 +25,7 @@
               <TextInput
                 validators="subject"
                 class="my-2"
+                :isValid.sync="isValid"
                 placeholder=" نام خانوادگی خود را وارد کنید"
                 v-model="lastName"
                 label="نام خانوادگی"
@@ -36,6 +38,7 @@
                 class="my-2"
                 placeholder=" ایمیل خود را وارد کنید"
                 v-model="email"
+                :isValid.sync="isValid"
                 label="ایمیل"
 
               />
@@ -44,6 +47,7 @@
               <TextInput
                 validators="subject"
                 class="my-2"
+                :isValid.sync="isValid"
                 placeholder=" موبایل خود را وارد کنید"
                 v-model="mobileNumber"
                 label="موبایل"
@@ -66,6 +70,7 @@
                 validators="date"
                 placeholder="تاریخ تولد  خود را وارد کنید"
                 v-model="born"
+                :isValid.sync="isValid"
                 label="تاریخ تولد"
                 class="custom-input"
                 :width="'100%'"
@@ -75,7 +80,7 @@
             </div>
             <div class="field">
 
-              <button  class="submit-btn" >
+              <v-btn :loading="loading" class="submit-btn"  @click="saveProfile">
                 <div class="icon">
                   <SvgIcon
                     name="arrow"
@@ -85,7 +90,7 @@
                   />
                 </div>
                 <span>  ثبت تغییرات </span>
-              </button>
+              </v-btn>
             </div>
 
 

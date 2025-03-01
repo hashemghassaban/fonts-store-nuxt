@@ -10,7 +10,7 @@
             <h2>افزایش اعتبار</h2>
           </div>
         <div class="wallet-block__box">
-          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : 50000 ت
+          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : {{formatPrice(500000)}} ت
          </h4>
 
           <div class="button-container">
