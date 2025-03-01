@@ -121,7 +121,7 @@ import SelectInput from "@/components/SelectInput/SelectInput";
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول ",
+    title: "لیست محصول - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

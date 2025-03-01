@@ -109,7 +109,7 @@ import { cartService  } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: " سبد خرید",
+    title: " سبد خرید - لاینو تایپ ",
     htmlAttrs: {
       lang: "fa",
     },

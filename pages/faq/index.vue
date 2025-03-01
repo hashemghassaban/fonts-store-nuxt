@@ -63,11 +63,12 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import { pagesService  } from '~/services'
 
 export default {
   head: {
     titleTemplate: "",
-    title: "پرسش و پاسخ",
+    title: "پرسش و پاسخ - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -98,11 +99,28 @@ export default {
       activePanel: [0],
       activePanel3: [0],
       activePanel4: [0],
+      dataResult : []
 
 
     }
   },
-  methods: {}
+  methods: {
+    async getFaq() {
+      try {
+        const res = await pagesService.getFaq()
+        setTimeout(() => {
+          this.dataResult = res?.entity
+        }, 2000);
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+  },
+  mounted() {
+    this.getFaq();
+  }
+
+
 };
 </script>
 

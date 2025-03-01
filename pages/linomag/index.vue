@@ -26,7 +26,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 export default {
   head: {
     titleTemplate: "",
-    title: "لاینومگ",
+    title: "لاینومگ - لاینو تایپ ",
     htmlAttrs: {
       lang: "fa",
     },

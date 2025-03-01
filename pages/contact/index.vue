@@ -52,11 +52,11 @@
               label="نام"
             />
             <TextInput
-              validators="subject"
+              validators="email"
               class="my-2"
               :isValid.sync="isValid"
-              v-model="tell"
-              label="شماره تماس"
+              v-model="email"
+              label=" ایمیل"
             />
           </div>
           <div class="block">
@@ -85,6 +85,7 @@
             <v-btn
               elevation="0"
               class="secondary btn"
+              @click="SubmitContact"
             >  <SvgIcon
               name="arrow"
               color="#fff"
@@ -113,12 +114,13 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
+import { pagesService  } from '~/services'
 
 
 export default {
   head: {
     titleTemplate: "",
-    title: " ارتباط با ما",
+    title: " ارتباط با ما - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -198,12 +200,28 @@ export default {
       tell:'',
       subject:'',
       subjectList:[],
-      description:''
+      description:'',
+      email:''
 
     }
   },
   methods: {
-
+    async SubmitContact() {
+      let body = {
+        name:this.fullName,
+        email:this.email,
+        // tell:this.tell,
+        subject:this.subject,
+        description:this.description,
+      }
+      if(this.isValid){
+      try {
+        const res = await pagesService.postContactUs(body)
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+      }
+    },
     showVideo(){
       this.dialogVideo = true
       this.$nextTick(() => {

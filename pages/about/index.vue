@@ -121,7 +121,7 @@ import VueSlickCarousel from "vue-slick-carousel";
 export default {
   head: {
     titleTemplate: "",
-    title: " درباره ما",
+    title: " درباره ما - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

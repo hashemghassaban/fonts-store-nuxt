@@ -107,7 +107,7 @@
           <li
 
 
-            class="mega-menu"
+            class="mega-menu" v-show="!authenticate"
           >
             <nuxt-link
               :to="

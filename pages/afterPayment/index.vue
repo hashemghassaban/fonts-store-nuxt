@@ -47,7 +47,7 @@ import Timer from "@/components/counter/counter";
 export default {
   head: {
     titleTemplate: "",
-    title: "وضعیت پرداخت",
+    title: "وضعیت پرداخت - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

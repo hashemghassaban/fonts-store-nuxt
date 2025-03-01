@@ -91,7 +91,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 export default {
   head: {
     titleTemplate: "",
-    title: "خرید موفق",
+    title: "خرید موفق - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

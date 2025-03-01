@@ -138,7 +138,7 @@ import { cartService  } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "پرداخت",
+    title: "پرداخت - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -190,7 +190,6 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     async getCheckout() {
-
         try {
           const res = await cartService.getCheckOut()
           this.cartItems = res.entity.cart.items

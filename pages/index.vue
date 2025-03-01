@@ -161,16 +161,17 @@
             <div class="box">
               <nuxt-link :to="'product/detail/'+item.id" >
                 <img :src="item.mobile_image_url" alt="">
-                <button class="btn">
-                  <SvgIcon
-                    name="arrow"
-                    color="#fff"
-                    size="10px"
-                    className="rounded-full"
-                  />
-                  <span>خرید</span>
-                </button>
+
               </nuxt-link>
+              <v-btn :loading="(loadingBtn  && i === indexPro)" class="btn" @click="addToCart(item , i)">
+                <SvgIcon
+                  name="arrow"
+                  color="#fff"
+                  size="10px"
+                  className="rounded-full"
+                />
+                <span>خرید</span>
+              </v-btn>
             </div>
 
           </div>
@@ -292,8 +293,7 @@
     <VueSlickCarousel v-bind="settingsDesigner" v-if="dataResult?.collections?.length > 0"  ref="carousel" >
       <div v-for="(item, i) in  dataResult?.collections" :key="i" class="product">
         <div class="product-data">
-          <nuxt-link
-            :to="'/brand/' + '/' + item.title.replaceAll(' ', '-')"
+          <div
             class="pro-pic brand-logo"
           >
             <div class="pic">
@@ -312,7 +312,7 @@
               />
             </div>
             <h3>{{ item.title }}</h3>
-          </nuxt-link>
+          </div>
         </div>
       </div>
 
@@ -355,7 +355,7 @@ import TextInput from "@/components/TextInput/TextInput";
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
-import { homeService  } from '~/services'
+import { homeService , productService } from '~/services'
 
 
 export default {
@@ -449,10 +449,12 @@ export default {
       isValid: false,
       email:'',
       loading: false,
+      loadingBtn:false,
       dataResult:[],
       loadingPage: true,
       newsLoading:false,
       dialogVideo:false,
+      indexPro:null,
       videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
       phoneNumber:'',
       currentTime: 0,
@@ -540,6 +542,24 @@ export default {
         this.getHomeBanners()
       }
 
+    },
+    async addToCart(pro , i) {
+      console.log('pro',pro)
+      this.loadingBtn = true
+      this.indexPro = i
+      let body = {
+        product_price: pro.id,
+      };
+      try {
+        const data = await productService.postProduct(body)
+        this.$store.commit('setCart', data)
+        this.$store.commit('setDialogCart', true)
+        this.$toast.success('محصول به سبد خرید اضافه شد')
+        this.loadingBtn = false;
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+        this.loadingBtn = false;
+      }
     },
     previous() {
       this.$refs.carousel.prev()
@@ -722,7 +742,7 @@ export default {
             border-radius: 15px;
             width: 100%;
             img {
-              object-fit: fill;
+              object-fit: cover;
               width: 100%;
               filter: grayscale(1);
               opacity: 0.5;
@@ -1213,23 +1233,25 @@ export default {
         height: 366px;
       }
     }
+    &:hover{
+      .btn{
+        background: #fff;
+        transition: all 0.3s ease;
 
+      }
+    }
     a{
       display: block;
       width: 100%;
       height: 100%;
 
-      &:hover{
-        .btn{
-          background: #fff;
-          transition: all 0.3s ease;
 
-        }
-      }
     img{
       width: 100%;
       height: 100%;
       object-fit: fill;
+
+    }
 
     }
     .btn{
@@ -1264,8 +1286,6 @@ export default {
 
 
     }
-    }
-
   }
 }
 ::v-deep {

@@ -26,7 +26,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 export default {
   head: {
     titleTemplate: "",
-    title: " پشتیبانی",
+    title: " پشتیبانی - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

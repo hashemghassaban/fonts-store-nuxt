@@ -141,7 +141,7 @@ import { productService } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول ",
+    title: "جزئیات محصول - لاینو تایپ ",
     htmlAttrs: {
       lang: "fa",
     },

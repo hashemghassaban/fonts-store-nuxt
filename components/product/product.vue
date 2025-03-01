@@ -94,7 +94,6 @@
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import {  productService } from '~/services'
-import { authService } from '../../services'
 
 export default {
   data() {
@@ -431,7 +430,7 @@ export default {
           box-shadow: none;
           overflow: hidden;
           transition: all 0.3s ease;
-          border-radius: 100px;
+          border-radius: 10px;
           @include breakpoint(medium) {
             width: 100px;
             height: 40px;

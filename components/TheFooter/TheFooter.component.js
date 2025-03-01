@@ -9,4 +9,12 @@ export default {
   data: () => ({
 
   }),
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem("token");
+      }
+    },
+
+  },
 }

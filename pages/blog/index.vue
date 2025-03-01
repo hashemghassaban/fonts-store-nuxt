@@ -50,36 +50,17 @@
         </div>
         <div class="productMain-lists-block">
           <div class="latest-font-block">
-            <div class="box">
-              <Post/>
+            <div class="box"  v-for="(item, i) in (posts)">
+              <Post :items="item" />
             </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
-            <div class="box">
-              <Post/>
-            </div>
+
+
 
           </div>
           <v-pagination
-            v-model="page"
-            :length="5"
-            class="my-4"
+            v-model="pagination.currentPage"
+            :length="pagination.totalPages"
+            @update:modelValue="handlePageChange"
           ></v-pagination>
         </div>
       </section>
@@ -98,12 +79,13 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
+import { postService  } from '~/services'
 
 
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول ",
+    title: "لیست محصول - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -122,13 +104,54 @@ export default {
   },
   data () {
     return {
+      loading: false,
       searchText: '',
       itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
       filter: 'جدیدترین',
-      page: 1,
+      posts:[],
+      pagination: {
+        currentPage: 1,
+        totalPages: 0,
+        pageSize: 10
+      },
 
     }
   },
+  computed: {
+    // محاسبه آیتم‌های فعلی صفحه به صورت کلاینت‌ساید
+    paginatedItems() {
+      const start = (this.pagination.currentPage - 1) * this.pagination.pageSize;
+      return this.items.slice(start, start + this.pagination.pageSize);
+    },
+
+    // محاسبه تعداد کل صفحات
+    totalPages() {
+      return Math.ceil(this.items.length / this.pagination.pageSize);
+    }
+  },
+
+  methods: {
+    handlePageChange(newPage) {
+      this.pagination.currentPage = newPage;
+    },
+    async getPost() {
+      try {
+        const res = await postService.getPost()
+        this.posts = res?.entity?.posts?.data
+        this.pagination.totalPages = Math.ceil(
+          this.posts.length / this.pagination.pageSize
+        );
+        setTimeout(() => {
+          this.posts = res?.entity?.posts?.data
+        }, 2000);
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+  },
+  mounted() {
+    this.getPost();
+  }
 };
 </script>
 
@@ -231,7 +254,7 @@ export default {
     display: flex;
     margin-top: 50px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
     .box{
       max-width: 47%;
