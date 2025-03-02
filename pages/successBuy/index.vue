@@ -63,7 +63,7 @@
 
           </div>
           <div class="submit">
-            <button >
+            <v-btn @click="$router.push('/page/userManager')" >
               <div class="icon">
                 <SvgIcon
                   name="arrow"
@@ -73,7 +73,7 @@
                 />
               </div>
               <span> بازگشت به پنل کاربری</span>
-            </button>
+            </v-btn>
 
           </div>
 

@@ -21,7 +21,7 @@
       />
 
     </v-btn>
-    <nuxt-link to="/detail/123">
+    <nuxt-link to="/product/detail/123">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer || items?.discount_percent !== 0) " >
@@ -322,7 +322,7 @@ export default {
       }
     }
       span{
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 900;
         margin-left: 20px;
         @include breakpoint(medium) {

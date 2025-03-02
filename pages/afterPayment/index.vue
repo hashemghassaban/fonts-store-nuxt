@@ -176,4 +176,9 @@ color: #454545;
     }
   }
 }
+::v-deep{
+  .timer{
+    justify-content: center;
+  }
+}
 </style>
