@@ -58,7 +58,7 @@
           <div class="block-info">
             <div class="totalPrice">
               <label>شماره لایسنس : </label>
-              <span>45489545</span>
+              <span>{{params?.licence || 0}}</span>
             </div>
 
           </div>
@@ -116,9 +116,16 @@ export default {
       selectedGateway: 1,
     }
   },
-  methods: {
+  computed: {
 
+    params() {
+      return this.$route.query
+    },
 
+  },
+  mounted() {
+
+    console.log(this.params)
   }
 };
 </script>
@@ -354,7 +361,6 @@ export default {
     border-radius: 100px;
     background: #aae73e;
     color: #fff;
-    margin-left: 15px;
   }
 }
 .gateway-select {

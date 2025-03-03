@@ -4,29 +4,18 @@
 
     <div class="productDetail py-10">
       <section class="productDetail-banner">
-        <img src="~/assets/img/banner/about.jpg" alt="">
+        <img :src="posts?.post?.thumbnail_url" alt="">
       </section>
       <section class="productDetail-description">
         <div class="head-pro">
-          <h1>فونت کوت</h1>
+          <h1>{{posts?.post?.title}}</h1>
         </div>
-        <p>        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.
-        </p>
+        <p>{{posts?.post?.introduction}}</p>
       </section>
       <section class="productDetail-tiny-banners">
-        <div class="banners-block">
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/ban1.jpg" alt="">
-            </nuxt-link>
-          </div>
-          <div class="banners-box">
-            <nuxt-link to="/" >
-              <img src="~/assets/img/banner/ban2.jpg" alt="">
-            </nuxt-link>
-          </div>
+        <div v-for="(item, i) in (posts?.newest_posts)">
+          <div v-html="item?.content"></div>
         </div>
-<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
       <div class="small-banner">
         <img src="~/assets/img/banner/ban4.jpg" alt="">
@@ -88,22 +77,18 @@
       </section>
       <section class="postMain">
         <h2>  مطالب مشابه</h2>
-        <nuxt-link to="/" class="show-More">
+        <nuxt-link to="/blog" class="show-More">
           همه </nuxt-link>
         <div class="postMain-block">
-          <div class="box"><Post /></div>
-          <div class="box"><Post /></div>
+          <div class="box"  v-for="(item, i) in (posts?.most_rated)?.slice(0, 4)"><Post :items="item" /></div>
 
-          <div class="box"><Post /></div>
-
-          <div class="box"><Post /></div>
 
         </div>
 
       </section>
       <section class="contact-form">
         <div class="form-top">
-          <h3>ثبت نظر:  مهرداد موسوی</h3>
+          <h3>ثبت نظر: </h3>
           <div class="rate-box">
             <v-rating
               length="5"
@@ -135,6 +120,8 @@
             <v-btn
               elevation="0"
               class="secondary btn"
+              :loading="loading"
+              @click="addComment(false)"
             >  <SvgIcon
               name="arrow"
               color="#fff"
@@ -147,25 +134,29 @@
         </div>
         <div class="comments-block__list">
           <div class="comments-block__block" >
-            <div class="comments-block__box" >
+            <div class="comments-block__box" v-for="(item ,  i ) in  commentList " >
               <div class="header">
                 <div class="user">
                   <div class="avatar">
-                    <img src="~/assets/img/icon/user.svg" width="35" alt="user" />
+                    <img :src="item?.user?.avatar_url" width="35" :alt="item?.user?.full_name" />
                   </div>
                   <div class="name">
-                   هاشم قصابان
+                  {{item?.user?.full_name !== " " ? item?.user?.full_name : item?.user?.mobile}}
                   </div>
                   <div class="info-user">
                     <div class="rate">
                       <v-icon>mdi mdi-star</v-icon>
                       <span>5</span>
                     </div>
-                    <div class="date">1403/03/02</div>
+                    <div class="date">{{  new Date(item.created_at).toLocaleString('fa-IR', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })}}</div>
 
                   </div>
                 </div>
-                <div class="comment-description mb-5">اشتسشاسشستششسشاسشس</div>
+                <div class="comment-description mb-5">{{item.comment}}</div>
 
                 <div class="comment-action">
                   <div
@@ -174,7 +165,7 @@
                       icon
                       elevation="0"
                       color="orange"
-                      @click="showDialogComment(false)"
+                      @click="showDialogComment(item)"
                     >
                       <SvgIcon
                         name="reply-1"
@@ -186,47 +177,52 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="comments-block__block reply" >
-              <div class="comments-block__box" >
-                <div class="header">
-                  <div class="user">
-                    <div class="avatar">
-                      <img src="~/assets/img/icon/user.svg" width="35" alt="user" />
-                    </div>
-                    <div class="name">
-                      هاشم قصابان
-                    </div>
-                    <div class="info-user">
-                      <div class="date">1403/03/02</div>
+              <div class="comments-block__block reply" v-if="item.replies?.length > 0">
+                <div class="comments-block__box"  v-for="(reply ,  i ) in  item.replies "  >
+                  <div class="header">
+                    <div class="user">
+                      <div class="avatar">
+                        <img :src="reply?.user?.avatar_url" width="35" :alt="reply?.user?.full_name" />
+                      </div>
+                      <div class="name">
+                        {{reply?.user?.full_name !== " " ? reply?.user?.full_name : reply?.user?.mobile}}
+                      </div>
+                      <div class="info-user">
+                        <div class="date">{{  new Date(reply.created_at).toLocaleString('fa-IR', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}}</div>
 
+                      </div>
                     </div>
-                  </div>
-                  <div class="comment-description mb-5">اشتسشاسشستششسشاسشس</div>
+                    <div class="comment-description mb-5">{{reply.comment}}</div>
 
-                  <div class="comment-action">
-                    <div
-                      class="comment-action-box">
-                      <v-btn
-                        icon
-                        elevation="0"
-                        color="orange"
-                        @click="showDialogComment(false)"
-                      >
+                    <div class="comment-action">
+                      <div
+                        class="comment-action-box">
+                        <v-btn
+                          icon
+                          elevation="0"
+                          color="orange"
+                          @click="showDialogComment(reply)"
+                        >
 
-                        <SvgIcon
-                          name="reply-1"
-                          color="#AAE73E"
-                          size="12px"
-                          className="rounded-full"
-                        />
-                      </v-btn>
+                          <SvgIcon
+                            name="reply-1"
+                            color="#AAE73E"
+                            size="12px"
+                            className="rounded-full"
+                          />
+                        </v-btn>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
+              </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -267,10 +263,6 @@
                 </v-col>
               </v-row>
             </v-container>
-<!--            <v-container v-else>-->
-<!--              <img src="@/assets/img/vector/Sign up-cuate.svg" alt="Sign up" />-->
-<!--              <p>باید وارد حساب کاربری خود شوید.</p>-->
-<!--            </v-container>-->
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -290,7 +282,7 @@
               color="secondary "
 class="agreeComment ok"
               elevation="0"
-              @click="addComment()"
+              @click="addComment(true , )"
               width="100px"
 
             >
@@ -308,6 +300,7 @@ class="agreeComment ok"
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
+import { postService  } from '~/services'
 
 
 export default {
@@ -340,16 +333,41 @@ export default {
       videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
       description:'',
       isValid: false,
+      posts:[],
       rateComment: 0,
       dialogAddComment: false,
-      bodyComment:''
+      bodyComment:'',
+      loading:false,
+      commentList:[],
+      selectId : [],
+
 
 
     }
   },
+  computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem('token')
+      }
+    },
+    currentPath() {
+      return this.$route.params.slug
+    },
+
+  },
+  watch: {
+    rateComment(newValue, oldValue) {
+     if(newValue){
+       this.postRate(this.currentPath)
+     }
+    }
+  },
+
   methods: {
     showDialogComment(newComment) {
-this.dialogAddComment = true
+this.dialogAddComment = true,
+  this.selectId = newComment
     },
     showVideo(){
       this.dialogVideo = true
@@ -363,14 +381,106 @@ this.dialogAddComment = true
         this.$refs.videoPlayer.pause();
       });
     },
-    async ReactToComment(reactComment, id) {
 
 
+    async addComment(isReply) {
+      if (!this.authenticate) {
+        let url  = ""
+        if (process.client) {
+          url = window.location?.pathname
+        }
+        localStorage.setItem('lastUrL' , url)
+        this.$router.push('/signIn')
+        return
+      }
+      if(isReply){
+        if (this.bodyComment === ""){
+          this.$toast.error('متن پیام نباید خالی باشد. ', {
+            timeout: 4000,
+          })
+          return
+        }
+      }else{
+        if( this.description === ""){
+          this.$toast.error('متن پیام نباید خالی باشد. ', {
+            timeout: 4000,
+          })
+          return
+        }
+      }
+      this.loading = true;
+      let body = isReply ? {
+        comment : this.bodyComment,
+        parent_id: this.selectId?.parent_id,
+        reply :  this.selectId?.id
+      } : {
+        comment :  this.description,
+        parent_id: null,
+        reply :  {}
+      }
+      try {
+        const res = await postService.postComment(this.currentPath ,  body)
+        this.loading = false;
+        this.$toast.success(res?.message, {
+          timeout: 4000,
+        })
+        this.description = ""
+        this.bodyComment = ""
+        this.dialogAddComment = false
+
+      } catch (error) {
+
+        this.loading = false;
+
+      }
     },
-    addComment(){
 
-    }
+    async getPost(id) {
+      try {
+        const res = await postService.getPostDetail(id)
+        this.posts = res?.entity
 
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+    async getComment(id) {
+      try {
+        const res = await postService.getComment(id)
+        this.commentList = res?.entity
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+
+    async postRate(id) {
+      if (!this.authenticate) {
+        let url  = ""
+        if (process.client) {
+          url = window.location?.pathname
+        }
+        localStorage.setItem('lastUrL' , url)
+        this.$router.push('/signIn')
+        return
+      }
+      let body = {
+        'rate':this.rateComment
+      }
+      try {
+        const res = await postService.postRate(id ,  body)
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+
+
+
+  },
+  mounted() {
+    this.getPost(this.currentPath);
+    this.getComment(this.currentPath)
   }
 };
 </script>
@@ -391,7 +501,7 @@ this.dialogAddComment = true
     img{
       width:100%;
       height: 100%;
-      object-fit: fill;
+      object-fit: cover;
     }
   }
   &-description{
@@ -854,6 +964,18 @@ this.dialogAddComment = true
           gap: 15px;
           position: relative;
           align-items: center;
+          .avatar{
+            width: 30px;
+            height: 30px;
+            overflow: hidden;
+            border-radius: 100px;
+            img{
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+
+            }
+          }
 
           .name {
             font-size: 15px;
@@ -960,7 +1082,7 @@ this.dialogAddComment = true
           align-items: center;
           flex-direction: row;
           justify-content: space-between;
-
+          position: relative;
           @include breakpoint(small) {
             flex-direction: row;
           }
@@ -972,8 +1094,8 @@ this.dialogAddComment = true
             align-items: center;
             gap: 10px;
             position: absolute;
-            left: -6px;
-            bottom: 29px;
+            left: 0;
+            bottom: 15px;
             i{
               font-size: 30px!important
             }
@@ -1113,9 +1235,10 @@ this.dialogAddComment = true
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px;
+      padding: 0 12px;
       text-align: center;
       justify-content: flex-start;
+      margin: 0;
 
       span {
         color: #ffffff;
@@ -1206,7 +1329,8 @@ this.dialogAddComment = true
 
 }
 .reply{
-  padding: 20px 40px;
+  padding: 20px 20px 0;
+  background: #f5f5f5;
 }
 
 </style>

@@ -1,6 +1,15 @@
 import { apiService } from './api'
 
 class ProductService {
+  async getProductAll(id) {
+    try {
+      const response = await apiService.get(`/api/v1/products`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
   async getProduct(id) {
     try {
       const response = await apiService.get(`/api/v1/products/${id}`)

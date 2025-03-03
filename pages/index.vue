@@ -159,19 +159,19 @@
         <div class="banners-block" v-else>
           <div class="banners-box" v-for="(item, i) in dataResult?.slids?.side" >
             <div class="box">
-              <nuxt-link :to="'product/detail/'+item.id" >
+              <nuxt-link to="/product" >
                 <img :src="item.mobile_image_url" alt="">
-
+                <v-btn>
+                  <SvgIcon
+                    name="arrow"
+                    color="#fff"
+                    size="10px"
+                    className="rounded-full"
+                  />
+                  <span>خرید</span>
+                </v-btn>
               </nuxt-link>
-              <v-btn :loading="(loadingBtn  && i === indexPro)" class="btn" @click="addToCart(item , i)">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="10px"
-                  className="rounded-full"
-                />
-                <span>خرید</span>
-              </v-btn>
+
             </div>
 
           </div>
@@ -327,8 +327,8 @@
         <h2>  لاینومگ</h2>
         <nuxt-link to="/blog" class="show-More">
           همه </nuxt-link>
-        <div v-if="loadingPage" class="loading-box">
-          <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
+        <div v-if="loadingPage" class="loading-box-5">
+          <v-sheet color="grey lighten-2"  v-for="(item, i) in 4">
             <v-skeleton-loader
               class="elevation-0"
               type="image"
@@ -630,6 +630,16 @@ export default {
   .v-sheet{
     flex: 30%;
     max-width: 30%;
+  }
+}
+.loading-box-5{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4%;
+  margin: 62px 14%;
+  .v-sheet{
+    flex: 22%;
+    max-width: 22%;
   }
 }
 .loading-box-2{
@@ -1232,19 +1242,54 @@ export default {
         width: 366px;
         height: 366px;
       }
-    }
-    &:hover{
-      .btn{
-        background: #fff;
-        transition: all 0.3s ease;
 
-      }
     }
+
     a{
       display: block;
       width: 100%;
       height: 100%;
+      position: relative;
+      &:hover{
+        .v-btn{
+          background: #fff;
+          transition: all 0.3s ease;
 
+        }
+      }
+
+      .v-btn{
+        height: 40px !important;
+        background: #AAE73E;
+        border-radius: 10px;
+        width: 100px;
+        transition: all 0.3s ease;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        @include breakpoint(medium) {
+          left: 20px;
+          bottom: 30px;
+        }
+        i{
+          width: 25px;
+          height: 25px;
+          background: #000;
+          border-radius: 50px;
+          line-height: 25px;
+          margin-left: 10px;
+          margin-top: 1px;
+        }
+        span{
+          position: relative;
+          font-weight: 800
+        }
+
+
+      }
 
     img{
       width: 100%;
@@ -1253,39 +1298,10 @@ export default {
 
     }
 
-    }
-    .btn{
-      height: 40px !important;
-      background: #AAE73E;
-      border-radius: 10px;
-      width: 100px;
-      transition: all 0.3s ease;
-      position: absolute;
-      left: 10px;
-      bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      @include breakpoint(medium) {
-        left: 20px;
-        bottom: 30px;
-      }
-      i{
-        width: 25px;
-        height: 25px;
-        background: #000;
-        border-radius: 50px;
-        line-height: 25px;
-        margin-left: 10px;
-        margin-top: 1px;
-      }
-      span{
-        position: relative;
-        font-weight: 800
-      }
 
 
     }
+
   }
 }
 ::v-deep {

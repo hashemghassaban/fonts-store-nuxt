@@ -208,14 +208,15 @@ export default {
     async saveCheckout() {
       this.loading = true;
       let body = {
-        'method':this.selectedPaymethod,
-        'payment_method_id': this.selectedGateway,
+        ...(this.selectedPaymethod !== 4 && {'payment_method_id':this.selectedGateway}),
+        'method': this.selectedPaymethod,
       }
       try {
         const { action, id } = await cartService.saveCheckoutDetail(body)
         this.loading = false;
+
         if (action) window.location.href = action
-        else this.$router.push(`profile/order/${id}`)
+        else this.$router.push(`successBuy?id=${id}&licence=${id}`)
 
 
       } catch (error) {  this.loading = false;}

@@ -24,7 +24,7 @@
     <nuxt-link to="/product/detail/123">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
-      <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer || items?.discount_percent !== 0) " >
+      <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
         <img src="~/assets/img/icon/star.png" alt="">
         <span>{{ typeProduct === 'product' || typeProduct === 'noProduct' ? items?.lowest_price?.offer_percent:  items?.discount_percent + '%'}}</span>
       </div>

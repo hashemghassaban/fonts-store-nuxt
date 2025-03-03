@@ -137,7 +137,6 @@ export default {
     async getPost() {
       try {
         const res = await postService.getPost()
-        this.posts = res?.entity?.posts?.data
         this.pagination.totalPages = Math.ceil(
           this.posts.length / this.pagination.pageSize
         );

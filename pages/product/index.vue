@@ -76,23 +76,17 @@
         </div>
         <div class="productMain-lists-block">
           <div class="latest-font-block">
-            <div class="box">
-              <Product :typeProduct="'product'"/>
+            <div class="box" v-for="(item, i) in product" >
+              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
             </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'product'"/>
-            </div>
+
           </div>
           <v-pagination
             v-model="page"
-            :length="5"
+            :length="Math.ceil(totalItems / itemsPerPage)"
+            :total-visible="7"
             class="my-4"
+            @input="getProductAll"
           ></v-pagination>
         </div>
       </section>
@@ -116,6 +110,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
+import { productService } from '~/services'
 
 
 export default {
@@ -145,17 +140,42 @@ export default {
       itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
       filter: 'جدیدترین',
       page: 1,
-      category:[]
+      itemsPerPage: 10,
+      totalItems: 0,
+      category:[],
+      product:[]
 
     }
   },
+  watch: {
+    itemsPerPage(newVal) {
+      this.page = 1 // Reset page when itemsPerPage changes
+      this.getProductAll()
+    }
+  },
   methods: {
+    refreshData(newValue) {
+      if(newValue ){
+        this.getProductAll()
+      }
 
+    },
+    async getProductAll() {
+      try {
+        const product = await productService.getProductAll()
+        this.product = product?.entity?.data
+        this.totalItems = product?.entity?.total
 
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+      }
+    },
 
   },
   mounted() {
     this.category = this.$store.state.categories
+    this.getProductAll();
+
   }
 };
 </script>
@@ -417,6 +437,11 @@ export default {
     }
   }
 
+}
+::v-deep {
+  .v-pagination {
+    margin: 0 0 100px;
+  }
 }
 
 </style>
