@@ -4,69 +4,37 @@
       <Loading v-if="loading" />
       <section class="category">
         <div class="title">
-          <div class="icon">
-            <SvgIcon
-              name="post"
-              color="#F15A24"
-              size="1.3rem"
-              className="rounded-full"
-            />
-          </div>
-          <h2 class="text">لاینومگ</h2>
+          <h2 class="text">طراحان</h2>
         </div>
-
-
       </section>
       <section class="productMain-lists">
-        <div class="productMain-lists-filter">
-          <div class="searchBlock">
-            <form @submit.prevent="handleSearch">
-              <v-text-field
-                v-model.trim="searchText"
-                dense
-                filled
-                rounded
-                clearable
-                placeholder="جستجو اسم فونت"
-                prepend-inner-icon="mdi-magnify"
-                class="pt-6 shrink expanding-search"
-              ></v-text-field>
-            </form>
-          </div>
-          <div class="filter">
-            <v-select
-              :items="itemsFilter"
-              v-model="sort"
-              label="به ترتیب"
-              outlined
-              item-text="name"
-              item-value="value"
-            >
-              <template #prepend-inner>
-                <SvgIcon
-                  name="filter"
-                  color="#969696"
-                  size="1.3rem"
-                  className="rounded-full"
-                />
-              </template>
-            </v-select>
-          </div>
-        </div>
-        <div class="productMain-lists-block">
+        <div class="productMain-lists-block"  v-if="designer?.length > 0">
           <div class="latest-font-block">
-            <div class="box"  v-for="(item, i) in (posts)">
-              <Post :items="item" />
+            <div class="box" v-for="(item, i) in designer" >
+                <nuxt-link :to="`/designer/detail/`+ item.id" class="designer">
+                  <div class="photo">
+                    <img :src="item.icon_url" :alt="item.title">
+                  </div>
+                  <div class="name">{{item.title}}</div>
+                </nuxt-link>
             </div>
+
           </div>
           <v-pagination
             v-model="page"
             :length="Math.ceil(totalItems / itemsPerPage)"
             :total-visible="7"
             class="my-4"
-            @input="getPost"
+            @input="getDesigner"
           ></v-pagination>
         </div>
+        <div class="productMain-lists-block not-pro"  v-else>
+          <img src="~/assets/img/icon/not-pro.png" alt="not pro">
+          <span>  دسته ای یافت نشد</span>
+        </div>
+      </section>
+      <section class="productMain-banner">
+        <img src="~/assets/img/banner/about.jpg" alt="">
       </section>
       <section class="type-font">
         <h3>فونت فارسی</h3>
@@ -74,16 +42,18 @@
         <h3>انواع فونت فارسی</h3>
         <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
-
     </div>
   </client-only>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
-import { postService  } from '~/services'
+import { designerService } from '../../services'
 
 
 export default {
@@ -103,67 +73,61 @@ export default {
   ],
   components: {
     SvgIcon,
+    VueSlickCarousel,
     TextInput,
     SelectInput
   },
   data () {
     return {
-      loading: false,
-      searchText: '',
-      itemsFilter: [
-        { name: 'پربازدید ترین', value: 1 },
-        { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
-        { name: 'جدیدترین', value: 4 },
-        { name: 'ارزانترین', value: 5 },
-        { name: 'گرانترین', value: 6 }
-      ],
-      sort: 1,
-      page:1,
-      posts:[],
+      page: 1,
+      loading:false,
       itemsPerPage: 10,
       totalItems: 0,
+      designer:[],
+
     }
   },
+
   watch: {
     itemsPerPage(newVal) {
       this.page = 1 // Reset page when itemsPerPage changes
-      this.getPost()
+      this.getDesigner()
     },
-    sort(newVal) {
-      setTimeout(()=>{
-        this.getPost(this.params.category , newVal)
 
-      },1000)
+  },
+  computed: {
+
+    params() {
+      return this.$route.query
     },
+
   },
   methods: {
-    handleSearch(){
-      this.getPost(this.sort)
-    },
-    async getPost(sort) {
-      this.loading= true
-      const data = {
-        sort : sort,
-        ...(this.searchText.length > 0  && {
-          search: this.searchText,
-        })
+    refreshData(newValue) {
+      if(newValue ){
+        this.getDesigner()
       }
-      try {
-        const res = await postService.getPost(data)
-        setTimeout(() => {
-          this.posts = res?.entity?.posts?.data
-          this.totalItems = res?.entity?.posts?.total
 
-          this.loading= false
-        }, 2000);
+    },
+    async getDesigner() {
+      this.loading=true
+      try {
+        const designer = await designerService.getDesigner()
+        this.designer = designer?.entity?.data
+        this.totalItems = designer?.entity?.total
+        this.loading=false
+
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        console.error('خطا در دریافت محصول:', error)
+        this.loading=false
       }
     },
+
   },
   mounted() {
-    this.getPost(this.sort)
+    this.category = this.$store.state.categories
+    this.getDesigner();
+
   }
 };
 </script>
@@ -172,49 +136,10 @@ export default {
 .productMain{
   padding: 0 0;
   @include breakpoint(medium) {
-    padding: 50px 10%;
+    padding: 0 10%;
   }
   &-lists{
-    padding: 50px 5%;
-    &-filter{
-      display: flex;
-      justify-content: space-between;
-      .filter{
-        width: 130px;
-        @include breakpoint(medium) {
-          width: 250px;
-        }
-
-        .v-input{
-          border-radius: 10px;
-          width: 150px;
-          font-size: 15px;
-          @include breakpoint(medium) {
-            width: 248px;
-            font-size: 12px;
-          }
-          ::v-deep{
-            .v-icon{
-              display: none;
-            }
-            .v-input__slot{
-              min-height: 51px;
-              height: 51px;
-            }
-          }
-
-
-        }
-      }
-    }
-    .searchBlock{
-      position: relative;
-      z-index: 1;
-      width: 200px;
-      @include breakpoint(medium) {
-        width: 650px;
-      }
-    }
+    padding: 0 5%;
     .expanding-search {
       transition: max-width 0.3s ease-in-out;
       background: rgb(255 255 255)!important;
@@ -248,11 +173,64 @@ export default {
       }
 
     }
-    &-block{
-
+  }
+  .not-pro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px 0;
+    width: 100%;
+    margin: 60px auto 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    span{
+      font-weight: 800;
+      color: #ff7a00 !important;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+  &-banner{
+    height: 250px;
+    width: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    margin: auto;
+    @include breakpoint(medium) {
+      height: 500px;
+    }
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: fill;
     }
   }
 
+}
+.designer{
+  border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
+  display: block;
+  .photo{
+    height: 300px;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .name{
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    line-height: 40px;
+    font-weight: 800;
+    background: #535353;
+  }
 }
 .latest-font{
   padding: 50px 5%;
@@ -268,13 +246,13 @@ export default {
     margin-top: 50px;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 15px;
+    gap: 20px;
     .box{
-      max-width: 47%;
-      flex: 47%;
+      max-width: 100%;
+      flex: 100%;
       @include breakpoint(medium) {
-        max-width: 24%;
-        flex: 24%;
+        max-width:23.3%;
+        flex: 24.3%;
       }
     }
   }
@@ -286,7 +264,7 @@ export default {
   @include breakpoint(medium) {
     padding: 0 ;
     margin-bottom: 100px;
-    margin-top: 0px;
+    margin-top: 100px;
   }
   h3{
     color: #535353;
@@ -306,6 +284,11 @@ export default {
     }
   }
 
+}
+::v-deep {
+  .v-pagination {
+    margin: 0 0 100px;
+  }
 }
 
 </style>

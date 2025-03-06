@@ -1,6 +1,15 @@
 import { apiService } from './api'
 
 class ProfileService {
+  async getProfile() {
+    try {
+      const response = await apiService.get(`/api/v1/users/profile`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
   async getWallets(id) {
     try {
       const response = await apiService.get(`/api/v1/users/transactions/wallet`)
@@ -30,7 +39,11 @@ class ProfileService {
   }
   async saveProfile(data) {
     try {
-      const response = await apiService.post(`/api/v1/users/profile` , data)
+      const response = await apiService.post(`/api/v1/users/profile` , data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)

@@ -18,7 +18,8 @@ export default {
     token: null,
     isRegisterd: false,
     firstName:'',
-    lastName:''
+    lastName:'',
+    email:''
 
   }),
 
@@ -51,14 +52,14 @@ export default {
         code: this.otp,
         ...(this.isRegisterd === false && {
           firstName: this.firstName,
-          lastName: this.lastName
+          lastName: this.lastName,
+          email: this.email
         })
 
       }
   await authService.sendSMS(body)
      .then((res) => {
        this.loading = false;
-       console.log(res)
        this.token = res.token
        this.user = res.user
        this.loginUser()

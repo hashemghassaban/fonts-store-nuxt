@@ -13,9 +13,11 @@ export default {
     lastName:'',
     email:'',
     mobileNumber:'',
+    id:'',
     born:'',
     isValid: false,
     loading:false,
+    isEdit:false,
 
 
   }),
@@ -25,27 +27,62 @@ export default {
     TextInput,
     datePicker
   },
+
+
   methods: {
+    profile(newValue) {
+      if(newValue ){
+        console.log(newValue)
+        this.getProfile(newValue)
+      }
+
+    },
+    avatarUrl(newValue) {
+      if(newValue){
+        this.src = newValue
+      }
+
+    },
     selectDate() {
       this.born = this.$refs.datePicker.displayValue
     },
     async saveProfile() {
-      this.loading=true
+      const formData = new FormData();
       let body = {
-        'full_name':this.firstName +''+ this.lastName,
+        'id':this.id,
         'mobile':this.mobileNumber,
         'email':this.email,
         'birth_at':this.born,
+        'avatar_url':this.src,
+        "name":this.firstName,
+        "family":this.lastName,
+        'type':1
+
       }
+      // اضافه کردن فیلدهای ساده
+      Object.keys(body).forEach(key => {
+        formData.append(key, body[key]);
+      });
+      this.loading=true
+
       if(this.isValid)
         try {
-        await profileService.saveProfile(body)
+        await profileService.saveProfile(formData)
           this.loading=false
         } catch (e) {
           if(e.response && e.response.data && e.response.data.errors) {
             this.errors = e.response.data.errors
           }
         }
+    },
+    async getProfile(data) {
+      console.log(data)
+      this.firstName = data?.name
+      this.lastName= data?.family
+      this.mobileNumber =data?.mobile
+      this.email =data?.email
+      this.born = data?.birth_at
+      this.id = data?.id
     },
 
   }

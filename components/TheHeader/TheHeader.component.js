@@ -99,17 +99,8 @@ export default {
 
             },],
 
-
-
-
         ],
-
-
       },
-
-
-
-
     ],
     searchText: '',
     menu:[{
@@ -129,6 +120,10 @@ export default {
     },
   },
   methods: {
+    handleSearch(){
+      this.$router.push('/product?search=' + this.searchText)
+      this.showSearch = false
+    },
     async getCart() {
 
       try {
@@ -155,6 +150,7 @@ export default {
     openSearch() {
       this.showSearch = true
     },
+
   },
 mounted() {
   this.menuItems = this.$store.state.categories

@@ -326,8 +326,15 @@ export default {
   data () {
     return {
       searchText: '',
-      itemsFilter: ['پربازدید ترین', 'پرفروش ترین', 'محبوب ترین', 'جدیدترین','ارزانترین','گرانترین'],
-      filter: 'جدیدترین',
+      itemsFilter: [
+        { name: 'پربازدید ترین', value: 1 },
+        { name: 'پرفروش ترین', value: 2 },
+        { name: 'محبوب ترین', value: 3 },
+        { name: 'جدیدترین', value: 4 },
+        { name: 'ارزانترین', value: 5 },
+        { name: 'گرانترین', value: 6 }
+      ],
+      filter: 1,
       page: 1,
       dialogVideo:false,
       videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -412,11 +419,9 @@ this.dialogAddComment = true,
       let body = isReply ? {
         comment : this.bodyComment,
         parent_id: this.selectId?.parent_id,
-        reply :  this.selectId?.id
       } : {
         comment :  this.description,
         parent_id: null,
-        reply :  {}
       }
       try {
         const res = await postService.postComment(this.currentPath ,  body)

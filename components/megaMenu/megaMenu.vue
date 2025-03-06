@@ -25,17 +25,17 @@
             <div class="mega-menu-container" >
               <div class="block">
                <div v-for="(items, d) in menuLink" :key="d"  class="box">
-                 <div class="title" >
+                 <nuxt-link :to="'/categories/'+items.id" class="title" >
                    <img :src="getImgUrl(titleBlock[d].pic)" :alt="items?.name" />
                    <span>{{items?.name}}</span>
-                 </div>
+                 </nuxt-link>
                 <ul class="parent-link" >
                   <li v-for="(childrenItem, index) in items.children" :key="index">
-                    <nuxt-link :to="'product?category='+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
+                    <nuxt-link :to="'/categories/detail/'+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
                   </li>
                   <li>
                     <nuxt-link
-                      :to="'/product?categor='+items?.id"
+                      :to="'/categories/'+items.id"
                       class="nav-link">
                       <SvgIcon
                         name="arrow"
@@ -220,11 +220,19 @@ export default {
           &:last-child{
             position: absolute;
             bottom: 30px;
+            a{
+              &:hover{
+                color: #ff5722!important;
+
+              }
+            }
+
           }
         }
         a{
           color: #A1A1A1!important;
           font-size: 20px!important;
+
         }
       }
 

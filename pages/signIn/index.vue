@@ -44,6 +44,13 @@
             validators="subject"
             v-if="isRegisterd === false"
             class="my-2"
+            v-model="email"
+            label=" ایمیل "
+          />
+          <TextInput
+            validators="subject"
+            v-if="isRegisterd === false"
+            class="my-2"
             v-model="firstName"
             label=" نام "
           />

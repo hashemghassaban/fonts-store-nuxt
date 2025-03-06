@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <Loading v-if="loading" />
     <div class="profile-info">
       <div class="info-top">
         <div class="avatar-user">
@@ -33,7 +34,7 @@
 
 
 
-          هاشم قصابان
+         {{this.profile.full_name !== " " ?  this.profile.full_name : 'نام کاربری'}}
           <SvgIcon
             name="edit"
             color=#000
@@ -48,11 +49,11 @@
         <ul class="information">
           <li>
             <b>شماره تماس : </b>
-            <span>+98 912 111 22 33</span>
+            <span>{{this.profile.mobile}}</span>
           </li>
           <li>
             <b>ایمیل : </b>
-            <span>Ebrahimi@gmail.com   </span>
+            <span>{{this.profile.email}}</span>
           </li>
         </ul>
       </div>
@@ -83,23 +84,38 @@
 </template>
 
 <script>
+import { profileService  } from '~/services'
+
 export default {
   data: () => ({
     drawerPage: false,
     avatarUrl: null,
-
-
+    profile:'',
+    loading:false,
     items: [
       { text: 'سفارش ها', link: '/page/order' , action:''},
       { text: 'کیف پول من', link: '/page/wallet' , action:''},
       { text: 'فونت های مورد علاقه', link: '/page/favorite', action:'' },
       { text: 'خروج', link: '', action:'logout' },
-
-
     ],
   }),
 
+  created() {
+    this.getProfile()
+  },
   methods: {
+    async getProfile() {
+      this.loading = false
+      try {
+        let res = await profileService.getProfile()
+        this.profile = res.entity
+        this.avatarUrl = res.entity?.avatar_url
+        this.loading = false
+        this.$emit('profile', this.profile);
+        this.$emit('avatarUrl', this.avatarUrl);
+
+      } catch (error) {}
+    },
     triggerUpload() {
       this.$refs.fileInput.click()
     },
@@ -120,6 +136,8 @@ export default {
       }
     }
   },
+  mounted() {
+  }
 }
 </script>
 
@@ -347,6 +365,7 @@ export default {
     @include breakpoint(small) {
       line-height: 145px;
       min-width: 145px;
+      max-width: 145px;
       height: 145px;
     }
     i{

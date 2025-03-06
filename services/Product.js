@@ -1,9 +1,9 @@
 import { apiService } from './api'
 
 class ProductService {
-  async getProductAll(id) {
+  async getProductAll( data) {
     try {
-      const response = await apiService.get(`/api/v1/products`)
+      const response = await apiService.post(`/api/v1/products`,data)
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)

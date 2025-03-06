@@ -16,13 +16,14 @@
         </div>
         <div class="category-block">
           <div class="col-3" v-for="(item, i) in (category)?.slice(0, 4)" :key="i">
-            <div  class="box" @click="changeCategory(item.id)">
+              <div  class="box" @click="changeCategory(item.id)">
               <div class="count">+{{item.products_count}}</div>
               <div class="icon">
                 <img
                   :src="require(`~/assets/img/element/box0${i+1}.png`)"
                   alt=""
                 />
+
               </div>
               <div class="text">
                 <span>{{item.name}}</span>
@@ -32,25 +33,30 @@
                   size="1.3rem"
                   className="rounded-full"
                 /></button>
+
               </div>
-            </div>
+              </div>
+
           </div>
+
+
         </div>
+
       </section>
       <section class="productMain-lists">
         <div class="productMain-lists-filter" v-if="product?.length > 0">
-          <div class="searchBlock">
+          <div class="searchBlock" >
             <form @submit.prevent="handleSearch">
-            <v-text-field
-              v-model.trim="searchText"
-              dense
-              filled
-              rounded
-              clearable
-              placeholder="جستجو اسم فونت"
-              prepend-inner-icon="mdi-magnify"
-              class="pt-6 shrink expanding-search"
-            ></v-text-field>
+              <v-text-field
+                v-model.trim="searchText"
+                dense
+                filled
+                rounded
+                clearable
+                placeholder="جستجو اسم فونت"
+                prepend-inner-icon="mdi-magnify"
+                class="pt-6 shrink expanding-search"
+              ></v-text-field>
             </form>
           </div>
           <div class="filter">
@@ -85,13 +91,13 @@
             :length="Math.ceil(totalItems / itemsPerPage)"
             :total-visible="7"
             class="my-4"
-            @input="getProductAll"
+            @input="getCategory"
           ></v-pagination>
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
 
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
-          <span>  محصولی ای یافت نشد</span>
+          <span>  دسته ای یافت نشد</span>
         </div>
       </section>
       <section class="productMain-banner">
@@ -114,7 +120,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
-import { productService } from '~/services'
+import { categoryService } from '~/services'
 
 
 export default {
@@ -150,8 +156,8 @@ export default {
         { name: 'گرانترین', value: 6 }
       ],
       sort: 1,
-      loading:false,
       page: 1,
+      loading:false,
       itemsPerPage: 10,
       totalItems: 0,
       category:[],
@@ -159,67 +165,75 @@ export default {
 
     }
   },
+
   watch: {
-    '$route.query.search': {
-      handler(newVal) {
-        if (newVal) {
-          this.searchText = newVal
-          this.getProductAll()
-        }
-      },
-      immediate: true
-    },
     itemsPerPage(newVal) {
       this.page = 1 // Reset page when itemsPerPage changes
       this.getProductAll()
     },
     sort(newVal) {
       setTimeout(()=>{
-        this.getProductAll(newVal)
+        this.getCategory(this.params.category , newVal)
 
-      },500)
-    }
+      },1000)
+    },
+
+
+  },
+  computed: {
+
+    params() {
+      return this.$route?.params?.slug
+    },
+
   },
   methods: {
     handleSearch(){
-      this.getProductAll(this.sort)
+      this.getCategory(this.sort)
     },
     changeCategory(id){
-      this.$router.push('/categories/' + id)
-      this.getProductAll( 1);
+      this.$router.push('/categories/'+id)
     },
     refreshData(newValue) {
       if(newValue ){
-        this.getProductAll()
+        this.getCategory(this.sort)
       }
-
     },
-    async getProductAll(sort) {
-      this.loading = true;
-
+    async getCategory(id , sort) {
+      this.loading=true
       const data = {
         sort : sort,
+        category : this.params,
         ...(this.searchText.length > 0  && {
           search: this.searchText,
         })
       }
       try {
-        const product = await productService.getProductAll(data)
+        const product = await categoryService.getCategory(id , data)
         this.product = product?.entity?.data
         this.totalItems = product?.entity?.total
-        this.loading = false;
-
+        this.loading=false
       } catch (error) {
-        this.loading = false;
         console.error('خطا در دریافت محصول:', error)
+        this.loading=false
       }
     },
+    async getCategoryAll() {
+      this.loading=true
+      try {
+        const product = await categoryService.getCategoryAll()
+        this.category = product?.entity
 
+        this.getCategory(this.params , 1);
+
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+        this.loading=false
+      }
+    },
   },
   mounted() {
-    this.category = this.$store.state.categories
-    this.getProductAll();
-
+    this.getCategoryAll()
   }
 };
 </script>
@@ -231,6 +245,7 @@ export default {
     display: flex;
     margin-top: 50px;
     padding: 0 ;
+    justify-content: flex-start;
     flex-wrap: wrap;
     .col-3{
       width: 50%;
@@ -412,6 +427,22 @@ export default {
 
     }
   }
+  .not-pro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px 0;
+    width: 100%;
+    margin: 60px auto 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    span{
+      font-weight: 800;
+      color: #ff7a00 !important;
+      margin-top: 15px;
+      text-align: center;
+  }
+  }
   &-banner{
     height: 250px;
     width: 90%;
@@ -427,22 +458,6 @@ export default {
       height: 100%;
       object-fit: fill;
     }
-  }
-}
-.not-pro{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 100px 0;
-  width: 100%;
-  margin: 60px auto 100px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  span{
-    font-weight: 800;
-    color: #ff7a00 !important;
-    margin-top: 15px;
-    text-align: center;
   }
 }
 .latest-font{

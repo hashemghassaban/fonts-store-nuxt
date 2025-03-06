@@ -21,7 +21,7 @@
       />
 
     </v-btn>
-    <nuxt-link to="/product/detail/123">
+    <nuxt-link :to="'/product/detail/'+items?.id ">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
@@ -46,10 +46,6 @@
     <div class="title">
     <h3>  {{items?.name || items?.product?.name}}</h3>
       <div class="type" v-if=" typeProduct === 'cart'">
-<!--        <img-->
-<!--          :src="require(`~/assets/img/icon/version-${items?.product?.rate ? items?.product?.rate : items?.rate }.png`)"-->
-<!--          alt=""-->
-<!--        />-->
         <b>نسخه پایه</b>
         <span> 3 وزن </span>
       </div>

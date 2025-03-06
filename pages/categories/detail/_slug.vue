@@ -1,7 +1,6 @@
 <template>
   <client-only>
     <div>
-      <Loading v-if="loading" />
 
     <div class="productDetail py-10">
       <section class="productDetail-banner">
@@ -9,7 +8,7 @@
         <v-carousel
           cycle
           class="carouselMain-desktop"
-          height="500px"
+          height="580px"
 
         >
           <v-carousel-item v-for="(slide, i) in product?.images" :key="i">
@@ -120,7 +119,7 @@
         </div>
         <div class="info-creator">
           <h3> {{product?.designer?.full_name}}</h3>
-          <p>{{product?.designer?.description}}</p>
+          <p>{{product?.designer?.avatar_url}}</p>
         </div>
 
       </section>
@@ -170,10 +169,10 @@ export default {
         { name: 'ارزانترین', value: 5 },
         { name: 'گرانترین', value: 6 }
       ],
-      filter: 'جدیدترین',
+      filter: 1,
       page: 1,
       product:[],
-      loading:false,
+
 
 
     }
@@ -194,19 +193,14 @@ export default {
       });
     },
     async getProduct(id) {
-      this.loading = true
       try {
         const product = await productService.getProduct(id)
         this.product = product?.entity?.product
-        this.loading = false
       } catch (error) {
-        this.loading = false
-
         console.error('خطا در دریافت محصول:', error)
       }
     },
     async addToCart(pro) {
-
       let body = {
         product_price: pro.id,
       };

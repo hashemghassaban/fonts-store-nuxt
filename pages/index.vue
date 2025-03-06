@@ -15,7 +15,7 @@
       v-else
     >
       <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
-        <nuxt-link :to="'/'">
+        <nuxt-link :to="slide?.link !== null ?slide?.link  :'/'" >
           <v-sheet height="100%">
             <div class="slide-back">
               <img
@@ -47,7 +47,7 @@
       v-else
     >
       <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
-        <nuxt-link :to="'/'">
+        <nuxt-link :to="slide?.link !== null ?slide?.link  :'/'" >
           <v-sheet height="100%">
             <div class="slide-back">
               <img
@@ -90,7 +90,11 @@
         </div>
         <div class="category-block" v-else>
           <div class="col-3" v-for="(item, i) in (dataResult?.categories)?.slice(0, 4)" :key="i">
+            <nuxt-link :to="'/categories/' + item.id" >
             <div class="box">
+
+
+
               <div class="count">+{{item.products_count}}</div>
               <div class="icon">
                 <img
@@ -110,6 +114,7 @@
 
               </div>
             </div>
+            </nuxt-link>
 
           </div>
 
@@ -159,7 +164,7 @@
         <div class="banners-block" v-else>
           <div class="banners-box" v-for="(item, i) in dataResult?.slids?.side" >
             <div class="box">
-              <nuxt-link to="/product" >
+              <nuxt-link :to="item?.link !== null ?item?.link  :'/'" >
                 <img :src="item.mobile_image_url" alt="">
                 <v-btn>
                   <SvgIcon
@@ -279,7 +284,7 @@
       </section>
 <section class="designer" >
   <h2>طراحان</h2>
-  <nuxt-link to="/" class="show-More">
+  <nuxt-link to="/designer" class="show-More">
     همه </nuxt-link>
   <div v-if="loadingPage" class="loading-box">
     <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
@@ -292,7 +297,7 @@
   <div v-else>
     <VueSlickCarousel v-bind="settingsDesigner" v-if="dataResult?.collections?.length > 0"  ref="carousel" >
       <div v-for="(item, i) in  dataResult?.collections" :key="i" class="product">
-        <div class="product-data">
+        <nuxt-link :to="'/designer/detail/'+item.id" class="product-data">
           <div
             class="pro-pic brand-logo"
           >
@@ -313,7 +318,7 @@
             </div>
             <h3>{{ item.title }}</h3>
           </div>
-        </div>
+        </nuxt-link>
       </div>
 
     </VueSlickCarousel>
@@ -594,6 +599,8 @@ export default {
       try {
        await homeService.newsLetter(body)
         this.newsLoading = false;
+        this.$toast.success(' ایمیل شما با موفقیت ثبت گردید.')
+
       } catch (error) {
         this.newsLoading = false;
 
@@ -954,7 +961,7 @@ export default {
     margin-top: 50px;
     padding: 0;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 15px;
     @include breakpoint(medium) {
       padding: 0 10%;
@@ -963,8 +970,8 @@ export default {
       max-width: 100%;
       flex: 100%;
       @include breakpoint(medium) {
-        max-width: 48%;
-        flex: 48%;
+        max-width: 50%;
+        flex: 49%;
       }
     }
   }
@@ -1239,8 +1246,8 @@ export default {
       height: 200px;
       position: relative;
       @include breakpoint(medium) {
-        width: 366px;
-        height: 366px;
+        width: 100%;
+        height:  100%;
       }
 
     }

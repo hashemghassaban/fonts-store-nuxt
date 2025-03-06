@@ -2,8 +2,10 @@
 import { apiService } from './api'
 
 class PostService {
-  async getPost() {
-    const response = await apiService.get('/api/v1/posts')
+  async getPost(data) {
+    const response = await apiService.get('/api/v1/posts',{
+      params: data
+    })
     return response.data
   }
   async getPostDetail(id) {

@@ -4,60 +4,16 @@
       <Loading v-if="loading" />
 
     <div class="productDetail py-10">
-      <section class="productDetail-banner">
+      <section class="creator">
+        <div class="pic">
+          <img :src=" designer?.designer?.avatar_url" :alt="designer?.designer?.full_name">
+          <h3> {{designer?.designer?.full_name}}</h3>
+        </div>
+        <div class="info-creator">
+          <h3> {{designer?.designer?.full_name}}</h3>
+          <p>{{designer?.designer?.description}}</p>
+        </div>
 
-        <v-carousel
-          cycle
-          class="carouselMain-desktop"
-          height="500px"
-
-        >
-          <v-carousel-item v-for="(slide, i) in product?.images" :key="i">
-            <nuxt-link :to="slide?.full_url">
-              <v-sheet height="100%">
-                <div class="slide-back">
-                  <img
-                    :src="
-
-                      slide?.full_url +
-                      '?width=auto&height=300'
-                    "
-
-                    alt="banner"
-                    height="100%"
-                    class="desktop"
-                  />
-                </div>
-              </v-sheet>
-            </nuxt-link>
-          </v-carousel-item>
-        </v-carousel>
-        <v-carousel
-          cycle
-          class="carouselMain-mobile"
-          height="250px"
-
-        >
-          <v-carousel-item v-for="(slide, i) in  product?.images" :key="i">
-            <nuxt-link :to="slide.full_url">
-              <v-sheet height="100%">
-                <div class="slide-back">
-                  <img
-                    :src="
-
-                      slide.full_url +
-                      '?width=auto&height=300'
-                    "
-
-                    alt="banner"
-                    height="100%"
-                    class="desktop"
-                  />
-                </div>
-              </v-sheet>
-            </nuxt-link>
-          </v-carousel-item>
-        </v-carousel>
       </section>
       <section class="productDetail-description" >
         <div class="head-pro">
@@ -113,19 +69,8 @@
         <p v-html="product.description"></p>
       </section>
     </div>
-      <section class="creator">
-        <div class="pic">
-          <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
-          <h3> {{product?.designer?.full_name}}</h3>
-        </div>
-        <div class="info-creator">
-          <h3> {{product?.designer?.full_name}}</h3>
-          <p>{{product?.designer?.description}}</p>
-        </div>
-
-      </section>
       <section class="type-font">
-        <p>{{product.short_description_2}}</p>
+        <p v-html="product.short_description_2"></p>
       </section>
 
     </div>
@@ -161,18 +106,10 @@ export default {
   },
   data () {
     return {
-      searchText: '',
-      itemsFilter: [
-        { name: 'پربازدید ترین', value: 1 },
-        { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
-        { name: 'جدیدترین', value: 4 },
-        { name: 'ارزانترین', value: 5 },
-        { name: 'گرانترین', value: 6 }
-      ],
-      filter: 'جدیدترین',
+      filter: 1,
       page: 1,
       product:[],
+      designer:[],
       loading:false,
 
 
@@ -193,20 +130,23 @@ export default {
         inline: 'center'
       });
     },
-    async getProduct(id) {
-      this.loading = true
+    async getProductAll() {
+      this.loading = true;
+      const data = {
+        collection : this.currentPath,
+      }
       try {
-        const product = await productService.getProduct(id)
-        this.product = product?.entity?.product
-        this.loading = false
-      } catch (error) {
-        this.loading = false
+        const product = await productService.getProductAll(data)
+        this.product = product?.entity?.data[0]
+        this.designer = product?.entity?.data[0]
+        this.loading = false;
 
+      } catch (error) {
+        this.loading = false;
         console.error('خطا در دریافت محصول:', error)
       }
     },
     async addToCart(pro) {
-
       let body = {
         product_price: pro.id,
       };
@@ -229,7 +169,7 @@ export default {
     },
   },
   mounted() {
-    this.getProduct(this.currentPath);
+    this.getProductAll(this.currentPath);
 
 
   }
@@ -528,6 +468,7 @@ export default {
   padding: 28px 5%;
   background: #EEE;
   flex-direction: column;
+  border-radius: 10px;
   @include breakpoint(medium) {
     flex-direction: row;
     padding: 70px 15%;

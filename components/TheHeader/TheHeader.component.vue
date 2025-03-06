@@ -38,7 +38,7 @@
               ><!--FIRST DROPDOWN-->
                 <template v-slot:activator>
                   <v-list-item
-                    to="/home"
+                    to="/categories"
                     class="parent-link">
                     <v-list-item-title>دسته بندی ها</v-list-item-title>
                   </v-list-item>
@@ -51,9 +51,7 @@
                   <v-list-group sub-group >
                     <template v-slot:activator>
                       <v-list-item
-                        to="
-                      '/categories/'
-                    "
+                        :to="'/categories/'+child.id"
                       >
                         <v-list-item-title>{{ child.name }}</v-list-item-title>
                       </v-list-item>
@@ -65,10 +63,8 @@
                       class="latest-child"
                     >
                       <v-list-item
+                     :to="'/categories/detail/'+grandchild.id"
 
-                        to="
-                     /home
-                    "
                       >
                         <v-list-item-title>{{ grandchild.name }}</v-list-item-title>
                       </v-list-item>
@@ -146,16 +142,19 @@
       <div class="search-box" :class="showSearch ? 'showSearch' : ''">
     <v-icon  @click="showSearch = false"  >mdi mdi-close</v-icon>
 <div class="searchBlock">
-  <v-text-field
-    v-model.trim="searchText"
-    dense
-    filled
-    rounded
-    clearable
-    placeholder="جستجو"
-    prepend-inner-icon="mdi-magnify"
-    class="pt-6 shrink expanding-search"
-  ></v-text-field>
+
+  <form @submit.prevent="handleSearch">
+    <v-text-field
+      v-model.trim="searchText"
+      dense
+      filled
+      rounded
+      clearable
+      placeholder="جستجو"
+      prepend-inner-icon="mdi-magnify"
+      class="pt-6 shrink expanding-search"
+    ></v-text-field>
+  </form>
 </div>
       </div>
 
