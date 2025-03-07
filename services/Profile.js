@@ -39,17 +39,24 @@ class ProfileService {
   }
   async saveProfile(data) {
     try {
-      const response = await apiService.post(`/api/v1/users/profile` , data, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const response = await apiService.post(`/api/v1/users/profile` , data);
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)
       throw error
     }
   }
+
+  async chargeWallet(data) {
+    try {
+      const response = await apiService.post(`/api/v1//users/transactions/wallet` , data);
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
+
 }
 
 export const profileService = new ProfileService()

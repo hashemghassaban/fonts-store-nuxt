@@ -10,24 +10,37 @@
             <h2> سفارش های من</h2>
           </div>
           <div class="latest-font-block">
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
-            </div>
+            <v-data-table
+              :headers="headers"
+              :items="orders"
+              class="elevation-1 table-reference"
+              v-if="orders"
+              :loading="loading"
+              :search="search"
+              hide-default-footer
+            >
+              <template
+                v-slot:item.payment_method="{ item: { payment_method } }"
+              >
+                    <span>
+                      {{payment_method === 1 ? 'آنلاین' : 'کیف پول'}}</span
+                    >
+              </template>
+              <template
+                v-slot:item.full_name="{ item: { full_name } }"
+              >
+                    <span>
+                      {{
+                        full_name!== " "? full_name : '-'
+                      }}</span
+                    >
+              </template>
+
+              <template v-slot:no-data> داده ای یافت نشد </template>
+            </v-data-table>
+
           </div>
-          <v-pagination
-            v-model="page"
-            :length="5"
-            class="my-4"
-          ></v-pagination>
+
         </div>
       </div>
     </section>

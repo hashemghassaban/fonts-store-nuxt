@@ -15,9 +15,10 @@
       v-else
     >
       <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
-        <nuxt-link :to="slide?.link !== null ?slide?.link  :'/'" >
+        <a  :href="slide?.link !== null ? slide?.link  :'#'" >
           <v-sheet height="100%">
             <div class="slide-back">
+              {{slide?.link }}
               <img
                 :src="
 
@@ -31,7 +32,7 @@
               />
             </div>
           </v-sheet>
-        </nuxt-link>
+        </a>
       </v-carousel-item>
     </v-carousel>
     <div v-if="loadingPage" class="carouselMain-mobile-skeleton">

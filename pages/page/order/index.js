@@ -7,7 +7,28 @@ export default {
   name: 'profile',
   data: () => ({
     page: 1,
-    orders: []
+    orders: [],
+    loading:false,
+    search:'',
+    headers: [
+      {
+        text: 'نام و نام خانوادگی',
+        value: 'full_name',
+      },
+      {
+        text: 'شناسه سفارش',
+        value: 'tracking_code',
+      },
+      {
+        text: 'وضعیت سفارش',
+        value: 'status_text',
+      },
+      {
+        text: ' شیوه ارسال',
+        value: 'payment_method',
+      },
+
+    ],
 
   }),
   components: {
@@ -18,9 +39,10 @@ export default {
     this.getOrders()
   },
   methods: {
-    async getOrders(search) {
+    async getOrders() {
       try {
-        this.orders = await profileService.getOrders({ search })
+        let data = await profileService.getOrders()
+        this.orders = data.entity
       } catch (error) {}
     },
   },

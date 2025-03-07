@@ -47,27 +47,25 @@ export default {
       this.born = this.$refs.datePicker.displayValue
     },
     async saveProfile() {
-      const formData = new FormData();
+      // const formData = new FormData();
       let body = {
-        'id':this.id,
         'mobile':this.mobileNumber,
         'email':this.email,
         'birth_at':this.born,
-        'avatar_url':this.src,
+        // 'avatar_url':this.src,
         "name":this.firstName,
         "family":this.lastName,
-        'type':1
 
       }
-      // اضافه کردن فیلدهای ساده
-      Object.keys(body).forEach(key => {
-        formData.append(key, body[key]);
-      });
+      // // اضافه کردن فیلدهای ساده
+      // Object.keys(body).forEach(key => {
+      //   formData.append(key, body[key]);
+      // });
       this.loading=true
 
       if(this.isValid)
         try {
-        await profileService.saveProfile(formData)
+        await profileService.saveProfile(body)
           this.loading=false
         } catch (e) {
           if(e.response && e.response.data && e.response.data.errors) {
@@ -76,7 +74,6 @@ export default {
         }
     },
     async getProfile(data) {
-      console.log(data)
       this.firstName = data?.name
       this.lastName= data?.family
       this.mobileNumber =data?.mobile

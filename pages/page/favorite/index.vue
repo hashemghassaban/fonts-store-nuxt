@@ -12,15 +12,10 @@
           <div class="latest-font-block">
 
             <div class="box" v-for="(item, index) in favourites">
-              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
+              <Product :typeProduct="'favorite'" :items="item" @refreshData="refreshData"/>
             </div>
 
           </div>
-          <v-pagination
-            v-model="page"
-            :length="5"
-            class="my-4"
-          ></v-pagination>
         </div>
       </div>
     </section>

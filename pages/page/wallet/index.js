@@ -68,6 +68,23 @@ export default {
       if(this.transactions[0])
         this.last = this.transactions[0].cumulative_sum
     },
+    async chargeWallet(){
+      let body = {
+          "payment_method_id": 0,
+          "price":this.selectedAmount
+        }
+      try {
+        location.href = (
+          await profileService.chargeWallet(
+            body
+          )
+        )
+
+      }catch (e) {
+
+      }
+
+    }
   },
   mounted() {
     this.getData()

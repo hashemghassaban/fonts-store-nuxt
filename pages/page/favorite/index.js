@@ -6,7 +6,6 @@ import { profileService  } from '~/services'
 export default {
   name: 'profile',
   data: () => ({
-    page: 1,
     favourites:[]
 
   }),

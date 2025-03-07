@@ -3,7 +3,7 @@
 <div class="product-list">
 
   <div class="product-list-top" >
-    <v-btn icon class="heart" v-if="typeProduct !== 'profile'"
+    <v-btn icon class="heart" v-if="typeProduct !== 'profile' &&  typeProduct !== 'favorite'"
          @click="toggleHeart(items)">
       <SvgIcon
         name="heart1"
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="action-product" >
-      <v-btn icon  v-if="typeProduct === 'cart'"   @click="remove(items.id)">
+      <v-btn icon  v-if="(typeProduct === 'cart' || typeProduct === 'favorite')"   @click="remove(items.id , typeProduct)">
 
         <SvgIcon
 
@@ -63,7 +63,7 @@
         />
       </v-btn>
 
-      <v-btn v-if="typeProduct !== 'profile' && typeProduct !== 'cart'" @click="addToCart(items)" :loading="loading">
+      <v-btn v-if="typeProduct !== 'profile' && (typeProduct !== 'cart' && typeProduct !== 'favorite') " @click="addToCart(items)" :loading="loading">
         <SvgIcon
           name="arrow"
           color="#fff"
@@ -73,7 +73,7 @@
         <span>خرید</span>
       </v-btn>
       <p v-if=" typeProduct === 'profile'">نسخه 10.6 | 1403/06/03</p>
-      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || typeProduct !== 'profile'">
+      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || (typeProduct !== 'profile' && typeProduct !== 'favorite')">
         <div class="price-main">
           {{typeProduct === 'product' ? formatPrice(items?.lowest_price?.offer_price) : typeProduct === 'noProduct' ? formatPrice(items?.lowest_price?.price): formatPrice(items?.payable_price)}} ت
 
@@ -152,15 +152,29 @@ export default {
         this.loading = false;
       }
     },
-    async remove(id){
-      try {
-  await productService.removePro(id)
-        this.$emit('refreshData', true);
+    async remove(id , type){
+      if(type === 'cart'){
+        try {
+
+          await productService.removePro(id)
+          this.$emit('refreshData', true);
 
 
-      } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        } catch (error) {
+          console.error('خطا در دریافت کاربران:', error)
+        }
+      }else{
+        try {
+
+          await productService.dislikeProduct(id)
+          this.$emit('refreshData', true);
+
+
+        } catch (error) {
+          console.error('خطا در دریافت کاربران:', error)
+        }
       }
+
     },
 
   },

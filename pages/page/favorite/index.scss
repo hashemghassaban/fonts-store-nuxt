@@ -73,7 +73,16 @@
   }
 }
 .latest-font-block{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   .box{
     margin-bottom: 30px;
+    flex: 100%;
+    max-width: 100%;
+    @include breakpoint(medium) {
+      flex: 50%;
+      max-width: 49%;
+    }
   }
 }

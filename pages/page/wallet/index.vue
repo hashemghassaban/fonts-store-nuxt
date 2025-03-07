@@ -10,7 +10,7 @@
             <h2>افزایش اعتبار</h2>
           </div>
         <div class="wallet-block__box">
-          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : {{formatPrice(500000)}} ت
+          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : {{formatPrice(this.last)}} ت
          </h4>
 
           <div class="button-container">
@@ -60,7 +60,7 @@
 
           </div>
 
-          <button  class="payment-btn"   :disabled="!isValidForm">
+          <v-btn  class="payment-btn"   :disabled="!isValidForm" @click="chargeWallet()">
             <div class="icon">
               <SvgIcon
                 name="arrow"
@@ -70,7 +70,7 @@
               />
             </div>
             <span>افزایش اعتبار</span>
-          </button>
+          </v-btn>
 
         </div>
 
