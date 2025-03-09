@@ -154,6 +154,10 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     async applyCoupon(){
+      if(!this.authenticate){
+        this.$router.push('/signIn')
+        localStorage.setItem('lastUrL' , '/cart')
+      }else{
       if(this.discount === ""){
         this.$toast.error('فیلد کد تخفیف نباید خالی باشد', {
           timeout: 4000,
@@ -162,7 +166,7 @@ export default {
         this.loadingDiscount = true;
 
         let body = {
-          "discount":this.discount
+          "coupon":this.discount
         }
         try {
           await cartService.applyCoupon(body)
@@ -170,10 +174,9 @@ export default {
           this.loadingDiscount = false;
         } catch (error) {
           this.loadingDiscount = false;
-          console.error('خطا در دریافت کاربران:', error)
         }
       }
-
+      }
     },
     goToPayment(){
       if(!this.authenticate){

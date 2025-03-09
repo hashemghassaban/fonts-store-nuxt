@@ -14,6 +14,7 @@ export default {
     email:'',
     mobileNumber:'',
     id:'',
+    selectedDate:'',
     born:'',
     isValid: false,
     loading:false,
@@ -32,13 +33,14 @@ export default {
   methods: {
     profile(newValue) {
       if(newValue ){
-        console.log(newValue)
+        this.loading = true
         this.getProfile(newValue)
       }
 
     },
     avatarUrl(newValue) {
       if(newValue){
+        console.log(newValue)
         this.src = newValue
       }
 
@@ -46,27 +48,35 @@ export default {
     selectDate() {
       this.born = this.$refs.datePicker.displayValue
     },
+    getFormData(data, method) {
+      const form = new FormData()
+      for (const key in data) {
+        if (data[key] === null || data[key] === undefined) {
+          delete data[key]
+        } else form.append(key, data[key])
+      }
+      if(method) form.append('_method', method);
+      return form
+    },
     async saveProfile() {
-      // const formData = new FormData();
       let body = {
         'mobile':this.mobileNumber,
         'email':this.email,
-        'birth_at':this.born,
-        // 'avatar_url':this.src,
+        'birth_at':this.selectedDate,
+        'avatar_url':this.src,
         "name":this.firstName,
         "family":this.lastName,
 
       }
-      // // اضافه کردن فیلدهای ساده
-      // Object.keys(body).forEach(key => {
-      //   formData.append(key, body[key]);
-      // });
       this.loading=true
 
       if(this.isValid)
         try {
-        await profileService.saveProfile(body)
+        await profileService.saveProfile(this.getFormData(body))
           this.loading=false
+          this.$toast.success('اطلاعات با موفقیت ویرایش شد.')
+          this.isEdit = false
+
         } catch (e) {
           if(e.response && e.response.data && e.response.data.errors) {
             this.errors = e.response.data.errors
@@ -80,6 +90,7 @@ export default {
       this.email =data?.email
       this.born = data?.birth_at
       this.id = data?.id
+      this.loading = false
     },
 
   }

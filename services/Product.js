@@ -19,6 +19,15 @@ class ProductService {
       throw error
     }
   }
+  async download(orderItemId) {
+    try {
+      const response = await apiService.get(`/api/v1/users/download/${orderItemId}`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
   async postProduct(body) {
     try {
       const response = await apiService.post('/api/v1/carts', body)

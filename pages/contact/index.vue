@@ -1,9 +1,9 @@
 <template>
   <client-only>
     <section class="about  py-10">
-      <div class="about-banner custom-container">
-        <img src="~/assets/img/banner/about.jpg" alt="">
-      </div>
+<!--      <div class="about-banner custom-container">-->
+<!--        <img src="~/assets/img/banner/about.jpg" alt="">-->
+<!--      </div>-->
 
       <section class="contact-info">
         <div class="contact-info-block">
@@ -59,18 +59,7 @@
               label=" ایمیل"
             />
           </div>
-          <div class="block">
-            <SelectInput
-              label="موضوع"
-              :width="'100%'"
-              class="my-2"
-              itemValue="id"
-              itemText="name"
-              :options="subjectList"
-              v-model="subject"
-              noDataMessage="لطفا ابتدا یکی از گزینه هارو انتخاب کنید."
-            />
-          </div>
+
           <div class="block pb-5">
             <TextInput
               class="my-2"
@@ -96,12 +85,6 @@
             >
           </div>
         </div>
-      </section>
-      <section class="type-font custom-container">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        <h3>انواع فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
     </section>
   </client-only>
@@ -241,6 +224,7 @@ export default {
 
 <style lang="scss" scoped>
 .about{
+  margin-top: 40px;
   &-banner{
     height: 250px;
     width: 90%;

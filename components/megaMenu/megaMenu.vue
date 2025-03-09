@@ -31,7 +31,7 @@
                  </nuxt-link>
                 <ul class="parent-link" >
                   <li v-for="(childrenItem, index) in items.children" :key="index">
-                    <nuxt-link :to="'/categories/detail/'+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
+                    <nuxt-link :to="'/categories/'+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
                   </li>
                   <li>
                     <nuxt-link
@@ -63,7 +63,7 @@
           >
             <nuxt-link
               :to="
-                '/linomag'
+                '/blog'
 
               "
               class="nav-link"

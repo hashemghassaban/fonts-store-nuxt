@@ -18,7 +18,6 @@
         <a  :href="slide?.link !== null ? slide?.link  :'#'" >
           <v-sheet height="100%">
             <div class="slide-back">
-              {{slide?.link }}
               <img
                 :src="
 
@@ -48,7 +47,7 @@
       v-else
     >
       <v-carousel-item v-for="(slide, i) in dataResult?.slids?.main" :key="i">
-        <nuxt-link :to="slide?.link !== null ?slide?.link  :'/'" >
+        <a :href="slide?.link !== null ?slide?.link  :'/'" >
           <v-sheet height="100%">
             <div class="slide-back">
               <img
@@ -64,7 +63,7 @@
               />
             </div>
           </v-sheet>
-        </nuxt-link>
+        </a>
       </v-carousel-item>
     </v-carousel>
 </section>

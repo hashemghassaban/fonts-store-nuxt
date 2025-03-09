@@ -89,19 +89,9 @@
           ></v-pagination>
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
-
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
           <span>  محصولی ای یافت نشد</span>
         </div>
-      </section>
-      <section class="productMain-banner">
-        <img src="~/assets/img/banner/about.jpg" alt="">
-      </section>
-      <section class="type-font">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        <h3>انواع فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
       </section>
     </div>
   </client-only>
@@ -114,7 +104,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
-import { productService } from '~/services'
+import { productService , categoryService} from '~/services'
 
 
 export default {
@@ -194,6 +184,18 @@ export default {
       }
 
     },
+    async getCategoryAll() {
+      try {
+        const product = await categoryService.getCategoryAll()
+        this.category = product?.entity
+        this.loading=false
+
+
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+        this.loading=false
+      }
+    },
     async getProductAll(sort) {
       this.loading = true;
 
@@ -207,7 +209,7 @@ export default {
         const product = await productService.getProductAll(data)
         this.product = product?.entity?.data
         this.totalItems = product?.entity?.total
-        this.loading = false;
+       this.getCategoryAll()
 
       } catch (error) {
         this.loading = false;
@@ -217,7 +219,6 @@ export default {
 
   },
   mounted() {
-    this.category = this.$store.state.categories
     this.getProductAll();
 
   }

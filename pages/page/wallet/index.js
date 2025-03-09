@@ -9,6 +9,7 @@ export default {
   data: () => ({
     transactions:null,
     last:null,
+    paymentGateway:null,
     amounts: [{
       name:'10.000 ت',value:10000
     },
@@ -64,22 +65,29 @@ export default {
       }
     },
     async getData() {
-      this.transactions = await profileService.getWallets()
+      let data = await profileService.getWallets()
+      this.transactions = data?.entity
       if(this.transactions[0])
         this.last = this.transactions[0].cumulative_sum
+
+    },
+    async getPaymentGateway() {
+      let data = await profileService.getPaymentGateway()
+      this.paymentGateway = data?.entity
+
+
     },
     async chargeWallet(){
       let body = {
-          "payment_method_id": 0,
-          "price":this.selectedAmount
+          "payment_method_id": this.selectedGateway,
+          "price":parseInt(this.selectedAmount)
         }
       try {
         location.href = (
           await profileService.chargeWallet(
             body
           )
-        )
-
+        ).action
       }catch (e) {
 
       }
@@ -88,6 +96,7 @@ export default {
   },
   mounted() {
     this.getData()
+    this.getPaymentGateway()
   },
 
 

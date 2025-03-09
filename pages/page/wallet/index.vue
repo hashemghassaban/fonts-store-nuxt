@@ -10,7 +10,7 @@
             <h2>افزایش اعتبار</h2>
           </div>
         <div class="wallet-block__box">
-          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : {{formatPrice(this.last)}} ت
+          <h4> <v-icon color="#F15A24"> mdi mdi-wallet</v-icon> موجودی فعلی : <span class="amount">{{formatPrice(this.last)}} ت</span>
          </h4>
 
           <div class="button-container">
@@ -44,13 +44,13 @@
           <div class="gateway-select">
             <div class="gateway-options">
               <div
-                v-for="gateway in gateways"
+                v-for="gateway in paymentGateway"
                 :key="gateway.id"
                 :class="{ 'gateway-item': true, 'active': selectedGateway === gateway.id }"
                 @click="selectedGateway = gateway.id"
               >
                 <img
-                  src="~/assets/img/element/zarinpall.jpg"
+                  :src="gateway.icon_url"
                   :alt="gateway.name"
                   loading="lazy"
                 />

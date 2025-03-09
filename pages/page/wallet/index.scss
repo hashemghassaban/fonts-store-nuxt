@@ -50,7 +50,7 @@
         flex: 60%;
         min-width: 60%;
         max-width: 60%;
-        padding: 50px;
+        padding: 50px 0;
 
       }
       .wallet-title{
@@ -71,13 +71,23 @@
         }
       }
     }
+    &__box{
+      .amount{
+        font-weight: 900;
+        margin: 0 15px;
+        color: #626262;
+        font-size: 17px;
+        padding: 7px 13px;
+        border-bottom: 3px dashed #cccccc;
+      }
+
+    }
   }
 }
 .button-container {
   margin:40px 0 70px;
   direction: rtl;
   h4{
-    margin: 0 0 20px;
     margin: 0 0 20px;
   }
 }
@@ -124,7 +134,7 @@ input[disabled] {
   img{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 .gateway-item:hover {
