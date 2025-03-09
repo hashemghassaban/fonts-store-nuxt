@@ -36,6 +36,7 @@ export default {
   plugins: [
     '~/plugins/icons',
     '~/plugins/axios',
+    '~/plugins/toast.js'
 
   ],
   server: {

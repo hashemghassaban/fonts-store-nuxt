@@ -1,6 +1,6 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import sidebar from '@/components/sidebar/sidebar'
-import { profileService  } from '~/services'
+import { profileService , productService } from '~/services'
 
 
 export default {
@@ -9,24 +9,32 @@ export default {
     page: 1,
     orders: [],
     loading:false,
+    loadingBtn:false,
     search:'',
+    selectId:'',
+    expanded: [],
     headers: [
+
       {
-        text: 'نام و نام خانوادگی',
-        value: 'full_name',
-      },
-      {
-        text: 'شناسه سفارش',
+        text: 'شناسه لایسنس',
         value: 'tracking_code',
       },
+
       {
-        text: 'وضعیت سفارش',
-        value: 'status_text',
+        text: 'تاریخ سفارش',
+        value: 'created_at',
       },
       {
-        text: ' شیوه ارسال',
-        value: 'payment_method',
+        text: 'مبلغ (ریال)',
+        value: 'payable',
       },
+
+
+      {
+        text: 'دانلود ',
+        value: 'data-table-expand',
+        width:120
+      }
 
     ],
 
@@ -39,10 +47,28 @@ export default {
     this.getOrders()
   },
   methods: {
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+    async download(id) {
+      this.selectId = id
+      this.loadingBtn = true;
+      try {
+        let data = await productService.download(id)
+        this.loadingBtn = false
+      } catch (error) {
+        this.loadingBtn = false
+      }
+    },
+
     async getOrders() {
+      this.loading = true;
       try {
         let data = await profileService.getOrders()
         this.orders = data.entity
+        this.loading = false
       } catch (error) {}
     },
   },

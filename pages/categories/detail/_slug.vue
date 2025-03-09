@@ -1,147 +1,92 @@
 <template>
   <client-only>
-    <div>
-
-    <div class="productDetail py-10">
-      <section class="productDetail-banner">
-
-        <v-carousel
-          cycle
-          class="carouselMain-desktop"
-          height="580px"
-
-        >
-          <v-carousel-item v-for="(slide, i) in product?.images" :key="i">
-            <nuxt-link :to="slide?.full_url">
-              <v-sheet height="100%">
-                <div class="slide-back">
-                  <img
-                    :src="
-
-                      slide?.full_url +
-                      '?width=auto&height=300'
-                    "
-
-                    alt="banner"
-                    height="100%"
-                    class="desktop"
-                  />
-                </div>
-              </v-sheet>
-            </nuxt-link>
-          </v-carousel-item>
-        </v-carousel>
-        <v-carousel
-          cycle
-          class="carouselMain-mobile"
-          height="250px"
-
-        >
-          <v-carousel-item v-for="(slide, i) in  product?.images" :key="i">
-            <nuxt-link :to="slide.full_url">
-              <v-sheet height="100%">
-                <div class="slide-back">
-                  <img
-                    :src="
-
-                      slide.full_url +
-                      '?width=auto&height=300'
-                    "
-
-                    alt="banner"
-                    height="100%"
-                    class="desktop"
-                  />
-                </div>
-              </v-sheet>
-            </nuxt-link>
-          </v-carousel-item>
-        </v-carousel>
-      </section>
-      <section class="productDetail-description" >
-        <div class="head-pro">
-          <h1>{{product.name}}</h1>
-
-          <button @click="scrollToBottom">
-            <div class="icon">
-              <SvgIcon
-                name="arrow"
-                color="#fff"
-                size="12px"
-                className="rounded-full"
-              />
-            </div>
-            <span>   انتخاب نسخه و خرید</span>
-          </button>
+    <div class="productMain ">
+      <Loading v-if="loading" />
+      <section class="category">
+        <div class="title">
+          <div class="icon">
+            <SvgIcon
+              name="category"
+              color="#F15A24"
+              size="1.3rem"
+              className="rounded-full"
+            />
+          </div>
+          <h2 class="text">دسته بندی {{ title }} </h2>
         </div>
+        <div class="category-block">
+          <div class="col-3" v-for="(item, i) in (category)" :key="i">
+            <div  class="box" @click="changeCategory(item.id)">
+              <div class="count">+{{totalItems}}</div>
+              <div class="icon">
+                <img
+                  :src="require(`~/assets/img/element/box0${i+1}.png`)"
+                  alt=""
+                />
 
-        <p>{{product.short_description}}</p>
-      </section>
-      <section class="productDetail-fontPack" >
-        <div class="fontPack-block">
-          <div class="box" id="version"
-               v-for="(item, index) in product?.prices"
-          >
-            <div class="box-head">
-              <div class="weight">{{item.description}}</div>
-              <div class="rate-and-type">
-                <div class="types">{{item.name}}</div>
+              </div>
+              <div class="text">
+                <span>{{item.name}}</span>
+                <button> <SvgIcon
+                  name="arrow"
+                  color="#AAE73E"
+                  size="1.3rem"
+                  className="rounded-full"
+                /></button>
+
               </div>
             </div>
-            <div class="box-body">
-              <img :src="item?.preview_path" :alt="item.name">
-            </div>
-            <div class="box-footer">
-              <div class="price">  {{  formatPrice(item.price) }} ت</div>
-              <button class="add-to-cart"  @click="addToCart(item)">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
 
-                />
-                خرید
-              </button>
-            </div>
           </div>
 
-        </div>
-      </section>
-      <section class="productDetail-tiny-banners">
-        <p v-html="product.description"></p>
-      </section>
-    </div>
-      <section class="creator">
-        <div class="pic">
-          <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
-          <h3> {{product?.designer?.full_name}}</h3>
-        </div>
-        <div class="info-creator">
-          <h3> {{product?.designer?.full_name}}</h3>
-          <p>{{product?.designer?.avatar_url}}</p>
+
         </div>
 
       </section>
-      <section class="type-font">
-        <p>{{product.short_description_2}}</p>
-      </section>
+      <section class="productMain-lists">
+        <div class="productMain-lists-block"  v-if="product?.length > 0">
+          <div class="latest-font-block">
+            <div class="box" v-for="(item, i) in product" >
+              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
+            </div>
 
+          </div>
+          <v-pagination
+            v-model="page"
+            :length="Math.ceil(totalItems / itemsPerPage)"
+            :total-visible="7"
+            class="my-4"
+            @input="getCategory"
+          ></v-pagination>
+        </div>
+        <div class="productMain-lists-block not-pro"  v-else>
+
+          <img src="~/assets/img/icon/not-pro.png" alt="not pro">
+          <span>  دسته ای یافت نشد</span>
+        </div>
+      </section>
+      <div class="type-font">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+      </div>
     </div>
   </client-only>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
+import VueSlickCarousel from "vue-slick-carousel";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
+import { categoryService } from '~/services'
 
-import { productService } from '~/services'
 
 export default {
   head: {
     titleTemplate: "",
-    title: "جزئیات محصول - لاینو تایپ ",
+    title: "لیست محصول - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -155,6 +100,7 @@ export default {
   ],
   components: {
     SvgIcon,
+    VueSlickCarousel,
     TextInput,
     SelectInput
   },
@@ -169,70 +115,276 @@ export default {
         { name: 'ارزانترین', value: 5 },
         { name: 'گرانترین', value: 6 }
       ],
-      filter: 1,
+      sort: 1,
       page: 1,
+      loading:false,
+      itemsPerPage: 10,
+      totalItems: 0,
+      category:[],
       product:[],
-
-
+      title:'',
+      description:''
 
     }
   },
-  methods: {
 
-    formatPrice(value) {
-      if(isNaN(value)) return  0
-      let val = (value / 1).toFixed(0).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  watch: {
+    itemsPerPage(newVal) {
+      this.page = 1 // Reset page when itemsPerPage changes
+      this.getProductAll()
     },
-    scrollToBottom() {
-      const element = document.getElementById('version');
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'center'
-      });
-    },
-    async getProduct(id) {
-      try {
-        const product = await productService.getProduct(id)
-        this.product = product?.entity?.product
-      } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
-      }
-    },
-    async addToCart(pro) {
-      let body = {
-        product_price: pro.id,
-      };
-      try {
-        const data = await productService.postProduct(body)
-        this.$store.commit('setCart', data)
-        this.$store.commit('setDialogCart', true)
-        this.$toast.success('محصول به سبد خرید اضافه شد')
-      } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
-      }
-    },
-
-
   },
   computed: {
-    currentPath() {
+    params() {
+      return this.$route?.params?.slug
+    },
 
-      return this.$route.params.slug
+  },
+  methods: {
+    handleSearch(){
+      this.getCategoreis(this.sort)
+    },
+    changeCategory(id){
+      this.$router.push('/categories/'+id)
+    },
+    refreshData(newValue) {
+      if(newValue ){
+        this.getCategoreis(this.sort)
+      }
+    },
+    async getCategoreis() {
+      this.loading=true
+      try {
+        const product = await categoryService.getCategoryPro(this.params)
+
+        console.log(product)
+           let cat = product?.entity
+            this.category =  cat.category?.children
+            this.title = cat?.category?.name
+        this.description = cat?.category?.description
+        this.product = cat?.products?.data
+
+        this.totalItems =  cat?.products?.total
+        this.loading=false
+
+      } catch (error) {
+        console.error('خطا در دریافت محصول:', error)
+        this.loading=false
+      }
     },
   },
   mounted() {
-    this.getProduct(this.currentPath);
-
+    this.getCategoreis()
 
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.productDetail{
-  padding: 0 5%;
+.category{
+  padding: 50px 5%;
+  &-block{
+    display: flex;
+    margin-top: 50px;
+    padding: 0 ;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    .col-3{
+      width: 50%;
+      flex: 50%;
+      min-width: 50%;
+      @include breakpoint(medium) {
+        width: 25%;
+        flex: 25%;
+        min-width: 25%;
+      }
+    }
+    .box{
+
+      height: 150px;
+      background: #000;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      @include breakpoint(medium) {
+        height: 250px;
+        width: 250px;
+        margin: auto;
+      }
+
+      &:hover{
+        background: #FF7A00;
+        transition: all 0.3s ease;
+
+        .count{color: #000}
+        .text{
+          span {
+            color: #000
+          }
+        }
+      }
+      .icon{
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        transform: translate(50%, -50%);
+        img{
+          width: 35px;
+          @include breakpoint(medium) {
+            width: 50px;
+          }
+        }
+
+
+      }
+      .count{
+        text-align: left;
+        color: #fff;
+        font-size: 20px;
+        direction: ltr;
+        margin: 10px 20px;
+        font-family: sans-serif;
+        font-weight: 700;
+        @include breakpoint(medium) {
+          font-size: 44px;
+        }
+      }
+      .text{
+        display: flex;
+        span{
+          color: #fff;
+          position: absolute;
+          bottom: 20px;
+          right: 15px;
+          font-size: 15px;
+          font-weight: 800;
+          @include breakpoint(medium) {
+            font-size: 25px;
+          }
+        }
+        button{
+          position: absolute;
+          left: 20px;
+          bottom: 20px;
+          @include breakpoint(medium) {
+            left: 25px;
+            bottom: 28px;
+          }
+          i{
+            font-size: 18px!important;
+            @include breakpoint(medium) {
+              font-size: 1.3rem!important;
+            }
+          }
+
+        }
+
+      }
+
+    }
+  }
+}
+.productMain{
+  padding: 0 0;
+  @include breakpoint(medium) {
+    padding: 0 10%;
+  }
+  &-lists{
+    padding: 0 5%;
+    &-filter{
+      display: flex;
+      justify-content: space-between;
+      .filter{
+        width: 130px;
+        @include breakpoint(medium) {
+          width: 250px;
+        }
+
+        .v-input{
+          border-radius: 10px;
+          width: 150px;
+          font-size: 15px;
+          @include breakpoint(medium) {
+            width: 248px;
+            font-size: 12px;
+          }
+          ::v-deep{
+            .v-icon{
+              display: none;
+            }
+            .v-input__slot{
+              min-height: 51px;
+              height: 51px;
+            }
+          }
+
+
+        }
+      }
+    }
+    .searchBlock{
+      position: relative;
+      z-index: 1;
+      width: 200px;
+      @include breakpoint(medium) {
+        width: 650px;
+      }
+    }
+    .expanding-search {
+      transition: max-width 0.3s ease-in-out;
+      background: rgb(255 255 255)!important;
+      padding: 0!important;
+
+      .v-input__slot{
+        background: rgb(255 255 255)!important;
+
+
+      }
+
+
+    }
+    ::v-deep{
+      .v-text-field--filled > .v-input__control > .v-input__slot {
+        background:#fff!important;
+        padding: 0 10px!important;
+        border: 1px solid #646464;
+        min-height: 50px!important;
+        height: 50px!important;
+        border-radius: 10px;
+
+      }
+      .v-icon{
+        font-size: 27px;
+        position: relative;
+        top: 4px;
+      }
+      .v-text-field__slot{
+        padding: 0 15px!important;
+      }
+
+    }
+    &-block{
+
+    }
+  }
+  .not-pro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px 0;
+    width: 100%;
+    margin: 60px auto 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    span{
+      font-weight: 800;
+      color: #ff7a00 !important;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
   &-banner{
     height: 250px;
     width: 90%;
@@ -249,361 +401,40 @@ export default {
       object-fit: fill;
     }
   }
-  &-description{
-    padding: 40px 5%;
-    .head-pro{
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-direction: column;
-      gap: 20px;
-      align-items: flex-start;
-      @include breakpoint(medium) {
-        flex-direction: row;
-        gap: 20px;
-      }
-      h1{
-        margin: 0;
-        text-align: right;
-      }
-      button{
-
-        width: 230px;
-        background: #AAE73E;
-        height: 54px;
-        border-radius: 15px;
-        border: 3px solid #fff;
-        display: flex;
-        padding:12px 7px;
-        font-size: 18px;
-        font-weight: 900;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-
-        &:hover{
-          background: #fff;
-          transition: all 0.3s ease;
-
-        }
-        .icon{
-          width: 35px;
-          height: 35px;
-          background: #000;
-          text-align: center;
-          border-radius: 50px;
-          padding: 5px;
-        }
-        span{
-          font-size: 16px;
-          font-weight: 900;
-          margin-left: 10px;
-        }
-
-
-      }
-    }
-    p{
-      font-size: 15px;
-      line-height: 30px;
-      margin: 12px 0;
-      color: #7D7D7D;
-      text-align: justify;
-      @include breakpoint(medium) {
-        text-align: right;
-      }
-    }
-  }
-  &-tiny-banners{
-    padding: 0 5%;
-    .banners{
-      &-block{
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: space-between;
-        margin: 100px 0 50px;
-        padding: 0;
-
-
-      }
-      &-box{
-        width: 50%;
-        height: 250px;
-        position: relative;
-        @include breakpoint(medium) {
-          height: 750px;
-        }
-
-        a{
-          display: block;
-          width: 100%;
-          height: 100%;
-
-          img{
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-            transition: all 0.3s ease;
-            &:hover{
-              filter: grayscale(100);
-              transition: all 0.3s ease;
-          }}
-
-        }
-
-      }
-    }
-    p{
-      font-size: 15px;
-      line-height: 30px;
-      margin: 12px 0;
-      color: #7D7D7D;
-      text-align: justify;
-      @include breakpoint(medium) {
-        text-align: right;
-      }
-    }
-  }
-  &-fontPack{
-    padding: 0 5%;
-    .fontPack-block{
-      display: flex;
-      gap: 50px;
-      flex-wrap: wrap;
-      @include breakpoint(medium) {
-        flex-wrap: nowrap;
-        gap: 20px;
-      }
-      .box{
-        flex: 100%;
-        max-width: 100%;
-        @include breakpoint(medium) {
-          flex: 33.333%;
-          max-width: 33.3333%;
-        }
-        &-head{
-          display: flex;
-          justify-content: space-between;
-          flex-direction: row-reverse;
-          background: #676767;
-          margin-bottom: 11px;
-          padding: 10px;
-          height: 60px;
-          border-radius: 10px;
-          align-items: center;
-          .weight{
-            color: #C2C2C2;
-          }
-          .rate-and-type{
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            .rate{
-              img{
-                width: 60px;
-              }
-            }
-            .types{
-              color: #fff;
-            }
-          }
-        }
-        &-body{
-          height: auto;
-          @include breakpoint(medium) {
-            height: auto;
-          }
-          img{
-            width: 100%;
-            height: 100%;
-            object-fit: fill;
-          }
-        }
-        &-footer{
-          display: flex;
-          justify-content: space-between;
-          background: #AAE73E;
-          margin-top: 11px;
-          padding: 10px 18px;
-          height: auto;
-          border-radius: 10px;
-          align-items: center;
-          @include breakpoint(medium) {
-            flex-direction: row-reverse;
-            height: 60px;
-          }
-          .add-to-cart{
-            border: 2px solid #AAE73E;
-            background: #AAE73E;
-            border-radius: 10px;
-            text-align: center;
-            width: 100px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            color: #fff;
-            &:hover{
-              background: #000;
-              border: 2px solid #000;
-
-              transition: all 0.3s ease;
-
-
-            }
-
-            i{
-              margin-left: 5px;
-            }
-          }
-          .price{
-            font-size: 20px;
-          }
-        }
-      }
-    }
-  }
-
 }
-.v-carousel__controls {
-  bottom: 5px !important;
-  justify-content: flex-start;
-}
-.v-btn--icon.v-size--default {
-  height: 45px;
-  width: 45px;
-  background: #fff;
-  transition: all 0.3s ease;
+.latest-font{
+  padding: 50px 5%;
+  position: relative;
 
-  &:hover{
-    background: #FF7A00;
-    transition: all 0.3s ease;
 
-    .v-btn__content{
-      color: #fff;
-    }
+  &.last{
+    background: #EEE;
+    padding: 50px 5% 230px;
   }
-  .v-btn__content{
-    color: #ccc;
-  }
-}
-.carouselMain {
-  &-desktop {
-    overflow: inherit!important;
-    border-radius: 15px;
-    display: none;
-    @include breakpoint(medium) {
-      display: block;
-
-    }
-
-  }
-  &-mobile {
-    display: block;
-    overflow: inherit!important;
-    border-radius: 15px;
-    @include breakpoint(medium) {
-      display: none;
-
-    }
-
-
-  }
-}
-
-.creator{
-  display: flex;
-  gap: 30px;
-  padding: 28px 5%;
-  background: #EEE;
-  flex-direction: column;
-  @include breakpoint(medium) {
-    flex-direction: row;
-    padding: 70px 15%;
-
-  }
-  .pic{
-
-    overflow: hidden;
-    border-radius: 15px;
+  &-block{
     display: flex;
-    gap: 20px;
-    align-items: center;
-    @include breakpoint(medium) {
-      min-width: 283px;
-      min-height: 283px;
-      width: 283px;
-      display: inline-block;
-      border: 1px solid #d6d6d6;
-      gap:0;
-    }
-      img{
-        min-width: 80px;
-        min-height: 80px;
-        width: 80px;
-        height: 80px;
-        object-fit: fill;
-        overflow: hidden;
-        border-radius: 10px;
-        @include breakpoint(medium) {
-          width: 100%;
-          height: 100%;
-          min-width: 100%;
-          min-height: 100%;
-        }
-
-      }
-    h3{
-      color: #676767;
-
-
-      display: inline-block;
+    margin-top: 50px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 15px;
+    .box{
+      max-width: 100%;
+      flex: 100%;
       @include breakpoint(medium) {
-        display: none;
+        max-width: 50%;
+        flex: 49%;
       }
     }
   }
-  .info-creator{
-    padding: 0;
-    @include breakpoint(medium) {
-      padding: 40px 0;
-    }
-    h3{
-      color: #676767;
-
-      display: none;
-      @include breakpoint(medium) {
-        display: inline-block;
-      }
-    }
-    p{
-      font-size: 15px;
-      line-height: 30px;
-      margin:  0;
-      color: #7D7D7D;
-      text-align: justify;
-      @include breakpoint(medium) {
-        text-align: right;
-        margin: 12px 0;
-      }
-    }
-  }
-
 }
 .type-font{
   margin-top: 50px;
   margin-bottom: 0;
   padding: 0 5%;
   @include breakpoint(medium) {
-    padding: 0 5%;
+    padding: 0 ;
     margin-bottom: 100px;
     margin-top: 100px;
-
   }
   h3{
     color: #535353;
@@ -625,52 +456,9 @@ export default {
 
 }
 ::v-deep {
-  .v-carousel__controls{
-    bottom: -51px !important;
-    background: inherit;
-    &__item{
-      &.v-btn--active{
-        .v-btn__content {
-          color: #F15A24;
-        }
-      }
-      .v-btn__content{
-        color: #bebebe;
-        i{
-          height: 6px;
-          overflow: hidden;
-        }
-      }
-    }
-    .v-item-group{
-      width: 100%;
-      text-align: center;
-      display: block;
-    }
+  .v-pagination {
+    margin: 0 0 100px;
   }
-  .block-video {
-    border: 0;
-    height: auto;
-    padding: 29px;
-    background-color: #0000008f !important;
-    border-radius: 8px !important;
-    .close{
-      position: relative;
-      top: -15px;
-      float: left;
-    }
-    video {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .slide-back img {
-
-    border-radius: 15px;
-    overflow: hidden;
-  }
-
 }
-
 
 </style>

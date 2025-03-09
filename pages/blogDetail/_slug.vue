@@ -62,19 +62,12 @@
               :src="videoSource"
 
             >
-              Your browser does not support the video tag.
-            </video></v-card
-          >
+            </video></v-card>
 
 
         </v-dialog>
       </section>
 
-
-      <section class="type-font">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-      </section>
       <section class="postMain">
         <h2>  مطالب مشابه</h2>
         <nuxt-link to="/blog" class="show-More">
@@ -132,7 +125,7 @@
             >
           </div>
         </div>
-        <div class="comments-block__list">
+        <div class="comments-block__list" v-if="commentList?.length > 0">
           <div class="comments-block__block" >
             <div class="comments-block__box" v-for="(item ,  i ) in  commentList " >
               <div class="header">
@@ -815,9 +808,9 @@ this.dialogAddComment = true,
   }
 }
 .postMain{
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   position: relative;
-  margin-top: 100px;
+  margin-top: 50px;
   .show-More{
     position: absolute;
     left: 16%;

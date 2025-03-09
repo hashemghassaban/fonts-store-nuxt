@@ -1,10 +1,9 @@
 <template>
   <client-only>
     <section class="about custom-container py-10">
-      <div class="about-banner">
-        <img src="~/assets/img/banner/about.jpg" alt="">
-      </div>
-      <div class="about-content">
+      <Loading v-if="loading" />
+
+      <div class="about-content" v-else>
         <section class="about-title">
           <SvgIcon
             name="users"
@@ -15,7 +14,8 @@
           <h2>درباره ما</h2>
         </section>
         <section class="about-content-description">
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+          <p >{{dataResult?.description}}</p>
+          <div  class="content" v-html="dataResult?.content"></div>
         </section>
         <section class="brands">
           <div class="about-title">
@@ -89,24 +89,20 @@
 
           </v-dialog>
         </section>
-        <section class="about-title">
-          <SvgIcon
-            name="awards"
-            color=#FF7A00
-            size="38px"
-            className="rounded-full"
-          />
-          <h2>جوایز</h2>
-        </section>
-        <section class="about-content-description">
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        </section>
-        <section class="type-font">
-          <h3>فونت فارسی</h3>
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-          <h3>انواع فونت فارسی</h3>
-          <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        </section>
+<!--        <section class="about-title">-->
+<!--          <SvgIcon-->
+<!--            name="awards"-->
+<!--            color=#FF7A00-->
+<!--            size="38px"-->
+<!--            className="rounded-full"-->
+<!--          />-->
+<!--          <h2>جوایز</h2>-->
+<!--        </section>-->
+<!--        <section class="about-content-description">-->
+<!--          <p >{{dataResult?.description}}</p>-->
+<!--          <div v-html="dataResult?.content"></div>-->
+<!--        </section>-->
+
       </div>
     </section>
   </client-only>
@@ -117,6 +113,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
+import { pagesService  } from '~/services'
 
 export default {
   head: {
@@ -182,24 +179,43 @@ export default {
           },
         ],
       },
+      dataResult:[],
+      loading:false,
     }
   },
   methods: {
 
-    showVideo(){
+    showVideo() {
       this.dialogVideo = true
       this.$nextTick(() => {
         this.$refs.videoPlayer.play();
       });
     },
-    hideVideo(){
+    hideVideo() {
       this.dialogVideo = false
       this.$nextTick(() => {
         this.$refs.videoPlayer.pause();
       });
+    },
+    async getData() {
+      this.loading = true
+      try {
+        const res = await pagesService.getAboutPage()
+        setTimeout(() => {
+          this.dataResult = res?.entity?.page
+          this.loading = false
+
+        }, 1000);
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+  },
+    mounted() {
+      this.getData();
     }
 
-  }
 };
 </script>
 
@@ -233,6 +249,16 @@ export default {
       color: #7D7D7D !important;
 
     }
+   ::v-deep{
+     .content{
+
+       p{
+         text-align: justify;
+         line-height: 35px;
+         color: #7D7D7D !important;
+       }
+     }
+  }
   }
 
   .feature{
@@ -342,7 +368,8 @@ export default {
   margin: 50px auto 10px;
   gap: 15px;
   @include breakpoint(small) {
-    margin: 100px auto 10px;
+    //margin: 100px auto 10px;
+    margin: 30px auto 10px;
 
   }
 

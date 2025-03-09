@@ -125,9 +125,11 @@ export default {
       this.showSearch = false
     },
     async getCart() {
-
       try {
         const res = await cartService.getCart()
+        console.log('asasasas',res.entity)
+        this.$store.commit('setCategory', res.entity?.categories)
+        this.menuItems = res.entity?.categories
         this.$store.commit('setCart', res.entity?.cart)
         console.log(res.entity?.cart)
 
@@ -153,7 +155,7 @@ export default {
 
   },
 mounted() {
-  this.menuItems = this.$store.state.categories
+  console.log('sssssssssssssss',this.$store.state.categories)
   if(this.authenticate){
     this.getCart()
   }

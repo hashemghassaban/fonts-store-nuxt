@@ -30,7 +30,7 @@
       </div>
     </div>
     </nuxt-link>
-    <div class="download-file" v-if="typeProduct === 'profile'">
+    <v-btn :loading="loadingBtn && items?.id === selectId" class="download-file" v-if="typeProduct === 'profile'" @click="download(items?.id)">
       <div class="icon">
         <SvgIcon
           name="download"
@@ -40,7 +40,7 @@
         />
       </div>
       <span>دانلود فونت</span>
-    </div>
+    </v-btn>
   </div>
   <div class="product-list-bottom">
     <div class="title">
@@ -72,17 +72,16 @@
         />
         <span>خرید</span>
       </v-btn>
-      <p v-if=" typeProduct === 'profile'">نسخه 10.6 | 1403/06/03</p>
-      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || (typeProduct !== 'profile' && typeProduct !== 'favorite')">
+      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || (typeProduct === 'profile' && typeProduct !== 'favorite')">
         <div class="price-main">
           {{typeProduct === 'product' ? formatPrice(items?.lowest_price?.offer_price) : typeProduct === 'noProduct' ? formatPrice(items?.lowest_price?.price): formatPrice(items?.payable_price)}} ت
 
         </div>
-        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart') && !!items?.lowest_price?.has_offer)">
+        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'profile') && !!items?.lowest_price?.has_offer)">
           {{formatPrice(parseInt(items?.lowest_price?.price))}} ت
         </div>
       </div>
-    </div>
+    </div>c
   </div>
 </div>
   </div>
@@ -95,7 +94,9 @@ export default {
   data() {
     return {
       isActive: false,
-      loading:false
+      loading:false,
+      selectId : 0,
+      loadingBtn:true,
     }
   },
   components: {
@@ -107,12 +108,21 @@ export default {
       type: String,
       default: null,
     },
-    items:{
-      type: Array,
-    },
+    items:{},
 
   },
   methods: {
+
+    async download(id) {
+      this.selectId = id
+      this.loadingBtn = true;
+      try {
+        let data = await productService.download(id)
+        this.loadingBtn = false
+      } catch (error) {
+        this.loadingBtn = false
+      }
+    },
     formatPrice(value) {
       if(isNaN(value)) return  0
       let val = (value / 1).toFixed(0).replace(".", ",");

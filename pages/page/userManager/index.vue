@@ -1,5 +1,7 @@
 <template>
   <client-only>
+
+
     <section class="userManager">
       <div class="userManager-block">
         <div class="userManager-block__info">
@@ -9,7 +11,7 @@
           <div class="userManager-title">
             <h2> اطلاعات کاربری</h2>
           </div>
-          <div class="userManager-block__box">
+          <div class="userManager-block__box" v-if="!loading">
           <div class="field">
             <TextInput
               validators="subject"
@@ -69,7 +71,7 @@
               <date-picker
                 ref="datePicker"
                 type="date"
-                vmodel="selectedDate"
+                v-model="selectedDate"
                 element="fromtime"
                 color="#AAE73E"
                 format="YYYY-MM-DD"
@@ -121,7 +123,12 @@
 
 
           </div>
-
+          <v-progress-circular
+            :size="40"
+            v-else
+            color="secondary"
+            indeterminate
+          ></v-progress-circular>
         </div>
       </div>
     </section>

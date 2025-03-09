@@ -12,12 +12,12 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">دسته بندی فونت</h2>
+          <h2 class="text">دسته بندی {{ title }} </h2>
         </div>
         <div class="category-block">
-          <div class="col-3" v-for="(item, i) in (category)?.slice(0, 4)" :key="i">
-              <div  class="box" @click="changeCategory(item.id)">
-              <div class="count">+{{item.products_count}}</div>
+          <div class="col-3" v-for="(item, i) in (category)" :key="i">
+            <div  class="box" >
+              <div class="count">+{{totalItems}}</div>
               <div class="icon">
                 <img
                   :src="require(`~/assets/img/element/box0${i+1}.png`)"
@@ -35,7 +35,7 @@
                 /></button>
 
               </div>
-              </div>
+            </div>
 
           </div>
 
@@ -44,41 +44,6 @@
 
       </section>
       <section class="productMain-lists">
-        <div class="productMain-lists-filter" v-if="product?.length > 0">
-          <div class="searchBlock" >
-            <form @submit.prevent="handleSearch">
-              <v-text-field
-                v-model.trim="searchText"
-                dense
-                filled
-                rounded
-                clearable
-                placeholder="جستجو اسم فونت"
-                prepend-inner-icon="mdi-magnify"
-                class="pt-6 shrink expanding-search"
-              ></v-text-field>
-            </form>
-          </div>
-          <div class="filter">
-            <v-select
-              :items="itemsFilter"
-              v-model="sort"
-              label="به ترتیب"
-              outlined
-              item-text="name"
-              item-value="value"
-            >
-              <template #prepend-inner>
-                <SvgIcon
-                  name="filter"
-                  color="#969696"
-                  size="1.3rem"
-                  className="rounded-full"
-                />
-              </template>
-            </v-select>
-          </div>
-        </div>
         <div class="productMain-lists-block"  v-if="product?.length > 0">
           <div class="latest-font-block">
             <div class="box" v-for="(item, i) in product" >
@@ -100,15 +65,10 @@
           <span>  دسته ای یافت نشد</span>
         </div>
       </section>
-      <section class="productMain-banner">
-        <img src="~/assets/img/banner/about.jpg" alt="">
-      </section>
-      <section class="type-font">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        <h3>انواع فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-      </section>
+      <div class="type-font">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+      </div>
     </div>
   </client-only>
 </template>
@@ -161,7 +121,9 @@ export default {
       itemsPerPage: 10,
       totalItems: 0,
       category:[],
-      product:[]
+      product:[],
+      title:'',
+      description:''
 
     }
   },
@@ -171,17 +133,8 @@ export default {
       this.page = 1 // Reset page when itemsPerPage changes
       this.getProductAll()
     },
-    sort(newVal) {
-      setTimeout(()=>{
-        this.getCategory(this.params.category , newVal)
-
-      },1000)
-    },
-
-
   },
   computed: {
-
     params() {
       return this.$route?.params?.slug
     },
@@ -189,42 +142,30 @@ export default {
   },
   methods: {
     handleSearch(){
-      this.getCategory(this.sort)
+      this.getCategoreis(this.sort)
     },
     changeCategory(id){
-      this.$router.push('/categories/'+id)
+      this.$router.push('/categories/detail/'+id)
     },
     refreshData(newValue) {
       if(newValue ){
-        this.getCategory(this.sort)
+        this.getCategoreis(this.sort)
       }
     },
-    async getCategory(id , sort) {
-      this.loading=true
-      const data = {
-        sort : sort,
-        category : this.params,
-        ...(this.searchText.length > 0  && {
-          search: this.searchText,
-        })
-      }
-      try {
-        const product = await categoryService.getCategory(id , data)
-        this.product = product?.entity?.data
-        this.totalItems = product?.entity?.total
-        this.loading=false
-      } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
-        this.loading=false
-      }
-    },
-    async getCategoryAll() {
+    async getCategoreis() {
       this.loading=true
       try {
-        const product = await categoryService.getCategoryAll()
-        this.category = product?.entity
+        const product = await categoryService.getCategoryPro(this.params)
 
-        this.getCategory(this.params , 1);
+        console.log(product)
+        let cat = product?.entity
+        this.category =  cat.category?.children
+        this.title = cat?.category?.name
+        this.description = cat?.category?.description
+        this.product = cat?.products?.data
+
+        this.totalItems =  cat?.products?.total
+        this.loading=false
 
       } catch (error) {
         console.error('خطا در دریافت محصول:', error)
@@ -233,7 +174,8 @@ export default {
     },
   },
   mounted() {
-    this.getCategoryAll()
+    this.getCategoreis()
+
   }
 };
 </script>
@@ -441,7 +383,7 @@ export default {
       color: #ff7a00 !important;
       margin-top: 15px;
       text-align: center;
-  }
+    }
   }
   &-banner{
     height: 250px;

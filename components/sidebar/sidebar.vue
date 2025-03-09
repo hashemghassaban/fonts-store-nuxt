@@ -26,15 +26,15 @@
             @change="handleFileSelect"
           />
         </div>
-        <v-btn density="default" class="add"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn density="default" class="add" v-if="url === '/page/userManager'"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
 
 
         <div class="name">
           <nuxt-link to="/page/userManager">
 
+            <v-skeleton-loader type="image" class="elevation-0" v-if="loading"></v-skeleton-loader>
 
-
-         {{this.profile.full_name !== " " ?  this.profile.full_name : 'نام کاربری'}}
+         <span v-else>{{this.profile.full_name !== " " ?  this.profile.full_name : 'نام کاربری'}}</span>
           <SvgIcon
             name="edit"
             color=#000
@@ -49,11 +49,13 @@
         <ul class="information">
           <li>
             <b>شماره تماس : </b>
-            <span>{{this.profile.mobile}}</span>
+            <v-skeleton-loader type="image" class="elevation-0" v-if="loading"></v-skeleton-loader>
+            <span v-else>{{this.profile.mobile}}</span>
           </li>
           <li>
             <b>ایمیل : </b>
-            <span>{{this.profile.email}}</span>
+            <v-skeleton-loader type="image" class="elevation-0"  v-if="loading"></v-skeleton-loader>
+            <span  v-else>{{this.profile.email}}</span>
           </li>
         </ul>
       </div>
@@ -92,6 +94,7 @@ export default {
     avatarUrl: null,
     profile:'',
     loading:false,
+    url:'',
     items: [
       { text: 'سفارش ها', link: '/page/order' , action:''},
       { text: 'کیف پول من', link: '/page/wallet' , action:''},
@@ -102,6 +105,15 @@ export default {
 
   created() {
     this.getProfile()
+  },
+  watch: {
+    avatarUrl(newValue) {
+      console.log(newValue)
+      this.$emit('avatarUrl', newValue);
+      if (newValue) {
+        return newValue
+      }
+    },
   },
   methods: {
     async getProfile() {
@@ -137,6 +149,8 @@ export default {
     }
   },
   mounted() {
+    this.url = this.$router?.history?.current?.path
+
   }
 }
 </script>
@@ -488,4 +502,10 @@ export default {
     }
   }
 }
+.v-skeleton-loader{
+     width: 200px;
+     height: 35px;
+   }
+
+
 </style>

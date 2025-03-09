@@ -4,7 +4,6 @@ export default async function (
   { app, $axios, $toast, error, store, req },
   inject
 ) {
-  let refreshAttempts = 0;
   // Axios configuration
   $axios.onRequest((config) => {
     store.commit('setLoading', true)
@@ -24,7 +23,8 @@ export default async function (
   })
 
   $axios.onError((e) => {
-    console.log(e)
+
+
     // default response message or api response message
     // if (e.config.forceLogin && e.response && e.response.status === 401) {
     //   app.router.go(-1)
@@ -60,6 +60,7 @@ export default async function (
 
   $axios.interceptors.response.use(
     (response) => {
+      $toast.success('ssssssss')
       return response.data.entity || response.data
     },
     (e) => Promise.reject(e)

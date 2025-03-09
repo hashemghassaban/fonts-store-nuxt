@@ -1,6 +1,8 @@
 <template>
   <client-only>
     <section class="cart custom-container py-10">
+      <Loading v-if="loading" />
+
       <div class="progress">
         <div class="title">
           <div class="icon">
@@ -42,11 +44,8 @@
       <div class="cart-block">
         <div class="cart-block-list">
           <div class="pro">
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
-            </div>
-            <div class="box">
-              <Product :typeProduct="'profile'"/>
+            <div class="box" v-for="(item, index) in product?.items"  >
+              <Product :typeProduct="'profile'" :items="item"   />
             </div>
           </div>
         </div>
@@ -58,7 +57,7 @@
           <div class="block-info">
             <div class="totalPrice">
               <label>شماره لایسنس : </label>
-              <span>{{params?.licence || 0}}</span>
+              <span>{{product?.tracking_code}}</span>
             </div>
 
           </div>
@@ -74,12 +73,8 @@
               </div>
               <span> بازگشت به پنل کاربری</span>
             </v-btn>
-
           </div>
-
         </div>
-
-
       </div>
     </section>
   </client-only>
@@ -87,6 +82,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import { profileService } from '~/services'
 
 export default {
   head: {
@@ -114,18 +110,31 @@ export default {
       ],
       activeButton: null,
       selectedGateway: 1,
+      loading:false,
+      product:[]
     }
   },
   computed: {
 
     params() {
-      return this.$route.query
+      return this.$route.query?.order_id
     },
 
   },
+  methods: {
+    async getOrderId(id) {
+      this.loading = true;
+      try {
+        let data = await profileService.getOrderId(id)
+        this.product = data.entity
+        this.loading = false
+      } catch (error) {
+        this.loading = false
+      }
+    },
+  },
   mounted() {
-
-    console.log(this.params)
+    this.getOrderId(this.params)
   }
 };
 </script>

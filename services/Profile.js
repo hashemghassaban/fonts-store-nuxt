@@ -19,9 +19,27 @@ class ProfileService {
       throw error
     }
   }
+  async getPaymentGateway(id) {
+    try {
+      const response = await apiService.get(`/api/v1/users/transactions/payment-gateways`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
   async getOrders(Param) {
     try {
       const response = await apiService.get(`/api/v1/users/orders`,Param)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
+  async getOrderId(id) {
+    try {
+      const response = await apiService.get(`/api/v1/users/orders/${id}`)
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)
@@ -39,7 +57,11 @@ class ProfileService {
   }
   async saveProfile(data) {
     try {
-      const response = await apiService.post(`/api/v1/users/profile` , data);
+      const response = await apiService.post(`/api/v1/users/profile` , data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)
@@ -49,10 +71,12 @@ class ProfileService {
 
   async chargeWallet(data) {
     try {
-      const response = await apiService.post(`/api/v1//users/transactions/wallet` , data);
+      const response = await apiService.post(`/api/v1/users/transactions/wallet` , data);
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error('خطا در دریافت محصول:', error, {
+        timeout: 4000,
+      })
       throw error
     }
   }

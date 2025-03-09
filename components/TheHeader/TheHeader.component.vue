@@ -51,7 +51,7 @@
                   <v-list-group sub-group >
                     <template v-slot:activator>
                       <v-list-item
-                        :to="'/categories/'+child.id"
+                        :to="'/categories/detail/'+child.id"
                       >
                         <v-list-item-title>{{ child.name }}</v-list-item-title>
                       </v-list-item>
@@ -74,7 +74,7 @@
               </v-list-group>
             </div>
             <div  class="list-parent">
-              <v-list-item to="/linomag">
+              <v-list-item to="/blog">
                 <v-list-item-title>لاینومگ</v-list-item-title>
               </v-list-item>
             </div>

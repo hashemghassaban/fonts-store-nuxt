@@ -1,6 +1,8 @@
 <template>
   <client-only>
-    <section class="support custom-container py-10">
+
+    <section class="support custom-container py-10" >
+
       <div class="support-title">
         <SvgIcon
           name="support"
@@ -10,11 +12,12 @@
         />
         <h2>پشتیبانی</h2>
       </div>
-      <div class="type-font">
-        <h3>فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
-        <h3>انواع فونت فارسی</h3>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد. بان فارسی ایجاد کرد. ساسا مورد استفاده قرار گیرد.</p>
+      <Loading v-if="loading" />
+      <div class="type-font"  v-else>
+        <h3>{{dataResult?.title}}</h3>
+        <p>{{dataResult?.description}}</p>
+        <div v-html="dataResult?.content"></div>
+
       </div>
     </section>
   </client-only>
@@ -22,6 +25,7 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
+import { pagesService  } from '~/services'
 
 export default {
   head: {
@@ -43,10 +47,30 @@ export default {
   },
   data () {
     return {
-
+      dataResult:[],
+      loading:false,
     }
   },
-  methods: {}
+  methods: {
+    async getData() {
+      this.loading = true
+      try {
+        const res = await pagesService.getSubPage()
+        setTimeout(() => {
+          this.dataResult = res?.entity?.page
+          this.loading = false
+
+        }, 1000);
+
+      } catch (error) {
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
+  },
+  mounted() {
+    this.getData();
+  }
+
 };
 </script>
 

@@ -11,52 +11,19 @@
         <h2>سؤالات متداول</h2>
       </section>
       <section class="faq-content">
-        <div class="faq-list">
-          <h2>امور مشتریان</h2>
+        <Loading v-if="loading" />
+
+        <div class="faq-list" v-else>
+          <h2> دسته بندی</h2>
           <v-expansion-panels v-model="activePanel">
-            <v-expansion-panel v-for="(item, index) in items" :key="index">
+            <v-expansion-panel v-for="(item, index) in category" :key="index">
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-              <v-expansion-panel-header>{{ item.title }}</v-expansion-panel-header>
-              <v-expansion-panel-content>{{ item.content }}</v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </div>
-        <div class="faq-list">
-          <h2> حساب کاربری</h2>
-          <v-expansion-panels v-model="activePanel2">
-            <v-expansion-panel v-for="(item, index) in items2" :key="index">
-              <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-              <v-expansion-panel-header>{{ item.title }}</v-expansion-panel-header>
-              <v-expansion-panel-content>{{ item.content }}</v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </div>
-        <div class="faq-list">
-          <h2>امور مشتریان</h2>
-          <v-expansion-panels v-model="activePanel3">
-            <v-expansion-panel v-for="(item, index) in items" :key="index">
-              <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-              <v-expansion-panel-header>{{ item.title }}</v-expansion-panel-header>
-              <v-expansion-panel-content>{{ item.content }}</v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </div>
-        <div class="faq-list">
-          <h2> حساب کاربری</h2>
-          <v-expansion-panels v-model="activePanel4">
-            <v-expansion-panel v-for="(item, index) in items2" :key="index">
-              <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-              <v-expansion-panel-header>{{ item.title }}</v-expansion-panel-header>
-              <v-expansion-panel-content>{{ item.content }}</v-expansion-panel-content>
+              <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
+              <v-expansion-panel-content>{{ item.description }}</v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
         </div>
       </section>
-
-
-
-
-
     </div>
   </client-only>
 </template>
@@ -85,32 +52,28 @@ export default {
   },
   data() {
     return {
-      items: [
+      category: [
         { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
         { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
         { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
       ],
       activePanel2: [0],
-      items2: [
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-      ],
       activePanel: [0],
       activePanel3: [0],
       activePanel4: [0],
-      dataResult : []
-
+      loading:false
 
     }
   },
   methods: {
     async getFaq() {
+      this.loading = true
       try {
         const res = await pagesService.getFaq()
         setTimeout(() => {
-          this.dataResult = res?.entity
-        }, 2000);
+          this.category = res?.entity?.categories
+          this.loading = false
+        }, 1000);
       } catch (error) {
         console.error('خطا در دریافت کاربران:', error)
       }
