@@ -23,7 +23,7 @@
                 v-slot:item.payable="{ item: { payable } }"
               >
                     <span>
-                      {{formatPrice(payable)}}</span
+                     ریال {{formatPrice(payable)}}</span
                     >
               </template>
               <template
