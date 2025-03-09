@@ -20,19 +20,26 @@
               hide-default-footer
             >
               <template
-                v-slot:item.payment_method="{ item: { payment_method } }"
+                v-slot:item.payable="{ item: { payable } }"
               >
                     <span>
-                      {{payment_method === 1 ? 'آنلاین' : 'کیف پول'}}</span
+                      {{formatPrice(payable)}}</span
                     >
               </template>
               <template
-                v-slot:item.full_name="{ item: { full_name } }"
+                v-slot:item.created_at="{ item: { created_at } }"
               >
                     <span>
-                      {{
-                        full_name!== " "? full_name : '-'
-                      }}</span
+
+                     {{
+                        new Date(created_at).toLocaleString("fa-IR", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      }}
+
+                    </span
                     >
               </template>
               <template v-slot:expanded-item="{ headers, item }">

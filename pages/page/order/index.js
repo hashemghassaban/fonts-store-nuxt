@@ -14,24 +14,24 @@ export default {
     selectId:'',
     expanded: [],
     headers: [
+
       {
-        text: 'نام و نام خانوادگی',
-        value: 'full_name',
-      },
-      {
-        text: 'شناسه سفارش',
+        text: 'شناسه لایسنس',
         value: 'tracking_code',
       },
+
       {
-        text: 'وضعیت سفارش',
-        value: 'status_text',
+        text: 'تاریخ سفارش',
+        value: 'created_at',
       },
       {
-        text: ' شیوه ارسال',
-        value: 'payment_method',
+        text: 'مبلغ',
+        value: 'payable',
       },
+
+
       {
-        text: 'جزئیات و دانلود ',
+        text: 'دانلود ',
         value: 'data-table-expand',
         width:120
       }
