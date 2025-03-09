@@ -25,7 +25,7 @@ export default {
         value: 'created_at',
       },
       {
-        text: 'مبلغ',
+        text: 'مبلغ (ریال)',
         value: 'payable',
       },
 
