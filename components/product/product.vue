@@ -81,7 +81,7 @@
           {{formatPrice(parseInt(items?.lowest_price?.price))}} ت
         </div>
       </div>
-    </div>c
+    </div>
   </div>
 </div>
   </div>
@@ -222,9 +222,11 @@ export default {
       }
     }
     &-top{
-      border: 1px solid #ccc;
       border-radius: 10px;
       overflow: hidden;
+      @include breakpoint(medium) {
+        border: 1px solid #ccc;
+      }
       .heart{
         position: absolute;
         top: 20px;

@@ -1220,11 +1220,10 @@ export default {
   &-block{
     display: flex;
     gap: 20px;
-    margin: 0 0 100px;
+    margin: 0 0 50px;
     padding: 0 5%;
     flex-wrap: wrap;
     flex: 1 1 auto;
-    margin: -12px;
     @include breakpoint(medium) {
       margin: 150px 0;
       padding: 0 15%;
@@ -1232,8 +1231,8 @@ export default {
 
   }
   &-box{
-    flex: 100%;
-    max-width:100%;
+    flex: 47%;
+    max-width: 50%;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
