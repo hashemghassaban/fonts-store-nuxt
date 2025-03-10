@@ -65,13 +65,18 @@
                 </v-btn>
               </div>
             </div>
+
             <div class="totalPrice">
               <label for="code">جمع خرید : </label>
               <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
-            <div class="benefit-buy"  v-if="$store.state.cart.discount > 0">
+            <div class="totalPrice"  v-if="$store.state.cart.discount > 0">
               <label for="code"> سود شما از خرید : </label>
               <span> {{formatPrice(parseInt(cart?.discount))}} ت</span>
+            </div>
+            <div class="benefit-buy" >
+              <label for="code"> قابل پرداخت : </label>
+              <span> {{formatPrice(parseInt(cart?.items_payable))}} ت</span>
             </div>
           </div>
           <div class="warning-cart">
@@ -169,8 +174,8 @@ export default {
           "coupon":this.discount
         }
         try {
-          await cartService.applyCoupon(body)
-          this.getCart()
+        let data =   await cartService.applyCoupon(body)
+          this.cart = data.entity?.cart
           this.loadingDiscount = false;
         } catch (error) {
           this.loadingDiscount = false;

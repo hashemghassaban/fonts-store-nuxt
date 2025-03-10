@@ -81,7 +81,7 @@
           {{formatPrice(parseInt(items?.lowest_price?.price))}} ت
         </div>
       </div>
-    </div>c
+    </div>
   </div>
 </div>
   </div>
