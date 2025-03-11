@@ -6,7 +6,14 @@ import { profileService  } from '~/services'
 
 
 export default {
-  name: 'invite',
+  name: 'usermanager',
+  head: {
+    titleTemplate: "",
+    title: "پنل کاربری - لاینو تایپ",
+    htmlAttrs: {
+      lang: "fa",
+    },
+  },
   data: () => ({
     page: 1,
     firstName :'',
@@ -63,7 +70,7 @@ export default {
         'mobile':this.mobileNumber,
         'email':this.email,
         'birth_at':this.selectedDate,
-        'avatar_url':this.src,
+        // 'avatar_url':this.src,
         "name":this.firstName,
         "family":this.lastName,
 

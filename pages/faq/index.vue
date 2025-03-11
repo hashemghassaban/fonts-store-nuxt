@@ -13,15 +13,15 @@
       <section class="faq-content">
         <Loading v-if="loading" />
 
-        <div class="faq-list" v-else>
-          <h2> دسته بندی</h2>
-          <v-expansion-panels v-model="activePanel">
-            <v-expansion-panel v-for="(item, index) in category" :key="index">
-              <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-              <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
-              <v-expansion-panel-content>{{ item.description }}</v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+        <div class="faq-list" v-if="item?.faqs?.length > 0"  v-for="(item, index) in category" :key="index">
+            <h2> {{item?.name}}</h2>
+            <v-expansion-panels v-model="activePanel">
+              <v-expansion-panel  v-for="(data, i) in item?.faqs" :key="i">
+                <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
+                <v-expansion-panel-header >{{data.question}}</v-expansion-panel-header>
+                <v-expansion-panel-content v-html="data.answer"></v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
         </div>
       </section>
     </div>
@@ -181,6 +181,16 @@ export default {
       }
     }
     .v-expansion-panel-content{
+      padding: 0 22px;
+      p{
+        color: #ff5722!important;
+        font-size: 13px;
+        line-height: 23px;
+        @include breakpoint(medium) {
+          font-size: 15px;
+          line-height: 25px;
+        }
+      }
       .v-expansion-panel-content__wrap{
         color: #ff5722!important;
         font-size: 13px;
@@ -189,6 +199,8 @@ export default {
           font-size: 15px;
           line-height: 25px;
         }
+
+
 
       }
     }

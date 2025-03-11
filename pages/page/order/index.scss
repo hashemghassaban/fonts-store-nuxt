@@ -32,7 +32,7 @@
       min-width: 100%;
       max-width: 100%;
       padding: 30px;
-      height: 640px;
+      height: 715px;
       @include breakpoint(medium) {
         flex: 40%;
         min-width: 40%;
@@ -137,6 +137,7 @@
     padding:10px 0;
     align-items: center;
     border-bottom: 1px solid #ccc;
+    padding-right: 83px;
   &:last-child{
     border-bottom: 0
   }

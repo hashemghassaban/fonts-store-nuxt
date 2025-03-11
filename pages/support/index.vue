@@ -5,16 +5,15 @@
 
       <div class="support-title">
         <SvgIcon
-          name="support"
+          name="post"
           color=#FF7A00
           size="38px"
           className="rounded-full"
         />
-        <h2>پشتیبانی</h2>
+        <h1>پشتیبانی</h1>
       </div>
       <Loading v-if="loading" />
       <div class="type-font"  v-else>
-        <h3>{{dataResult?.title}}</h3>
         <p>{{dataResult?.description}}</p>
         <div v-html="dataResult?.content"></div>
 
@@ -28,20 +27,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import { pagesService  } from '~/services'
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: " پشتیبانی - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  پشتیبانی - ",
-    },
-  ],
+
   components: {
     SvgIcon,
   },
@@ -69,7 +55,36 @@ export default {
   },
   mounted() {
     this.getData();
-  }
+  },
+  head() {
+    return {
+      title: " پشتیبانی - لاینو تایپ",
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.dataResult?.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.dataResult?.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: " پشتیبانی - لاینو تایپ" ,
+        },
+
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.dataResult?.description,
+        },
+      ],
+    }
+  },
+
 
 };
 </script>
@@ -90,7 +105,7 @@ export default {
     @include breakpoint(medium) {
       padding: 0 ;
       margin-bottom: 100px;
-      margin-top: 100px;
+      margin-top: 40px;
     }
     h3{
       color: #535353;
@@ -104,9 +119,9 @@ export default {
       font-size: 14px;
       line-height: 30px;
       margin-bottom: 40px;
-      text-align: justify;
+      text-align: center;
       @include breakpoint(medium) {
-        text-align: right;
+        text-align: center;
       }
     }
 

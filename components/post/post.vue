@@ -11,10 +11,16 @@
       </div>
       <div class="post-list-bottom">
         <div class="post-top">
-          <h3 class="type">
+          <h2 class="type">
             {{items.title}}
-          </h3>
-          <span class="date"> {{items.created_at}}</span>
+          </h2>
+          <span class="date">      {{
+              new Date(items.created_at).toLocaleString("fa-IR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }}</span>
         </div>
       </div>
       </nuxt-link>
@@ -52,6 +58,7 @@ export default {
     display: flex;
     width: 100%;
     gap: 35px;
+    height: 300px;
     img{
       width: 100%;
       height: 100%;

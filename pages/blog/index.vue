@@ -12,7 +12,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">لاینومگ</h2>
+          <h1 class="text">لاینومگ</h1>
         </div>
 
 
@@ -27,7 +27,7 @@
                 filled
                 rounded
                 clearable
-                placeholder="جستجو اسم فونت"
+                placeholder="جستجو مقاله"
                 prepend-inner-icon="mdi-magnify"
                 class="pt-6 shrink expanding-search"
               ></v-text-field>
@@ -36,11 +36,12 @@
           <div class="filter">
             <v-select
               :items="itemsFilter"
-              v-model="sort"
-              label="به ترتیب"
+              v-model="categoryId"
+              label="دسته بندی های وبلاگ"
               outlined
               item-text="name"
-              item-value="value"
+              item-value="id"
+              @change="changeRoute"
             >
               <template #prepend-inner>
                 <SvgIcon
@@ -53,7 +54,7 @@
             </v-select>
           </div>
         </div>
-        <div class="productMain-lists-block">
+        <div class="productMain-lists-block" v-if="posts?.length >0">
           <div class="latest-font-block">
             <div class="box"  v-for="(item, i) in (posts)">
               <Post :items="item" />
@@ -64,8 +65,12 @@
             :length="Math.ceil(totalItems / itemsPerPage)"
             :total-visible="7"
             class="my-4"
-            @input="getPost"
+            @input="getPost(null)"
           ></v-pagination>
+        </div v-if>
+        <div class="productMain-lists-block not-pro"  v-else>
+          <img src="~/assets/img/icon/not-pro.png" alt="not pro">
+          <span>  مقاله ای یافت نشد</span>
         </div>
       </section>
 
@@ -83,7 +88,7 @@ import { postService  } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول - لاینو تایپ",
+    title: "به وبلاگ لاینوتایپ خوش آمدید.",
     htmlAttrs: {
       lang: "fa",
     },
@@ -92,7 +97,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  لیست محصول - ",
+      content: "به وبلاگ لاینوتایپ خوش آمدید. در این بخش به آخرین مقالات مرتبط با دنیای فونت و طراحی دسترسی خواهید داشت.",
     },
   ],
   components: {
@@ -104,15 +109,8 @@ export default {
     return {
       loading: false,
       searchText: '',
-      itemsFilter: [
-        { name: 'پربازدید ترین', value: 1 },
-        { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
-        { name: 'جدیدترین', value: 4 },
-        { name: 'ارزانترین', value: 5 },
-        { name: 'گرانترین', value: 6 }
-      ],
-      sort: 1,
+      itemsFilter: [],
+      categoryId: null,
       page:1,
       posts:[],
       itemsPerPage: 10,
@@ -124,7 +122,8 @@ export default {
       this.page = 1 // Reset page when itemsPerPage changes
       this.getPost()
     },
-    sort(newVal) {
+    categoryId(newVal) {
+      console.log(newVal)
       setTimeout(()=>{
         this.getPost(this.params.category , newVal)
 
@@ -132,22 +131,28 @@ export default {
     },
   },
   methods: {
-    handleSearch(){
-      this.getPost(this.sort)
+    changeRoute(id){
+      this.getPost(id)
     },
-    async getPost(sort) {
+    handleSearch(){
+      this.getPost(this.categoryId)
+    },
+    async getPost(categoryId ) {
       this.loading= true
       const data = {
-        sort : sort,
         ...(this.searchText.length > 0  && {
           search: this.searchText,
-        })
+        } ),
+        ...( categoryId && { category:  categoryId }),
+        ...( this.page && { page:  this.page })
+
       }
       try {
         const res = await postService.getPost(data)
         setTimeout(() => {
           this.posts = res?.entity?.posts?.data
           this.totalItems = res?.entity?.posts?.total
+          this.itemsFilter = res?.entity.categories
 
           this.loading= false
         }, 2000);
@@ -247,6 +252,22 @@ export default {
     }
   }
 
+}
+.not-pro{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0;
+  width: 100%;
+  margin: 60px auto 100px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  span{
+    font-weight: 800;
+    color: #ff7a00 !important;
+    margin-top: 15px;
+    text-align: center;
+  }
 }
 .latest-font{
   padding: 50px 5%;

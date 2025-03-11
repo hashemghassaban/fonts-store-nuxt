@@ -210,7 +210,7 @@
             </v-sheet>
           </div>
           <div class="box" v-for="(item, i) in dataResult?.top_sell" v-else>
-            <Product :typeProduct="'noProduct'" :items="item" @refreshData="refreshData"/>
+            <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
           </div>
 
         </div>
@@ -843,11 +843,11 @@ export default {
     .col-3{
       width: 50%;
       flex: 50%;
-      min-width: 50%;
+      max-width: 50%;
       @include breakpoint(medium) {
         width: 25%;
         flex: 25%;
-        min-width: 25%;
+        max-width: 25%;
       }
     }
     .box{

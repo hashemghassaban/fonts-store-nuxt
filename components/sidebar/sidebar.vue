@@ -96,6 +96,7 @@ export default {
     loading:false,
     url:'',
     items: [
+      { text: 'داشبورد', link: '/page/userManager' , action:''},
       { text: 'سفارش ها', link: '/page/order' , action:''},
       { text: 'کیف پول من', link: '/page/wallet' , action:''},
       { text: 'فونت های مورد علاقه', link: '/page/favorite', action:'' },

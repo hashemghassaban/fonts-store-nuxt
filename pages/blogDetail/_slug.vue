@@ -19,7 +19,7 @@
       </section>
       <div class="small-banner">
         <img src="~/assets/img/banner/ban4.jpg" alt="">
-        <button >
+        <nuxt-link to="/product" >
           <div class="icon">
             <SvgIcon
               name="arrow"
@@ -28,45 +28,12 @@
               className="rounded-full"
             />
           </div>
-          <span>فونت کوت</span>
-        </button>
+          <span>فونت های لاینوتایپ</span>
+        </nuxt-link>
       </div>
 
 
     </div>
-      <section class="feature">
-        <div class="feature-block">
-          <div class="feature-block-play" @click="showVideo">
-            <img src="~/assets/img/icon/play.svg" alt="">
-          </div>
-        </div>
-
-        <v-dialog width="800" v-model="dialogVideo" persistent  >
-
-
-          <v-card
-
-            prepend-icon="mdi-update"
-            text="Your application will relaunch automatically after the update is complete."
-            title="Update in progress"
-            class="block-video"
-          >
-            <v-icon  @click="hideVideo" class="close" color="#fff">mdi-close</v-icon>
-
-            <video
-              controls
-              width="640"
-
-              ref="videoPlayer"
-              height="360"
-              :src="videoSource"
-
-            >
-            </video></v-card>
-
-
-        </v-dialog>
-      </section>
 
       <section class="postMain">
         <h2>  مطالب مشابه</h2>
@@ -82,19 +49,6 @@
       <section class="contact-form">
         <div class="form-top">
           <h3>ثبت نظر: </h3>
-          <div class="rate-box">
-            <v-rating
-              length="5"
-              v-model="rateComment"
-              hover
-              color="yellow darken-2"
-              background-color="#ccc"
-              icon="mdi-star"
-              empty-icon="mdi-star"
-              full-icon="mdi-star"
-            ></v-rating>
-            <span class="numberRate"> {{ rateComment }} امتیاز</span>
-          </div>
         </div>
 
         <div class="contact-form-block">
@@ -137,10 +91,6 @@
                   {{item?.user?.full_name !== " " ? item?.user?.full_name : item?.user?.mobile}}
                   </div>
                   <div class="info-user">
-                    <div class="rate">
-                      <v-icon>mdi mdi-star</v-icon>
-                      <span>5</span>
-                    </div>
                     <div class="date">{{  new Date(item.created_at).toLocaleString('fa-IR', {
                       year: 'numeric',
                       month: 'long',
@@ -239,21 +189,6 @@
                     label="متن پیام"
                   />
                 </v-col>
-                <v-col cols="12">
-                  <div class="rate-box">
-                    <v-rating
-                      length="5"
-                      v-model="rateComment"
-                      hover
-                      color="yellow darken-2"
-                      background-color="#ccc"
-                      icon="mdi-star"
-                      empty-icon="mdi-star"
-                      full-icon="mdi-star"
-                    ></v-rating>
-                    <span class="numberRate"> {{ rateComment }} امتیاز</span>
-                  </div>
-                </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -297,20 +232,7 @@ import { postService  } from '~/services'
 
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "لیست محصول - لاینو تایپ  ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  لیست محصول - ",
-    },
-  ],
+
   components: {
     SvgIcon,
     TextInput,
@@ -319,22 +241,11 @@ export default {
   data () {
     return {
       searchText: '',
-      itemsFilter: [
-        { name: 'پربازدید ترین', value: 1 },
-        { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
-        { name: 'جدیدترین', value: 4 },
-        { name: 'ارزانترین', value: 5 },
-        { name: 'گرانترین', value: 6 }
-      ],
       filter: 1,
       page: 1,
-      dialogVideo:false,
-      videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
       description:'',
       isValid: false,
       posts:[],
-      rateComment: 0,
       dialogAddComment: false,
       bodyComment:'',
       loading:false,
@@ -356,30 +267,12 @@ export default {
     },
 
   },
-  watch: {
-    rateComment(newValue, oldValue) {
-     if(newValue){
-       this.postRate(this.currentPath)
-     }
-    }
-  },
+
 
   methods: {
     showDialogComment(newComment) {
 this.dialogAddComment = true,
   this.selectId = newComment
-    },
-    showVideo(){
-      this.dialogVideo = true
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.play();
-      });
-    },
-    hideVideo(){
-      this.dialogVideo = false
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.pause();
-      });
     },
 
 
@@ -452,26 +345,7 @@ this.dialogAddComment = true,
       }
     },
 
-    async postRate(id) {
-      if (!this.authenticate) {
-        let url  = ""
-        if (process.client) {
-          url = window.location?.pathname
-        }
-        localStorage.setItem('lastUrL' , url)
-        this.$router.push('/signIn')
-        return
-      }
-      let body = {
-        'rate':this.rateComment
-      }
-      try {
-        const res = await postService.postRate(id ,  body)
 
-      } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
-      }
-    },
 
 
 
@@ -479,7 +353,39 @@ this.dialogAddComment = true,
   mounted() {
     this.getPost(this.currentPath);
     this.getComment(this.currentPath)
-  }
+  },
+  head() {
+    return {
+      title: this.posts.title,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.posts?.content,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.posts?.content,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.posts?.title + ' -  ' ,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.posts.thumbnail_url,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.posts?.content,
+        },
+      ],
+    }
+  },
 };
 </script>
 
@@ -493,6 +399,7 @@ this.dialogAddComment = true,
     overflow: hidden;
     padding: 0;
     margin: auto;
+    position: relative;
     @include breakpoint(medium) {
       height: 500px;
     }
@@ -614,36 +521,6 @@ this.dialogAddComment = true,
   }
 
 }
-.rate {
-  display: flex;
-  gap: 30px;
-  align-items: flex-end;
-
-  &-box {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 1.5rem 0 0;
-
-    span {
-      color: #5a5a5a;
-    }
-
-    ::v-deep {
-      .v-rating {
-        direction: ltr !important;
-
-        .v-icon {
-          padding: 0 2px 0;
-        }
-      }
-    }
-  }
-
-  .review {
-    color: #b5b5b5;
-  }
-}
 
 
 .type-font{
@@ -691,7 +568,7 @@ this.dialogAddComment = true,
     height: 100%;
     object-fit: fill;
   }
-  button{
+  a{
     width: 200px;
     background: #AAE73E;
     height: 54px;
@@ -709,7 +586,7 @@ this.dialogAddComment = true,
     left: 50px;
     bottom: 50px;
     @include breakpoint(medium) {
-      width: 300px;
+      width: 230px;
     }
     &:hover{
       background: #fff;
@@ -861,14 +738,6 @@ this.dialogAddComment = true,
     @include breakpoint(medium) {
       width: 600px;
       flex-direction: row;
-    }
-    .rate-box{
-      margin-right: auto;
-      padding: 0 11px;
-      @include breakpoint(medium) {
-        margin: 0;
-
-      }
     }
   }
   h3{

@@ -60,7 +60,7 @@
             />
           </div>
 
-          <div class="block pb-5">
+          <div class="block pb-5 pt-5">
             <TextInput
               class="my-2"
               :isValid.sync="isValid"
@@ -68,6 +68,33 @@
               height="100px"
               width="100%"
               label="متن پیام"
+            />
+          </div>
+          <div class="block">
+          <div class="d-flex justify-center align-center">
+            <v-img
+              style="cursor: pointer"
+              class="rounded"
+              max-width="200"
+              max-height="56"
+              :src="captcha"
+            />
+            <v-btn
+              class="mr-2 refresh"
+              icon
+              color="white"
+              :loading="captchaLoading"
+              @click="getCaptcha"
+
+            >
+              <v-icon size="30" color="white"> mdi-refresh </v-icon>
+            </v-btn>
+          </div>
+            <TextInput
+              class="my-2 code"
+              :isValid.sync="isValid"
+              v-model="captchaCode"
+              label="کد امنیتی "
             />
           </div>
           <div class="block">
@@ -123,7 +150,9 @@ export default {
   },
   data () {
     return {
+      captcha:'',
       dialogVideo:false,
+      captchaLoading:false,
       videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
       BrandData: [
         {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
@@ -166,41 +195,47 @@ export default {
           },
         ],
       },
-      activePanel: [0],
       isValid: false,
-      items: [
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-      ],
-      activePanel2: [0],
-      items2: [
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-        { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
-      ],
       fullName:'',
       tell:'',
-      subject:'',
-      subjectList:[],
       description:'',
-      email:''
+      email:'',
+      captchaCode:'',
+      key:''
 
     }
   },
   methods: {
+    async getCaptcha(){
+      this.captchaLoading = true
+
+      try {
+        const res = await pagesService.getCaptcha()
+        this.captcha = res?.img
+        this.key = res?.key
+        this.captchaLoading = false
+
+      } catch (error) {
+        this.captchaLoading = false
+        console.error('خطا در دریافت کاربران:', error)
+      }
+    },
     async SubmitContact() {
       let body = {
         name:this.fullName,
         email:this.email,
-        // tell:this.tell,
-        subject:this.subject,
+       captcha:this.captchaCode,
         description:this.description,
+        key: this.key
       }
       if(this.isValid){
       try {
-        const res = await pagesService.postContactUs(body)
+        await pagesService.postContactUs(body)
+        this.$toast.success('متن پیام با موفقیت ارسال شد', {
+          timeout: 4000,
+        })
       } catch (error) {
+        console.log(error)
         console.error('خطا در دریافت کاربران:', error)
       }
       }
@@ -218,6 +253,9 @@ export default {
       });
     }
 
+  },
+  mounted() {
+    this.getCaptcha();
   }
 };
 </script>
@@ -369,6 +407,14 @@ export default {
   }
 }
 
+.refresh{
+  i{
+    color: #ff7a00 !important;
+    margin-right: 20px;
+  }
+
+}
+
 .contact-form {
   background: #eee;
   padding: 50px 0 65px;
@@ -393,12 +439,26 @@ export default {
       @include breakpoint(medium) {
         flex-direction: row;
       }
+      .d-flex{
+        width: 100%;
+        @include breakpoint(medium) {
+          width: 50%;
+        }
+      }
+      .code{
+        width: 100%;
+        margin: 0 0 40px !important;
+        @include breakpoint(medium) {
+          width: 50%;
+          margin:10px 0 17px !important;
+        }
+      }
     }
   }
 }
 ::v-deep {
   .form-text-input-container{
-    margin: 0 0 27px !important;
+    margin: 0px !important;
     padding: 0;
     @include breakpoint(medium) {
       margin: 8px 0 !important;

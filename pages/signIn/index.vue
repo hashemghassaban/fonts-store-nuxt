@@ -40,26 +40,27 @@
       </div>
       <div class="signIn-block"  v-if="step === 2">
         <div class="signIn-box">
+
           <TextInput
             validators="subject"
-            v-if="isRegisterd === false"
-            class="my-2"
-            v-model="email"
-            label=" ایمیل "
-          />
-          <TextInput
-            validators="subject"
-            v-if="isRegisterd === false"
+            v-if="isRegisterd"
             class="my-2"
             v-model="firstName"
             label=" نام "
           />
           <TextInput
-            v-if="isRegisterd === false"
+            v-if="isRegisterd"
             validators="subject"
             class="my-2"
             v-model="lastName"
             label=" نام خانوادگی "
+          />
+          <TextInput
+            validators="subject"
+            v-if="isRegisterd"
+            class="my-2"
+            v-model="email"
+            label=" ایمیل "
           />
           <v-otp-input
             v-model="otp"

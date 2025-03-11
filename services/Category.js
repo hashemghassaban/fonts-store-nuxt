@@ -11,9 +11,9 @@ class CategoryService {
       throw error
     }
   }
-  async getCategoryPro(id) {
+  async getCategoryPro(id ,  data) {
     try {
-      const response = await apiService.get(`/api/v1/categories/${id}/products`)
+      const response = await apiService.get(`/api/v1/categories/${id}/products`,data)
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)
@@ -23,6 +23,15 @@ class CategoryService {
   async getCategoryAll() {
     try {
       const response = await apiService.get(`/api/v1/categories`)
+      return response.data
+    } catch (error) {
+      console.error('خطا در دریافت محصول:', error)
+      throw error
+    }
+  }
+  async getCategorySingle(id) {
+    try {
+      const response = await apiService.post(`/api/v1/categories/${id}`)
       return response.data
     } catch (error) {
       console.error('خطا در دریافت محصول:', error)

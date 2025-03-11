@@ -7,6 +7,20 @@ import { authService } from '~/services'
 export default {
   name: 'signIn',
   middleware: 'authenticated',
+  head: {
+    titleTemplate: "",
+    title: "ورود به لاینوتایپ - لاینو تایپ",
+    htmlAttrs: {
+      lang: "fa",
+    },
+  },
+  meta: [
+    {
+      hid: "og:title",
+      name: "og:title",
+      content: "ورود به داشبورد کاربری لاینوتایپ ",
+    },
+  ],
 
   data: () => ({
     isValid: false,
@@ -50,7 +64,7 @@ export default {
       const body = {
         mobile: this.mobile,
         code: this.otp,
-        ...(this.isRegisterd === false && {
+        ...(this.isRegisterd === true && {
           firstName: this.firstName,
           lastName: this.lastName,
           email: this.email
@@ -70,6 +84,9 @@ export default {
      })
      .catch(error => {
        this.loading = false
+       // this.$toast.error(error?.error, {
+       //   timeout: 4000,
+       // })
      })
     },
     loginUser() {

@@ -5,6 +5,24 @@
 
     <div class="productDetail py-10">
       <section class="productDetail-banner">
+        <v-btn icon class="heart"
+               @click="toggleHeart(product)">
+          <SvgIcon
+            name="heart1"
+            color="#F44336"
+            v-if="product?.is_favourited"
+            size="28px"
+            className="rounded-full"
+          />
+          <SvgIcon
+            name="heart"
+            color="#fff"
+            size="25px"
+            v-else
+            className="rounded-full"
+          />
+
+        </v-btn>
 
         <v-carousel
           cycle
@@ -13,7 +31,6 @@
 
         >
           <v-carousel-item v-for="(slide, i) in product?.images" :key="i">
-            <nuxt-link :to="slide?.full_url">
               <v-sheet height="100%">
                 <div class="slide-back">
                   <img
@@ -29,7 +46,6 @@
                   />
                 </div>
               </v-sheet>
-            </nuxt-link>
           </v-carousel-item>
         </v-carousel>
         <v-carousel
@@ -61,7 +77,13 @@
       </section>
       <section class="productDetail-description" >
         <div class="head-pro">
-          <h1>{{product.name}}</h1>
+          <div class="titles">
+            <div class="percent"  v-if="product?.lowest_price?.has_offer">
+              <span>{{ product?.lowest_price?.offer_percent }}</span>
+            </div>
+            <h1>{{product.name}}</h1>
+
+          </div>
 
           <button @click="scrollToBottom">
             <div class="icon">
@@ -140,20 +162,6 @@ import SelectInput from "@/components/SelectInput/SelectInput";
 import { productService } from '~/services'
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "جزئیات محصول - لاینو تایپ ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  لیست محصول - ",
-    },
-  ],
   components: {
     SvgIcon,
     TextInput,
@@ -165,7 +173,6 @@ export default {
       itemsFilter: [
         { name: 'پربازدید ترین', value: 1 },
         { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
         { name: 'جدیدترین', value: 4 },
         { name: 'ارزانترین', value: 5 },
         { name: 'گرانترین', value: 6 }
@@ -173,13 +180,32 @@ export default {
       filter: 'جدیدترین',
       page: 1,
       product:[],
+      title:'',
+      description:'',
       loading:false,
 
 
     }
   },
   methods: {
-
+    async toggleHeart(item) {
+      if (!this.authenticate) {
+        let url  = ""
+        if (process.client) {
+          url = window.location?.pathname
+        }
+        localStorage.setItem('lastUrL' , url)
+        this.$router.push('/signIn')
+        return
+      }
+      try {
+        if (item.is_favourited)
+          await productService.dislikeProduct(item.id)
+        else await productService.likeProduct(item.id)
+        item.is_favourited = !item.is_favourited
+        this.getProduct(this.currentPath);
+      } catch (e) {}
+    },
     formatPrice(value) {
       if(isNaN(value)) return  0
       let val = (value / 1).toFixed(0).replace(".", ",");
@@ -198,6 +224,9 @@ export default {
       try {
         const product = await productService.getProduct(id)
         this.product = product?.entity?.product
+        this.description =  product?.entity?.product?.description
+        this.title =  product?.entity?.product?.title
+
         this.loading = false
       } catch (error) {
         this.loading = false
@@ -223,6 +252,11 @@ export default {
 
   },
   computed: {
+    authenticate() {
+      if (process.client) {
+        return !!window.localStorage.getItem("token");
+      }
+    },
     currentPath() {
 
       return this.$route.params.slug
@@ -232,11 +266,66 @@ export default {
     this.getProduct(this.currentPath);
 
 
-  }
+  },
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.title + ' -  ' ,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.product.thumbnail?.small_full_url,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.description,
+        },
+      ],
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.heart{
+  position: absolute;
+  top: 20px;
+  cursor: pointer;
+  left: 20px;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  border-radius: 100px;
+  line-height: 35px;
+  z-index: 1;
+  background: inherit;
+  border: 0;
+  box-shadow: none;
+  padding: 0;
+  min-width: 35px;
+  @include breakpoint(medium) {
+    left: 20px;
+  }
+  i{
+    color:red!important;
+  }
+}
 .productDetail{
   padding: 0 5%;
   &-banner{
@@ -246,6 +335,7 @@ export default {
     overflow: hidden;
     padding: 0;
     margin: auto;
+    position: relative;
     @include breakpoint(medium) {
       height: 500px;
     }
@@ -269,9 +359,43 @@ export default {
         flex-direction: row;
         gap: 20px;
       }
-      h1{
+      .titles{
         margin: 0;
         text-align: right;
+        display: flex;
+        align-items: center;
+        .percent{
+          width: 60px;
+          height: 60px;
+          position: relative;
+          background:url("~/assets/img/icon/star.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          margin-left: 7px;
+          @include breakpoint(medium) {
+            width: 80px;
+            height: 80px;
+            margin-left: 20px;
+          }
+          img{
+            filter: grayscale(0)!important;
+
+          }
+          span{
+            position: absolute;
+            right: 16px;
+            top: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            @include breakpoint(medium) {
+              right: 23px;
+              top: 21px;
+              font-size: 24px;
+            }
+
+
+          }
+        }
       }
       button{
 
@@ -480,24 +604,7 @@ export default {
   bottom: 5px !important;
   justify-content: flex-start;
 }
-.v-btn--icon.v-size--default {
-  height: 45px;
-  width: 45px;
-  background: #fff;
-  transition: all 0.3s ease;
 
-  &:hover{
-    background: #FF7A00;
-    transition: all 0.3s ease;
-
-    .v-btn__content{
-      color: #fff;
-    }
-  }
-  .v-btn__content{
-    color: #ccc;
-  }
-}
 .carouselMain {
   &-desktop {
     overflow: inherit!important;
