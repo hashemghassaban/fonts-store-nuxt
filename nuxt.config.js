@@ -49,7 +49,11 @@ export default {
     '@nuxtjs/vuetify',
     'nuxt-countdown'
   ],
-
+  vuex: {
+    modules: {
+      api: '~/store/api.js'
+    }
+  },
   modules: [
     '@nuxtjs/axios',
     [

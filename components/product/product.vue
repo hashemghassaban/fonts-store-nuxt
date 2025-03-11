@@ -74,12 +74,15 @@
       </v-btn>
       <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || (typeProduct === 'profile' && typeProduct !== 'favorite')">
         <div class="price-main">
+          <span v-if="items?.prices?.length > 1">  از</span>
           {{typeProduct === 'product' ? formatPrice(items?.lowest_price?.offer_price) : typeProduct === 'noProduct' ? formatPrice(items?.lowest_price?.price): formatPrice(items?.payable_price)}} ت
 
         </div>
-        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'profile') && !!items?.lowest_price?.has_offer)">
-          {{formatPrice(parseInt(items?.lowest_price?.price))}} ت
+        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'profile') && (!!items?.lowest_price?.has_offer  || items?.price!==items?.payable_price))">
+          {{typeProduct === 'cart' ?  formatPrice(items?.price) :formatPrice(items?.lowest_price?.price)}} ت
         </div>
+
+
       </div>
     </div>
   </div>
@@ -511,15 +514,24 @@ export default {
           @include breakpoint(medium) {
             margin: 25px 14px;
             font-size: 18px;
+            font-size: 18px;
             gap: 17px;
 
           }
           &-main{
             font-weight: bold;
+            span{
+              font-weight: 100;
+              font-size: 15px;
+              margin-left: 5px;
+              color: #17190d;
+            }
           }
           &-old{
             color: #A1A1A1;
             font-weight: bold;
+            font-size: 15px;
+            text-decoration-line: line-through;
           }
         }
       }

@@ -5,6 +5,13 @@ import { profileService , productService } from '~/services'
 
 export default {
   name: 'profile',
+  head: {
+    titleTemplate: "",
+    title: "پنل کاربری - لاینو تایپ",
+    htmlAttrs: {
+      lang: "fa",
+    },
+  },
   data: () => ({
     page: 1,
     orders: [],

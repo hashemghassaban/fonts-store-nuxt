@@ -12,63 +12,64 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">دسته بندی {{ title }} </h2>
+          <h1 class="text">دسته بندی {{ title }} </h1>
         </div>
-        <div class="category-block">
-          <div class="col-3" v-for="(item, i) in (category)" :key="i">
-            <div  class="box" @click="changeCategory(item.id)">
-              <div class="count">+{{totalItems}}</div>
-              <div class="icon">
-                <img
-                  :src="require(`~/assets/img/element/box0${i+1}.png`)"
-                  alt=""
-                />
-
+        <section class="productMain-lists">
+          <div class="productMain-lists-block"  v-if="product?.length > 0">
+            <div class="latest-font-block">
+              <div class="box" v-for="(item, i) in product" >
+                <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
               </div>
-              <div class="text">
-                <span>{{item.name}}</span>
-                <button> <SvgIcon
-                  name="arrow"
-                  color="#AAE73E"
-                  size="1.3rem"
-                  className="rounded-full"
-                /></button>
 
+            </div>
+            <v-pagination
+              v-model="page"
+              :length="Math.ceil(totalItems / itemsPerPage)"
+              :total-visible="7"
+              class="my-4"
+              @input="getCategories"
+            ></v-pagination>
+          </div>
+          <div class="productMain-lists-block not-pro"  v-else>
+
+            <img src="~/assets/img/icon/not-pro.png" alt="not pro">
+            <span>  دسته ای یافت نشد</span>
+          </div>
+        </section>
+        <div class="type-font">
+          <h3>{{title}}</h3>
+          <p>{{description}}</p>
+        </div>
+        <div class="category">
+          <div class="category-block">
+            <div class="col-3" v-for="(item, i) in (category)" :key="i">
+              <div  class="box" >
+                <div class="count">+{{totalItems}}</div>
+                <div class="icon">
+                  <img
+                    :src="require(`~/assets/img/element/box0${i+1}.png`)"
+                    alt=""
+                  />
+
+                </div>
+                <div class="text">
+                  <span>{{item.name}}</span>
+                  <button> <SvgIcon
+                    name="arrow"
+                    color="#AAE73E"
+                    size="1.3rem"
+                    className="rounded-full"
+                  /></button>
+
+                </div>
               </div>
+
             </div>
 
-          </div>
-
-
-        </div>
-
-      </section>
-      <section class="productMain-lists">
-        <div class="productMain-lists-block"  v-if="product?.length > 0">
-          <div class="latest-font-block">
-            <div class="box" v-for="(item, i) in product" >
-              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
-            </div>
 
           </div>
-          <v-pagination
-            v-model="page"
-            :length="Math.ceil(totalItems / itemsPerPage)"
-            :total-visible="7"
-            class="my-4"
-            @input="getCategory"
-          ></v-pagination>
-        </div>
-        <div class="productMain-lists-block not-pro"  v-else>
-
-          <img src="~/assets/img/icon/not-pro.png" alt="not pro">
-          <span>  دسته ای یافت نشد</span>
         </div>
       </section>
-      <div class="type-font">
-        <h3>{{title}}</h3>
-        <p>{{description}}</p>
-      </div>
     </div>
   </client-only>
 </template>
@@ -84,20 +85,7 @@ import { categoryService } from '~/services'
 
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "لیست محصول - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  لیست محصول - ",
-    },
-  ],
+
   components: {
     SvgIcon,
     VueSlickCarousel,
@@ -107,14 +95,7 @@ export default {
   data () {
     return {
       searchText: '',
-      itemsFilter: [
-        { name: 'پربازدید ترین', value: 1 },
-        { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
-        { name: 'جدیدترین', value: 4 },
-        { name: 'ارزانترین', value: 5 },
-        { name: 'گرانترین', value: 6 }
-      ],
+      itemsFilter: [],
       sort: 1,
       page: 1,
       loading:false,
@@ -131,8 +112,10 @@ export default {
   watch: {
     itemsPerPage(newVal) {
       this.page = 1 // Reset page when itemsPerPage changes
-      this.getProductAll()
+      this.getCategories()
     },
+
+
   },
   computed: {
     params() {
@@ -141,30 +124,21 @@ export default {
 
   },
   methods: {
-    handleSearch(){
-      this.getCategoreis(this.sort)
-    },
-    changeCategory(id){
-      this.$router.push('/categories/'+id)
-    },
     refreshData(newValue) {
       if(newValue ){
-        this.getCategoreis(this.sort)
+        this.getCategories()
       }
     },
-    async getCategoreis() {
+    async getCategories() {
       this.loading=true
       try {
-        const product = await categoryService.getCategoryPro(this.params)
+        const product = await categoryService.getCategorySingle(this.params)
+        let res = product?.entity
+        this.title = res?.category?.name
+        this.description = res?.category?.description
+        this.product = res?.products?.data
 
-        console.log(product)
-           let cat = product?.entity
-            this.category =  cat.category?.children
-            this.title = cat?.category?.name
-        this.description = cat?.category?.description
-        this.product = cat?.products?.data
-
-        this.totalItems =  cat?.products?.total
+        this.totalItems =  res?.products?.total
         this.loading=false
 
       } catch (error) {
@@ -172,17 +146,51 @@ export default {
         this.loading=false
       }
     },
+
   },
   mounted() {
-    this.getCategoreis()
+    this.getCategories()
 
-  }
+
+  },
+  head() {
+    return {
+      title: 'دسته بندی ' + this.title ,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.category?.name,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.category?.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.category?.name + ' -  ' ,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.category.icon,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.category?.description,
+        },
+      ],
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .category{
-  padding: 50px 5%;
+  padding:0 0 50px;
   &-block{
     display: flex;
     margin-top: 50px;
@@ -192,11 +200,11 @@ export default {
     .col-3{
       width: 50%;
       flex: 50%;
-      min-width: 50%;
+      max-width: 50%;
       @include breakpoint(medium) {
         width: 25%;
         flex: 25%;
-        min-width: 25%;
+        max-width: 25%;
       }
     }
     .box{
@@ -211,7 +219,6 @@ export default {
       @include breakpoint(medium) {
         height: 250px;
         width: 250px;
-        margin: auto;
       }
 
       &:hover{
@@ -292,7 +299,7 @@ export default {
     padding: 0 10%;
   }
   &-lists{
-    padding: 0 5%;
+    padding: 100px  5% 0;
     &-filter{
       display: flex;
       justify-content: space-between;
@@ -431,9 +438,10 @@ export default {
   margin-top: 50px;
   margin-bottom: 0;
   padding: 0 5%;
+  border-bottom: 1px solid #ccc;
+
   @include breakpoint(medium) {
-    padding: 0 ;
-    margin-bottom: 100px;
+    padding: 0;
     margin-top: 100px;
   }
   h3{

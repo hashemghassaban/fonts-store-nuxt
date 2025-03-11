@@ -11,7 +11,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">سبد خرید</h2>
+          <h1 class="text">سبد خرید</h1>
         </div>
         <hr>
         <div class="title next">
@@ -23,7 +23,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">پرداخت</h2>
+          <h1 class="text">پرداخت</h1>
         </div>
         <hr>
         <div class="title next">

@@ -6,6 +6,13 @@ import { profileService  } from '~/services'
 
 export default {
   name: 'wallet',
+  head: {
+    titleTemplate: "",
+    title: "پنل کاربری - لاینو تایپ",
+    htmlAttrs: {
+      lang: "fa",
+    },
+  },
   data: () => ({
     transactions:null,
     last:null,

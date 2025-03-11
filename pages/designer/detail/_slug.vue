@@ -10,59 +10,31 @@
           <h3> {{designer?.designer?.full_name}}</h3>
         </div>
         <div class="info-creator">
-          <h3> {{designer?.designer?.full_name}}</h3>
+          <h1> {{designer?.designer?.full_name}}</h1>
           <p>{{designer?.designer?.description}}</p>
         </div>
 
       </section>
-      <section class="productDetail-description" >
-        <div class="head-pro">
-          <h1>{{product.name}}</h1>
+      <section class="productMain-lists">
+        <div class="productMain-lists-block"  v-if="product?.length > 0">
+          <div class="latest-font-block">
+            <div class="box" v-for="(item, i) in product" >
+              <Product :typeProduct="'product'" :items="item" @refreshData="refreshData"/>
+            </div>
 
-          <button @click="scrollToBottom">
-            <div class="icon">
-              <SvgIcon
-                name="arrow"
-                color="#fff"
-                size="12px"
-                className="rounded-full"
-              />
-            </div>
-            <span>   انتخاب نسخه و خرید</span>
-          </button>
-        </div>
-
-        <p>{{product.short_description}}</p>
-      </section>
-      <section class="productDetail-fontPack" >
-        <div class="fontPack-block">
-          <div class="box" id="version"
-               v-for="(item, index) in product?.prices"
-          >
-            <div class="box-head">
-              <div class="weight">{{item.description}}</div>
-              <div class="rate-and-type">
-                <div class="types">{{item.name}}</div>
-              </div>
-            </div>
-            <div class="box-body">
-              <img :src="item?.preview_path" :alt="item.name">
-            </div>
-            <div class="box-footer">
-              <div class="price">  {{  formatPrice(item.price) }} ت</div>
-              <button class="add-to-cart"  @click="addToCart(item)">
-                <SvgIcon
-                  name="arrow"
-                  color="#fff"
-                  size="16px"
-                  className="rounded-full"
-
-                />
-                خرید
-              </button>
-            </div>
           </div>
+          <v-pagination
+            v-model="page"
+            :length="Math.ceil(totalItems / itemsPerPage)"
+            :total-visible="7"
+            class="my-4"
+            @input="getCategory"
+          ></v-pagination>
+        </div>
+        <div class="productMain-lists-block not-pro"  v-else>
 
+          <img src="~/assets/img/icon/not-pro.png" alt="not pro">
+          <span>  دسته ای یافت نشد</span>
         </div>
       </section>
       <section class="productDetail-tiny-banners">
@@ -85,20 +57,7 @@ import SelectInput from "@/components/SelectInput/SelectInput";
 import { productService } from '~/services'
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "جزئیات محصول - لاینو تایپ ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  لیست محصول - ",
-    },
-  ],
+
   components: {
     SvgIcon,
     TextInput,
@@ -107,16 +66,30 @@ export default {
   data () {
     return {
       filter: 1,
+      sort:1,
       page: 1,
       product:[],
       designer:[],
+      totalItems:0,
       loading:false,
+      itemsPerPage: 10,
+
 
 
     }
   },
+  watch: {
+    itemsPerPage(newVal) {
+      this.page = 1 // Reset page when itemsPerPage changes
+      this.getProductAll()
+    },
+  },
   methods: {
-
+    refreshData(newValue) {
+      if(newValue ){
+        this.getProductAll(this.sort)
+      }
+    },
     formatPrice(value) {
       if(isNaN(value)) return  0
       let val = (value / 1).toFixed(0).replace(".", ",");
@@ -137,8 +110,9 @@ export default {
       }
       try {
         const product = await productService.getProductAll(data)
-        this.product = product?.entity?.data[0]
+        this.product = product?.entity?.data
         this.designer = product?.entity?.data[0]
+        this.totalItems = this.product?.total
         this.loading = false;
 
       } catch (error) {
@@ -172,7 +146,39 @@ export default {
     this.getProductAll(this.currentPath);
 
 
-  }
+  },
+  head() {
+    return {
+      title: this.designer.title,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.designer?.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.designer?.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.designer?.title + ' -  ' ,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.designer.icon,
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.designer?.description,
+        },
+      ],
+    }
+  },
 };
 </script>
 
@@ -520,9 +526,9 @@ export default {
     @include breakpoint(medium) {
       padding: 40px 0;
     }
-    h3{
+    h1{
       color: #676767;
-
+      font-size: 20px;
       display: none;
       @include breakpoint(medium) {
         display: inline-block;
@@ -618,6 +624,144 @@ export default {
   }
 
 }
+.productMain{
+  padding: 0 0;
+  @include breakpoint(medium) {
+    padding: 0 10%;
+  }
+  &-lists{
+    padding:0 10%;
+    &-filter{
+      display: flex;
+      justify-content: space-between;
+      .filter{
+        width: 130px;
+        @include breakpoint(medium) {
+          width: 250px;
+        }
 
+        .v-input{
+          border-radius: 10px;
+          width: 150px;
+          font-size: 15px;
+          @include breakpoint(medium) {
+            width: 248px;
+            font-size: 12px;
+          }
+          ::v-deep{
+            .v-icon{
+              display: none;
+            }
+            .v-input__slot{
+              min-height: 51px;
+              height: 51px;
+            }
+          }
+
+
+        }
+      }
+    }
+    .searchBlock{
+      position: relative;
+      z-index: 1;
+      width: 200px;
+      @include breakpoint(medium) {
+        width: 650px;
+      }
+    }
+    .expanding-search {
+      transition: max-width 0.3s ease-in-out;
+      background: rgb(255 255 255)!important;
+      padding: 0!important;
+
+      .v-input__slot{
+        background: rgb(255 255 255)!important;
+
+
+      }
+
+
+    }
+    ::v-deep{
+      .v-text-field--filled > .v-input__control > .v-input__slot {
+        background:#fff!important;
+        padding: 0 10px!important;
+        border: 1px solid #646464;
+        min-height: 50px!important;
+        height: 50px!important;
+        border-radius: 10px;
+
+      }
+      .v-icon{
+        font-size: 27px;
+        position: relative;
+        top: 4px;
+      }
+      .v-text-field__slot{
+        padding: 0 15px!important;
+      }
+
+    }
+    &-block{
+
+    }
+  }
+  .not-pro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 100px 0;
+    width: 100%;
+    margin: 60px auto 100px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    span{
+      font-weight: 800;
+      color: #ff7a00 !important;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+  &-banner{
+    height: 250px;
+    width: 90%;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 0;
+    margin: auto;
+    @include breakpoint(medium) {
+      height: 500px;
+    }
+    img{
+      width:100%;
+      height: 100%;
+      object-fit: fill;
+    }
+  }
+}
+.latest-font-block{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 50px;
+  .box{
+    margin-bottom: 30px;
+    flex: 100%;
+    max-width: 100%;
+    @include breakpoint(medium) {
+      flex: 50%;
+      max-width: 49%;
+    }
+  }
+}
+::v-deep {
+  .v-progress-circular {
+    margin: auto;
+    display: block;
+    margin-top: 148px;
+  }
+
+}
 
 </style>

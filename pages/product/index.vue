@@ -12,7 +12,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">دسته بندی فونت</h2>
+          <h1 class="text">دسته بندی فونت</h1>
         </div>
         <div class="category-block">
           <div class="col-3" v-for="(item, i) in (category)?.slice(0, 4)" :key="i">
@@ -110,7 +110,7 @@ import { productService , categoryService} from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول - لاینو تایپ",
+    title: "نتایج جستجو - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -119,7 +119,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  لیست محصول - ",
+      content: "نتایج جستجو - لاینو تایپ",
     },
   ],
   components: {
@@ -134,7 +134,6 @@ export default {
       itemsFilter: [
         { name: 'پربازدید ترین', value: 1 },
         { name: 'پرفروش ترین', value: 2 },
-        { name: 'محبوب ترین', value: 3 },
         { name: 'جدیدترین', value: 4 },
         { name: 'ارزانترین', value: 5 },
         { name: 'گرانترین', value: 6 }
@@ -236,11 +235,11 @@ export default {
     .col-3{
       width: 50%;
       flex: 50%;
-      min-width: 50%;
+      max-width: 50%;
       @include breakpoint(medium) {
         width: 25%;
         flex: 25%;
-        min-width: 25%;
+        max-width: 25%;
       }
     }
     .box{

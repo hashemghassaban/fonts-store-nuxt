@@ -14,7 +14,7 @@ class AuthService {
 
   async sendSMS(credentials) {
     try {
-      const response =  await apiService.post('api/v1/auth/verify', credentials)
+      const response =  await apiService.post('/api/v1/auth/verify', credentials)
       return response.data
     } catch (error) {
       localStorage.removeItem('token')
