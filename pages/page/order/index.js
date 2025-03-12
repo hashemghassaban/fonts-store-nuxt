@@ -66,6 +66,9 @@ export default {
         let data = await productService.download(id)
         this.loadingBtn = false
       } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loadingBtn = false
       }
     },
@@ -76,7 +79,11 @@ export default {
         let data = await profileService.getOrders()
         this.orders = data.entity
         this.loading = false
-      } catch (error) {}
+      } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
+      }
     },
   },
 

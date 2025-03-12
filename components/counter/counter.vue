@@ -2,13 +2,13 @@
   <div id="timer" class="timer">
     <SvgIcon
       name="timer"
-      color=#FF7A00
+      color="#FF7A00"
       size="28px"
       className="rounded-full"
       v-if="formattedTime !== '00:00'"
     />
     <span v-if="formattedTime !== '00:00'">
-  {{ formattedTime }}
+      {{ formattedTime }}
     </span>
     <div class="controls" v-else>
       <button @click="resetCountdown">ارسال مجدد</button>
@@ -34,6 +34,10 @@ export default {
       default: true
     },
     onComplete: {
+      type: Function,
+      default: () => {}
+    },
+    callService: {
       type: Function,
       default: () => {}
     }
@@ -84,14 +88,18 @@ export default {
     },
 
     resetCountdown() {
-
-
       this.remainingSeconds = this.totalSeconds
+
+      // ابتدا رویداد restart را ارسال می‌کنیم
+      this.$emit('restart')
+
       setTimeout(()=>{
         this.stopCountdown()
         this.startCountdown()
       },1000)
 
+      // سپس تابع callService را فراخوانی می‌کنیم
+      this.callService()
     }
   },
 
@@ -107,17 +115,17 @@ export default {
 }
 </script>
 
-<style scoped >
+<style scoped lang="scss">
 .timer {
   display: flex;
   margin: 10px 0;
   width: 100%;
   align-items: center;
   gap: 10px;
-  span{
-    font-size: 20px;
-    color: #ff5722;
-  }
+span{
+  font-size: 20px;
+  color: #ff5722;
+}
 }
 
 .controls {
@@ -132,7 +140,6 @@ export default {
   background: #ff7a00;
   color: #fff;
   border-radius: 6px;
-
 }
 
 .controls button:hover {

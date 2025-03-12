@@ -127,7 +127,13 @@ export default {
         this.$emit('profile', this.profile);
         this.$emit('avatarUrl', this.avatarUrl);
 
-      } catch (error) {}
+      } catch (error) {
+        this.loading = false
+
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
+      }
     },
     triggerUpload() {
       this.$refs.fileInput.click()

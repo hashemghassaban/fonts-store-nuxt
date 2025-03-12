@@ -231,7 +231,9 @@ export default {
       } catch (error) {
         this.loading = false
 
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
     async addToCart(pro) {
@@ -245,7 +247,9 @@ export default {
         this.$store.commit('setDialogCart', true)
         this.$toast.success('محصول به سبد خرید اضافه شد')
       } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
 

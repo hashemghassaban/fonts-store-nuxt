@@ -7,7 +7,9 @@ class CategoryService {
       const response = await apiService.post(`/api/v1/products`, data)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -16,7 +18,9 @@ class CategoryService {
       const response = await apiService.get(`/api/v1/categories/${id}/products`,data)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -25,7 +29,9 @@ class CategoryService {
       const response = await apiService.get(`/api/v1/categories`)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -34,7 +40,9 @@ class CategoryService {
       const response = await apiService.post(`/api/v1/categories/${id}`)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }

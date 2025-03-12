@@ -21,7 +21,7 @@
       />
 
     </v-btn>
-    <nuxt-link :to="'/product/detail/'+items?.id ">
+    <nuxt-link :to="isNestedLink ? '/product/detail/' +items?.product?.id : '/product/detail/'+items?.id ">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
@@ -112,6 +112,7 @@ export default {
       default: null,
     },
     items:{},
+    isNestedLink: false,
 
   },
   methods: {
@@ -123,6 +124,9 @@ export default {
         let data = await productService.download(id)
         this.loadingBtn = false
       } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loadingBtn = false
       }
     },
@@ -161,7 +165,9 @@ export default {
         this.$toast.success('محصول به سبد خرید اضافه شد')
         this.loading = false;
       } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loading = false;
       }
     },
@@ -174,7 +180,9 @@ export default {
 
 
         } catch (error) {
-          console.error('خطا در دریافت کاربران:', error)
+          this.$toast.error(error, {
+            timeout: 4000,
+          })
         }
       }else{
         try {
@@ -184,7 +192,9 @@ export default {
 
 
         } catch (error) {
-          console.error('خطا در دریافت کاربران:', error)
+          this.$toast.error(error, {
+            timeout: 4000,
+          })
         }
       }
 

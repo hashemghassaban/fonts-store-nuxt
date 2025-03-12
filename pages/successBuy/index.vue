@@ -129,6 +129,9 @@ export default {
         this.product = data.entity
         this.loading = false
       } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loading = false
       }
     },

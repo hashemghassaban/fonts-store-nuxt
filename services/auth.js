@@ -1,7 +1,6 @@
 import { apiService } from './api'
 
 class AuthService {
-
   async login(credentials) {
     try {
       const response = await apiService.post('/api/v1/auth/login', credentials)
@@ -10,7 +9,6 @@ class AuthService {
       throw error
     }
   }
-
 
   async sendSMS(credentials) {
     try {
@@ -39,6 +37,10 @@ class AuthService {
       throw error
     }
   }
+  // افزودن متد جدید برای نمایش پیام‌های سفارشی
+  static showToast(message, type = 'success') {
+    Vue.$toast[type](message)
+  }
 }
-export const authService = new AuthService()
 
+export const authService = new AuthService()

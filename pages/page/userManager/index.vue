@@ -5,7 +5,7 @@
     <section class="userManager">
       <div class="userManager-block">
         <div class="userManager-block__info">
-          <sidebar @profile="profile" @avatarUrl="avatarUrl"  />
+          <sidebar @profile="profile" @avatarUrl="avatarUrl" @refresh="refresh"  />
         </div>
         <div class="userManager-block__content">
           <div class="userManager-title">

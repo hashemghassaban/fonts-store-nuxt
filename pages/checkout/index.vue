@@ -43,7 +43,7 @@
         <div class="cart-block-list">
           <div class="pro">
             <div class="box" v-for="(item, index) in cartItems">
-              <Product :typeProduct="'cart'" :items="item" @refreshData="refreshData"/>
+              <Product :typeProduct="'cart'" :items="item" @refreshData="refreshData" :isNestedLink="true" />
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
                       label="کیف پول"
                       color="primary"
                     ></v-radio>
-                    <p class="text"  v-show="selectedPaymethod === 4">موجودی : {{formatPrice(wallet?.remaining)}} ت</p>
+                    <p class="text"  v-show="selectedPaymethod === 4">موجودی : {{formatPrice(wallet?.wallet_credit)}} ت</p>
                     <p class="amount"  v-show="selectedPaymethod === 4">میزان کسری از کیف پول : {{formatPrice(wallet?.wallet_lacke)}} ت</p>
                   </v-col>
                 </v-row>
@@ -200,7 +200,9 @@ export default {
             this.selectedPayment = this.payMethods[0]?.id
 
         } catch (error) {
-          console.error('خطا در دریافت کاربران:', error)
+          this.$toast.error(error, {
+            timeout: 4000,
+          })
         }
 
 
@@ -219,7 +221,11 @@ export default {
         else this.$router.push(`successBuy?id=${id}&licence=${id}`)
 
 
-      } catch (error) {  this.loading = false;}
+      } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
+        this.loading = false;}
     },
   },
   // getCheckOut

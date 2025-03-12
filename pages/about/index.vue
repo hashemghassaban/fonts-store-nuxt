@@ -89,20 +89,6 @@
 
           </v-dialog>
         </section>
-<!--        <section class="about-title">-->
-<!--          <SvgIcon-->
-<!--            name="awards"-->
-<!--            color=#FF7A00-->
-<!--            size="38px"-->
-<!--            className="rounded-full"-->
-<!--          />-->
-<!--          <h2>جوایز</h2>-->
-<!--        </section>-->
-<!--        <section class="about-content-description">-->
-<!--          <p >{{dataResult?.description}}</p>-->
-<!--          <div v-html="dataResult?.content"></div>-->
-<!--        </section>-->
-
       </div>
     </section>
   </client-only>
@@ -208,7 +194,9 @@ export default {
         }, 1000);
 
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
   },

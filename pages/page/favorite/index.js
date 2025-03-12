@@ -36,7 +36,11 @@ export default {
        let res = await profileService.getFavourites()
         this.loading = false
         this.favourites = res.entity
-      } catch (error) {}
+      } catch (error) {
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
+      }
     },
 
   }

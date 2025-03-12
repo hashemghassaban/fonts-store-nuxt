@@ -6,7 +6,9 @@ class ProductService {
       const response = await apiService.post(`/api/v1/products`,data)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -15,7 +17,9 @@ class ProductService {
       const response = await apiService.get(`/api/v1/products/${id}`)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -24,7 +28,9 @@ class ProductService {
       const response = await apiService.get(`/api/v1/users/download/${orderItemId}`)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
@@ -33,6 +39,9 @@ class ProductService {
       const response = await apiService.post('/api/v1/carts', body)
       return response.data.entity
     } catch (error) {
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error.response?.entity || error
     }
   }
@@ -41,6 +50,9 @@ class ProductService {
       const response = await apiService.post('/api/v1/products/' + id + '/like')
       return response.data.entity
     } catch (error) {
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error.response?.entity || error
     }
   }
@@ -50,6 +62,9 @@ class ProductService {
       const response = await apiService.post('/api/v1/products/' + id + '/dislike')
       return response.data.entity
     } catch (error) {
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error.response?.entity || error
     }
   }
@@ -59,6 +74,9 @@ class ProductService {
       const response = await apiService.delete(`/api/v1/carts/items/${id}`)
       return response.data.entity
     } catch (error) {
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error.response?.entity || error
     }
   }

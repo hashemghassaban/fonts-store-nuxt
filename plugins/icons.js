@@ -12,7 +12,9 @@ export default ({ app }, inject) => {
 
       return `<svg><use href="#${iconName}" /></svg>`;
     } catch (error) {
-      console.error(`Failed to load icon ${name}:`, error);
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       return null;
     }
   };

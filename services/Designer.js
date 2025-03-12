@@ -7,7 +7,9 @@ class DesignerService {
       const response = await apiService.get(`/api/v1/collections`)
       return response.data
     } catch (error) {
-      console.error('خطا در دریافت محصول:', error)
+      this.$toast.error(error, {
+        timeout: 4000,
+      })
       throw error
     }
   }
