@@ -162,7 +162,7 @@
           </v-sheet>
         </div>
         <div class="banners-block" v-else>
-          <div class="banners-box" v-for="(item, i) in dataResult?.slids?.side" >
+          <div class="banners-box" v-for="(item, i) in dataResult?.slids?.middle" >
             <div class="box">
               <nuxt-link :to="item?.link !== null ?item?.link  :'/'" >
                 <img :src="item.mobile_image_url" alt="">
@@ -562,7 +562,9 @@ export default {
         this.$toast.success('محصول به سبد خرید اضافه شد')
         this.loadingBtn = false;
       } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loadingBtn = false;
       }
     },
@@ -604,7 +606,9 @@ export default {
       } catch (error) {
         this.newsLoading = false;
 
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
       }
     },
@@ -616,7 +620,9 @@ export default {
           this.loadingPage = false;
         }, 2000);
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
 
@@ -1236,9 +1242,11 @@ export default {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    height: 390px;
     @include breakpoint(medium) {
-      flex: 33.33%;
-      max-width: 33.33%;
+      flex: 32.33%;
+      max-width: 32.33%;
+      height: 390px;
     }
     .box{
       width: 100%;

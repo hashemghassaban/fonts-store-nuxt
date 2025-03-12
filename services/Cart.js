@@ -18,7 +18,9 @@ class CartService {
     const response = await apiService.post('/api/v1/coupons/apply', body)
     return response.data
   } catch (error) {
-    console.error('خطا در دریافت محصول:', error)
+    this.$toast.error(error, {
+      timeout: 4000,
+    })
     throw error
   }
 

@@ -1,6 +1,14 @@
 <template>
   <client-only>
     <section class="signIn">
+      <v-snackbar v-model="showSnackbar">
+        {{ errorMessage }}
+        <template v-slot:action="{ attrs }">
+          <v-btn color="white" text v-bind="attrs" @click="showSnackbar = false">
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
       <div class="title">
         <SvgIcon
           name="user"
@@ -65,12 +73,14 @@
           <v-otp-input
             v-model="otp"
             length="5"
+            type="number"
 
           ></v-otp-input>
           <div class="code" v-if="true">
             <p> <Timer
               :target-minutes="2"
               :show-controls="true"
+              @restart="getSMS"
             />
             </p>
           </div>

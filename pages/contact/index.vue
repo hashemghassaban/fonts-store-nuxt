@@ -217,7 +217,9 @@ export default {
 
       } catch (error) {
         this.captchaLoading = false
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
     async SubmitContact() {
@@ -235,8 +237,9 @@ export default {
           timeout: 4000,
         })
       } catch (error) {
-        console.log(error)
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
       }
     },

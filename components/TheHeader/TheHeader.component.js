@@ -134,7 +134,9 @@ export default {
         console.log(res.entity?.cart)
 
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
 
 
@@ -155,7 +157,6 @@ export default {
 
   },
 mounted() {
-  console.log('sssssssssssssss',this.$store.state.categories)
   if(this.authenticate){
     this.getCart()
   }

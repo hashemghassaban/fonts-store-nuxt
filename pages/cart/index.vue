@@ -48,7 +48,7 @@
               <p>محصولی موجود نیست </p>
             </div>
             <div class="box" v-for="(item, index) in cartItems"  v-else>
-              <Product :typeProduct="'cart'" :items="item"  @refreshData="refreshData"  />
+              <Product :typeProduct="'cart'" :items="item"  @refreshData="refreshData"  :isNestedLink="true" />
             </div>
 
 
@@ -174,10 +174,17 @@ export default {
           "coupon":this.discount
         }
         try {
-        let data =   await cartService.applyCoupon(body)
+        let data = await cartService.applyCoupon(body)
           this.cart = data.entity?.cart
+          this.$toast.success(data?.message, {
+            timeout: 4000,
+          })
+          this.getCart()
           this.loadingDiscount = false;
         } catch (error) {
+          this.$toast.error(error, {
+            timeout: 4000,
+          })
           this.loadingDiscount = false;
         }
       }
@@ -211,7 +218,9 @@ export default {
 
 
         } catch (error) {
-          console.error('خطا در دریافت کاربران:', error)
+          this.$toast.error(error, {
+            timeout: 4000,
+          })
         }
       }
 

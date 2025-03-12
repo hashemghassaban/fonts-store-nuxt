@@ -312,6 +312,7 @@ this.dialogAddComment = true,
       try {
         const res = await postService.postComment(this.currentPath ,  body)
         this.loading = false;
+        console.log('asasas',res?.message)
         this.$toast.success(res?.message, {
           timeout: 4000,
         })
@@ -320,7 +321,10 @@ this.dialogAddComment = true,
         this.dialogAddComment = false
 
       } catch (error) {
-
+        console.log(error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loading = false;
 
       }
@@ -332,7 +336,9 @@ this.dialogAddComment = true,
         this.posts = res?.entity
 
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
     async getComment(id) {
@@ -341,7 +347,9 @@ this.dialogAddComment = true,
         this.commentList = res?.entity
 
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
 

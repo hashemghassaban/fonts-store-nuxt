@@ -55,7 +55,9 @@ export default {
             this.isRegisterd = data?.is_registered
           })
           .catch(error => {
-            console.log(error)
+            this.$toast.error(error, {
+              timeout: 4000,
+            })
             this.loading = false
           })
     },
@@ -84,17 +86,14 @@ export default {
      })
      .catch(error => {
        this.loading = false
-       // this.$toast.error(error?.error, {
-       //   timeout: 4000,
-       // })
+       this.$toast.error(error, {
+         timeout: 4000,
+       })
+
      })
     },
     loginUser() {
       window.localStorage.setItem('token',this.token);
-      // this.$auth.setUserToken(this.token)
-      // this.$auth.setUser(this.user)
-      // this.$store.commit('closeLogin')
-      // this.$root.$emit('loggedIn')
     },
   },
   watch: {

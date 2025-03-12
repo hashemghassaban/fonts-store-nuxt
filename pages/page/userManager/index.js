@@ -83,6 +83,8 @@ export default {
           this.loading=false
           this.$toast.success('اطلاعات با موفقیت ویرایش شد.')
           this.isEdit = false
+          window.location.reload();
+
 
         } catch (e) {
           if(e.response && e.response.data && e.response.data.errors) {

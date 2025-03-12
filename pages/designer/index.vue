@@ -110,7 +110,9 @@ export default {
         this.loading=false
 
       } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loading=false
       }
     },

@@ -157,7 +157,9 @@ export default {
           this.loading= false
         }, 2000);
       } catch (error) {
-        console.error('خطا در دریافت کاربران:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
   },

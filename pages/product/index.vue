@@ -191,7 +191,9 @@ export default {
 
 
       } catch (error) {
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
         this.loading=false
       }
     },
@@ -212,7 +214,9 @@ export default {
 
       } catch (error) {
         this.loading = false;
-        console.error('خطا در دریافت محصول:', error)
+        this.$toast.error(error, {
+          timeout: 4000,
+        })
       }
     },
 
