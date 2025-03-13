@@ -2,26 +2,37 @@ import { apiService } from './api'
 
 class CartService {
   async getCart() {
-    const response = await apiService.get('/api/v1/layout/web')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/layout/web')
+      return response.data
+    } catch (error) {
+      throw error
+    }
   }
   async getCheckOut() {
-    const response = await apiService.get('/api/v1/carts/checkout')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/carts/checkout')
+      return response.data
+    } catch (error) {
+      throw error
+    }
   }
   async saveCheckoutDetail(body) {
-    const response = await apiService.post('/api/v1/carts/checkout', body)
-    return response.data
+    try {
+      const response = await apiService.post('/api/v1/carts/checkout', body)
+      return response.data
+    } catch (error) {
+      throw error
+    }
   }
 
   async applyCoupon(body) {
-    const response = await apiService.post('/api/v1/coupons/apply', body)
-    return response.data
-  } catch (error) {
-    this.$toast.error(error, {
-      timeout: 4000,
-    })
-    throw error
+    try {
+      const response = await apiService.post('/api/v1/coupons/apply', body)
+      return response.data
+    } catch (error) {
+      throw error
+    }
   }
 
 

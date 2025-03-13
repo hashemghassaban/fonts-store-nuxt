@@ -97,7 +97,11 @@ export default {
       this.lastName= data?.family
       this.mobileNumber =data?.mobile
       this.email =data?.email
-      this.born = data?.birth_at
+      this.born =  new Date(data?.birth_at ).toLocaleString("fa-IR", {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+      })
       this.id = data?.id
       this.loading = false
     },

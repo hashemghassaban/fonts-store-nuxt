@@ -162,7 +162,7 @@
           </v-sheet>
         </div>
         <div class="banners-block" v-else>
-          <div class="banners-box" v-for="(item, i) in dataResult?.slids?.middle" >
+          <div class="banners-box" v-for="(item, i) in  (dataResult?.slids?.middle)?.slice(0, 3)" >
             <div class="box">
               <nuxt-link :to="item?.link !== null ?item?.link  :'/'" >
                 <img :src="item.mobile_image_url" alt="">
@@ -1242,7 +1242,7 @@ export default {
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    height: 390px;
+    height: auto;
     @include breakpoint(medium) {
       flex: 32.33%;
       max-width: 32.33%;

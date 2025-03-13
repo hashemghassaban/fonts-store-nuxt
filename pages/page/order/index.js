@@ -21,7 +21,6 @@ export default {
     selectId:'',
     expanded: [],
     headers: [
-
       {
         text: 'شناسه لایسنس',
         value: 'tracking_code',
@@ -32,19 +31,15 @@ export default {
         value: 'created_at',
       },
       {
-        text: 'مبلغ (ریال)',
+        text: 'مبلغ (تومان)',
         value: 'payable',
       },
-
-
       {
         text: 'دانلود ',
         value: 'data-table-expand',
         width:120
       }
-
     ],
-
   }),
   components: {
     SvgIcon,
@@ -64,6 +59,7 @@ export default {
       this.loadingBtn = true;
       try {
         let data = await productService.download(id)
+        window.open(data?.entity?.link, '_blank');
         this.loadingBtn = false
       } catch (error) {
         this.$toast.error(error, {

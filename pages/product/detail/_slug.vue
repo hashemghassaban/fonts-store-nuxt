@@ -115,7 +115,7 @@
               <img :src="item?.preview_path" :alt="item.name">
             </div>
             <div class="box-footer">
-              <div class="price">  {{  formatPrice(item.price) }} ت</div>
+              <div class="price"><span v-if="item.price !==item.offer_price" class="isOldPrice">{{  formatPrice(item.price) }} ت</span>  {{  formatPrice(item.offer_price) }} ت  </div>
               <button class="add-to-cart"  @click="addToCart(item)">
                 <SvgIcon
                   name="arrow"
@@ -597,6 +597,11 @@ export default {
           }
           .price{
             font-size: 20px;
+            .isOldPrice{
+              color: #00000061;
+              text-decoration-line: line-through;
+              margin: 0 15px;
+            }
           }
         }
       }

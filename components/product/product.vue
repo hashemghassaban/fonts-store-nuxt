@@ -46,8 +46,8 @@
     <div class="title">
     <h3>  {{items?.name || items?.product?.name}}</h3>
       <div class="type" v-if=" typeProduct === 'cart'">
-        <b>نسخه پایه</b>
-        <span> 3 وزن </span>
+        <b>{{items?.item_price?.name}}</b>
+        <span> {{ items?.item_price?.description }} </span>
       </div>
     </div>
     <div class="action-product" >
@@ -122,6 +122,7 @@ export default {
       this.loadingBtn = true;
       try {
         let data = await productService.download(id)
+        window.open(data?.entity?.link, '_blank');
         this.loadingBtn = false
       } catch (error) {
         this.$toast.error(error, {
@@ -171,6 +172,7 @@ export default {
         this.loading = false;
       }
     },
+
     async remove(id , type){
       if(type === 'cart'){
         try {
@@ -523,7 +525,6 @@ export default {
            width: 100%;
           @include breakpoint(medium) {
             margin: 25px 14px;
-            font-size: 18px;
             font-size: 18px;
             gap: 17px;
 
