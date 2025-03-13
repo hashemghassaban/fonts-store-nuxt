@@ -20,15 +20,18 @@ class AuthService {
     }
   }
   async logout() {
-    localStorage.removeItem('token')
-    // پاک کردن توکن از سرور
-    await apiService.post('/auth/logout')
+    try {
+      await apiService.post('/auth/logout')
+      localStorage.removeItem('token')
+      return response.data
+    } catch (error) {
+      throw error
+    }
   }
 
   async getCurrentUser() {
     const token = localStorage.getItem('token')
     if (!token) return null
-
     try {
       const response = await apiService.get('/auth/me')
       return response.data

@@ -6,9 +6,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/profile`)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -17,9 +14,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/transactions/wallet`)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -28,9 +22,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/transactions/payment-gateways`)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -39,9 +30,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/orders`,Param)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -50,9 +38,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/orders/${id}`)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -61,9 +46,6 @@ class ProfileService {
       const response = await apiService.get(`/api/v1/users/favourites`)
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -76,9 +58,6 @@ class ProfileService {
       });
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }
@@ -88,9 +67,6 @@ class ProfileService {
       const response = await apiService.post(`/api/v1/users/transactions/wallet` , data);
       return response.data
     } catch (error) {
-      this.$toast.error(error, {
-        timeout: 4000,
-      })
       throw error
     }
   }

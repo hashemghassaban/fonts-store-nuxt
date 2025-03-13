@@ -113,7 +113,7 @@ export default {
       categoryId: null,
       page:1,
       posts:[],
-      itemsPerPage: 10,
+      itemsPerPage: 12,
       totalItems: 0,
     }
   },

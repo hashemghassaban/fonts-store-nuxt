@@ -2,34 +2,58 @@ import { apiService } from './api'
 
 class PagesService {
   async getFaq() {
-    const response = await apiService.get('/api/v1/faq')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/faq')
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
 
   async getSubPage() {
-    const response = await apiService.get('/api/v1/pages/sup')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/pages/sup')
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
 
   async getAboutPage() {
-    const response = await apiService.get('/api/v1/pages/about-us')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/pages/about-us')
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
   async getCaptcha() {
-    const response = await apiService.get('/api/v1/captcha/api/math')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/captcha/api/math')
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
 
 
   async getWorkPage() {
-    const response = await apiService.get('/api/v1/pages/work-us')
-    return response.data
+    try {
+      const response = await apiService.get('/api/v1/pages/work-us')
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
 
 
   async postContactUs(data) {
-    const response = await apiService.post('/api/v1/contact-us',data)
-    return response.data
+    try {
+      const response = await apiService.post('/api/v1/contact-us',data)
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
   }
 }
 

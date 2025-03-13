@@ -26,7 +26,7 @@
             @change="handleFileSelect"
           />
         </div>
-        <v-btn density="default" class="add" v-if="url === '/page/userManager'"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn density="default" class="add" v-if="false"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
 
 
         <div class="name">
@@ -89,6 +89,13 @@
 import { profileService  } from '~/services'
 
 export default {
+  props: {
+    isCallService: {
+      type: Boolean,
+      default:false,
+    },
+  },
+
   data: () => ({
     drawerPage: false,
     avatarUrl: null,
@@ -109,12 +116,18 @@ export default {
   },
   watch: {
     avatarUrl(newValue) {
-      console.log(newValue)
       this.$emit('avatarUrl', newValue);
       if (newValue) {
         return newValue
       }
     },
+    isCallService(newValue){
+      console.log(newValue)
+      if(newValue){
+        this.getProfile()
+      }
+
+    }
   },
   methods: {
     async getProfile() {

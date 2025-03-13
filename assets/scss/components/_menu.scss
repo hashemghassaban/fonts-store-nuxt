@@ -43,6 +43,13 @@
         padding-top: 0 !important;
         padding-left: 0;
         position: relative;
+        &.nuxt-link-active{
+          color: #FF7A00;
+          span{
+            color: #FF7A00;
+          }
+
+        }
         span{
           &:first-child{
            width: 100%;

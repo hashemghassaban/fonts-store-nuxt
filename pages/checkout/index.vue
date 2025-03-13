@@ -210,8 +210,8 @@ export default {
     async saveCheckout() {
       this.loading = true;
       let body = {
-        ...(this.selectedPaymethod !== 4 && {'payment_method_id':this.selectedGateway}),
         'method': this.selectedPaymethod,
+        'payment_method_id':this.selectedGateway
       }
       try {
         const { action, id } = await cartService.saveCheckoutDetail(body)

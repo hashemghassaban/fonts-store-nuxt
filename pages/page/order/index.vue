@@ -46,7 +46,7 @@
                 <td :colspan="headers.length">
                   <ul class="list-detail" v-for="(data, j) in  item?.items" :key="j">
                     <li>نام فونت : <b>{{ data.product_name }}</b></li>
-                    <li>مبلغ: <b>{{formatPrice(data.payable_price)}} ریال</b></li>
+                    <li>مبلغ: <b>{{formatPrice(data.payable_price)}} ت</b></li>
 
                     <li><v-btn :loading="loadingBtn && data.id === selectId" color="primary" @click="download(data.id)"> دانلود</v-btn></li>
                   </ul>

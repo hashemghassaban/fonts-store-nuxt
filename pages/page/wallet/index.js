@@ -96,7 +96,10 @@ export default {
           )
         ).action
       }catch (e) {
-
+        console.log(e)
+        this.$toast.error(e, {
+          timeout: 4000,
+        })
       }
 
     }

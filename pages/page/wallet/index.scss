@@ -156,7 +156,7 @@ input[disabled] {
 .payment-btn{
 
   width: 200px;
-  background: #AAE73E;
+  background: #AAE73E!important;
   height: 54px!important;
   border-radius: 15px;
   border: 3px solid #fff;
@@ -177,7 +177,7 @@ input[disabled] {
 
   }
  &.v-btn--disabled {
-    background-color: #cccccc;
+    background-color: #cccccc!important;
     cursor: not-allowed;
    opacity: 0.5;
    &:hover {

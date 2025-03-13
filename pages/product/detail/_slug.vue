@@ -115,7 +115,7 @@
               <img :src="item?.preview_path" :alt="item.name">
             </div>
             <div class="box-footer">
-              <div class="price">  {{  formatPrice(item.price) }} ت</div>
+              <div class="price"><span v-if="item.price !==item.offer_price" class="isOldPrice">{{  formatPrice(item.price) }} ت</span>  {{  formatPrice(item.offer_price) }} ت  </div>
               <button class="add-to-cart"  @click="addToCart(item)">
                 <SvgIcon
                   name="arrow"
@@ -136,14 +136,14 @@
       </section>
     </div>
       <section class="creator">
-        <div class="pic">
+        <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="pic">
           <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
           <h3> {{product?.designer?.full_name}}</h3>
-        </div>
-        <div class="info-creator">
+        </nuxt-link>
+        <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="info-creator">
           <h3> {{product?.designer?.full_name}}</h3>
           <p>{{product?.designer?.description}}</p>
-        </div>
+        </nuxt-link>
 
       </section>
       <section class="type-font">
@@ -597,6 +597,11 @@ export default {
           }
           .price{
             font-size: 20px;
+            .isOldPrice{
+              color: #00000061;
+              text-decoration-line: line-through;
+              margin: 0 15px;
+            }
           }
         }
       }

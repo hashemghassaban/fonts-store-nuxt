@@ -28,7 +28,7 @@
             :length="Math.ceil(totalItems / itemsPerPage)"
             :total-visible="7"
             class="my-4"
-            @input="getCategory"
+            @input="getProductAll"
           ></v-pagination>
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
@@ -67,12 +67,12 @@ export default {
     return {
       filter: 1,
       sort:1,
-      page: 1,
       product:[],
       designer:[],
-      totalItems:0,
       loading:false,
+      page: 1,
       itemsPerPage: 10,
+      totalItems: 0,
 
 
 
@@ -84,6 +84,7 @@ export default {
       this.getProductAll()
     },
   },
+
   methods: {
     refreshData(newValue) {
       if(newValue ){
@@ -112,7 +113,9 @@ export default {
         const product = await productService.getProductAll(data)
         this.product = product?.entity?.data
         this.designer = product?.entity?.data[0]
-        this.totalItems = this.product?.total
+        this.totalItems = product?.total?.total
+        this.totalItems = product?.entity?.total
+
         this.loading = false;
 
       } catch (error) {
@@ -142,7 +145,6 @@ export default {
   },
   computed: {
     currentPath() {
-
       return this.$route.params.slug
     },
   },
