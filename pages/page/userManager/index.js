@@ -26,7 +26,7 @@ export default {
     isValid: false,
     loading:false,
     isEdit:false,
-
+    isCallService:false
 
   }),
   components: {
@@ -66,6 +66,8 @@ export default {
       return form
     },
     async saveProfile() {
+      this.isCallService = false
+
       let body = {
         'mobile':this.mobileNumber,
         'email':this.email,
@@ -83,7 +85,7 @@ export default {
           this.loading=false
           this.$toast.success('اطلاعات با موفقیت ویرایش شد.')
           this.isEdit = false
-          window.location.reload();
+          this.isCallService = true
 
 
         } catch (e) {
@@ -97,11 +99,11 @@ export default {
       this.lastName= data?.family
       this.mobileNumber =data?.mobile
       this.email =data?.email
-      this.born =  new Date(data?.birth_at ).toLocaleString("fa-IR", {
+      this.born = data?.birth_at?   new Date(data?.birth_at ).toLocaleString("fa-IR", {
         year: "numeric",
         month: "numeric",
         day: "numeric",
-      })
+      }) : null
       this.id = data?.id
       this.loading = false
     },

@@ -5,7 +5,7 @@
     <section class="userManager">
       <div class="userManager-block">
         <div class="userManager-block__info">
-          <sidebar @profile="profile" @avatarUrl="avatarUrl" @refresh="refresh"  />
+          <sidebar @profile="profile" @avatarUrl="avatarUrl" :isCallService="isCallService"    />
         </div>
         <div class="userManager-block__content">
           <div class="userManager-title">

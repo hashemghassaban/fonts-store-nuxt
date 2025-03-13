@@ -136,14 +136,14 @@
       </section>
     </div>
       <section class="creator">
-        <div class="pic">
+        <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="pic">
           <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
           <h3> {{product?.designer?.full_name}}</h3>
-        </div>
-        <div class="info-creator">
+        </nuxt-link>
+        <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="info-creator">
           <h3> {{product?.designer?.full_name}}</h3>
           <p>{{product?.designer?.description}}</p>
-        </div>
+        </nuxt-link>
 
       </section>
       <section class="type-font">
