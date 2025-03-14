@@ -39,7 +39,7 @@ class PostService {
   }
   async getComment(id) {
     try {
-      const response = await apiService.get('/api/v1/products/' + id + '/dislike')
+      const response = await apiService.get('/api/v1/posts/' + id + '/comments')
       return response.data
     } catch (error) {
       throw error.response?.data || error
