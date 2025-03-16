@@ -117,6 +117,15 @@
           <div class="logo-mobile"><nuxt-link to="/"><img src="~/assets/img/logo/logo4.png"/></nuxt-link></div>
           <nuxt-link to="/signin" class="signIn" v-show="!authenticate">
               <span>ورود  <v-divider vertical /> عضویت</span>
+            <div class="mobile">
+              <SvgIcon
+                name="user"
+                color=#676767
+                size="25px"
+                className="rounded-full"
+              />
+
+            </div>
           </nuxt-link>
           <nuxt-link to="/page/userManager" class="signIn"  v-show="authenticate">
 

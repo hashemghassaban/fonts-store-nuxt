@@ -57,6 +57,7 @@
               :isValid.sync="isValid"
               v-model="email"
               label=" ایمیل"
+              type="email"
             />
           </div>
 
@@ -102,6 +103,7 @@
               elevation="0"
               class="secondary btn"
               @click="SubmitContact"
+              :loading="loadingBtn"
             >  <SvgIcon
               name="arrow"
               color="#fff"
@@ -201,28 +203,35 @@ export default {
       description:'',
       email:'',
       captchaCode:'',
-      key:''
+      key:'',
+      loading:false,
+      loadingBtn:false,
+
 
     }
   },
   methods: {
     async getCaptcha(){
       this.captchaLoading = true
+      this.loading = true
 
       try {
         const res = await pagesService.getCaptcha()
         this.captcha = res?.img
         this.key = res?.key
         this.captchaLoading = false
+        this.loading = false
 
       } catch (error) {
         this.captchaLoading = false
+        this.loading = false
         this.$toast.error(error, {
           timeout: 4000,
         })
       }
     },
     async SubmitContact() {
+      this.loadingBtn = true
       let body = {
         name:this.fullName,
         email:this.email,
@@ -230,13 +239,16 @@ export default {
         description:this.description,
         key: this.key
       }
+
       if(this.isValid){
       try {
         await pagesService.postContactUs(body)
         this.$toast.success('متن پیام با موفقیت ارسال شد', {
           timeout: 4000,
         })
+        this.loadingBtn = false
       } catch (error) {
+        this.loadingBtn = false
         this.$toast.error(error, {
           timeout: 4000,
         })
@@ -332,10 +344,10 @@ export default {
   &-block{
     text-align: center;
     h4{
-      font-size: 25px;
+      font-size: 20px;
       color: #646464;
       margin-bottom: 18px;
-      margin-top: 30px;
+      margin-top: 50px;
       @include breakpoint(medium) {
         font-size: 30px;
         margin-bottom: 80px;

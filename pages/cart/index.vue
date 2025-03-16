@@ -70,7 +70,7 @@
               <label for="code">جمع خرید : </label>
               <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
-            <div class="totalPrice"  v-if="cart.coupon_price > 0">
+            <div class="totalPrice" v-if="cart?.coupon_price > 0">
               <label for="code"> سود شما از خرید : </label>
               <span> {{formatPrice(parseInt(cart?.coupon_price))}} ت</span>
             </div>

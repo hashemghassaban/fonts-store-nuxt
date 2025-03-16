@@ -426,8 +426,8 @@ export default {
         }
         .font-trash{
           position: absolute;
-          right: 20px;
-          bottom: 25px;
+          right: 0;
+          bottom: 0;
           @include breakpoint(medium) {
             position: static;
 
@@ -448,8 +448,6 @@ export default {
           &:hover{
             color: #ccc;
             transition: all 0.3s ease;
-
-
             &:before{
               color: #ccc;
             }

@@ -2,7 +2,6 @@
   <client-only>
     <section class="about custom-container py-10">
       <Loading v-if="loading" />
-
       <div class="about-content" v-else>
         <section class="about-title">
           <SvgIcon
@@ -17,78 +16,6 @@
           <p >{{dataResult?.description}}</p>
           <div  class="content" v-html="dataResult?.content"></div>
         </section>
-        <section class="brands">
-          <div class="about-title">
-            <SvgIcon
-              name="brands"
-              color=#FF7A00
-              size="38px"
-              className="rounded-full"
-            />
-            <h2>برند های خریدار</h2>
-          </div>
-
-
-          <div class="c-wrapper ">
-            <VueSlickCarousel v-bind="settingsBrand" v-if="BrandData?.length > 0">
-              <div v-for="(item, i) in BrandData" :key="i" class="product">
-                <div class="product-data">
-                  <div
-                    class="pro-pic brand-logo"
-                  >
-                    <img
-                      draggable="false"
-                      loading="lazy"
-                      onmousedown="return false"
-                      style="user-drag: none"
-                      :src="
-                      item.imagePath +
-                      '?width=177&height=177'
-                    "
-                      :alt="item.name"
-                      v-if="item.imagePath"
-                    />
-                  </div>
-                </div>
-              </div>
-            </VueSlickCarousel>
-          </div>
-        </section>
-        <section class="feature">
-          <div class="feature-block">
-            <div class="feature-block-play" @click="showVideo">
-              <img src="~/assets/img/icon/play.svg" alt="">
-            </div>
-          </div>
-
-          <v-dialog width="800" v-model="dialogVideo" persistent  >
-
-
-            <v-card
-
-              prepend-icon="mdi-update"
-              text="Your application will relaunch automatically after the update is complete."
-              title="Update in progress"
-              class="block-video"
-            >
-              <v-icon  @click="hideVideo" class="close" color="#fff">mdi-close</v-icon>
-
-              <video
-                controls
-                width="640"
-
-                ref="videoPlayer"
-                height="360"
-                :src="videoSource"
-
-              >
-                Your browser does not support the video tag.
-              </video></v-card
-            >
-
-
-          </v-dialog>
-        </section>
       </div>
     </section>
   </client-only>
@@ -96,9 +23,6 @@
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import VueSlickCarousel from "vue-slick-carousel";
 import { pagesService  } from '~/services'
 
 export default {
@@ -118,71 +42,14 @@ export default {
   ],
   components: {
     SvgIcon,
-    VueSlickCarousel
   },
   data () {
     return {
-      dialogVideo:false,
-      videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
-      BrandData: [
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-      ],
-      settingsBrand: {
-        slidesToShow: 5,
-        "arrows": false,
-        "dots": false,
-        "infinite": true,
-        "slidesToScroll": 1,
-        "autoplay": true,
-        "speed": 2000,
-        "autoplaySpeed": 2000,
-        "cssEase": "linear",
-
-        responsive: [
-          {
-            breakpoint: 1023,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-            },
-          },
-        ],
-      },
       dataResult:[],
       loading:false,
     }
   },
   methods: {
-
-    showVideo() {
-      this.dialogVideo = true
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.play();
-      });
-    },
-    hideVideo() {
-      this.dialogVideo = false
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.pause();
-      });
-    },
     async getData() {
       this.loading = true
       try {
@@ -229,7 +96,7 @@ export default {
   &-content-description {
     margin-bottom: 50px;
     @include breakpoint(medium) {
-      margin-bottom: 150px;
+      margin-bottom: 20px;
     }
     p{
       text-align: justify;
@@ -257,7 +124,7 @@ export default {
 
 
     &-block{
-      height: 250px;
+      height: 180px;
       background: #fff;
       border-radius: 30px;
       overflow: hidden;
@@ -275,7 +142,7 @@ export default {
         position: absolute;
         right: 50%;
         top: 50px;
-        transform:translate(50%, 30%);
+        transform:translate(50%, 0);
         border: 8px solid #fff;
         cursor: pointer;
         text-align: center;
@@ -353,7 +220,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px auto 10px;
+  margin: 0 auto 10px;
   gap: 15px;
   @include breakpoint(small) {
     //margin: 100px auto 10px;

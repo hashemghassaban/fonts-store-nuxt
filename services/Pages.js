@@ -19,6 +19,15 @@ class PagesService {
     }
   }
 
+  async getPage(name) {
+    try {
+      const response = await apiService.get(`/api/v1/pages/${name}`)
+      return response.data
+    } catch (error) {
+      throw error.response?.data || error
+    }
+  }
+
   async getAboutPage() {
     try {
       const response = await apiService.get('/api/v1/pages/about-us')

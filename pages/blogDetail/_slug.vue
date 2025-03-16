@@ -411,6 +411,7 @@ this.dialogAddComment = true,
     @include breakpoint(medium) {
       height: 500px;
     }
+
     img{
       width:100%;
       height: 100%;
@@ -478,7 +479,15 @@ this.dialogAddComment = true,
   }
   &-tiny-banners{
     padding: 0 5%;
+    div{
+      text-align: justify!important;
+      @include breakpoint(medium) {
+        text-align: right!important;
+
+      }
+    }
     .banners{
+
       &-block{
         display: flex;
         gap: 20px;

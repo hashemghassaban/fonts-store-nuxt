@@ -160,6 +160,30 @@
 }
 
 ::v-deep{
+  .accent--text{
+    color: #000000 !important;
+    caret-color: #000000 !important;
+  }
+  .v-date-picker-table .v-btn.v-btn--active{
+    color: #fff;
+    &:before{
+      background: #FF7A00 !important;
+      opacity: 1;
+    }
+  }
+
+  .v-picker__title.primary{
+    background: #AAE73E!important;
+  }
+  .v-date-picker-title__date{
+    div{
+      color: #fff;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+  }
   .v-progress-circular{
     margin: auto;
     display: block;

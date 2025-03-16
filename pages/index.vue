@@ -1238,7 +1238,7 @@ export default {
   }
   &-box{
     flex: 47%;
-    max-width: 50%;
+    max-width: 47%;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -1250,7 +1250,7 @@ export default {
     }
     .box{
       width: 100%;
-      height: 200px;
+      height: 170px;
       position: relative;
       @include breakpoint(medium) {
         width: 100%;

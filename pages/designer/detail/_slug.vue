@@ -7,7 +7,8 @@
       <section class="creator">
         <div class="pic">
           <img :src=" designer?.designer?.avatar_url" :alt="designer?.designer?.full_name">
-          <h3> {{designer?.designer?.full_name}}</h3>
+          <h1> {{designer?.designer?.full_name}}</h1>
+          <p>{{designer?.designer?.description}}</p>
         </div>
         <div class="info-creator">
           <h1> {{designer?.designer?.full_name}}</h1>
@@ -32,7 +33,6 @@
           ></v-pagination>
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
-
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
           <span>  دسته ای یافت نشد</span>
         </div>
@@ -517,11 +517,10 @@ export default {
         }
 
       }
-    h3{
+    h1{
       color: #676767;
-
-
       display: inline-block;
+      font-size: 14px;
       @include breakpoint(medium) {
         display: none;
       }

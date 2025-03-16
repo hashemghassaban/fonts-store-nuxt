@@ -259,8 +259,6 @@ export default {
   },
   mounted() {
     this.getProduct(this.currentPath);
-
-
   },
   head() {
     return {

@@ -68,28 +68,48 @@
             </div>
 
             <div class="field">
-              <date-picker
-                ref="datePicker"
-                type="date"
-                v-model="selectedDate"
-                element="fromtime"
-                color="#AAE73E"
-                format="YYYY-MM-DD"
-                display-format="jYYYY/jMM/jDD"
-                @change="selectDate"
+              <div
+                @click="showDatePicker = true"
+                style="position: relative"
+                class="clickable"
+                @click.stop="showDatePicker = true"
                 v-if="isEdit"
-              />
-              <TextInput
-                validators="date"
-                placeholder="تاریخ تولد  خود را وارد کنید"
-                v-model="born"
-                :isValid.sync="isValid"
-                label="تاریخ تولد"
-                class="custom-input"
-                :width="'100%'"
-                id="fromtime"
-                v-if="isEdit"
-              />
+              >
+                <v-menu
+                  ref="shamsiMenu"
+                  v-model="showDatePicker"
+                  :close-on-content-click="false"
+                  transition="scale-transition"
+                  offset-y
+                  max-width="290px"
+                  min-width="auto"
+                  :nudge-right="10"
+                  :nudge-bottom="10"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <TextInput
+                      v-bind="attrs"
+                      v-on="on"
+                      :validators="shamsiValidators"
+                      placeholder="تاریخ تولد خود را وارد کنید"
+                      v-model="born"
+                      :isValid.sync="isValid"
+                      label="تاریخ تولد"
+                      class="custom-input"
+                      :width="'100%'"
+                      id="fromtime"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="internalDate"
+                    :first-day-of-week="6"
+                    locale="fa"
+                    @input="handleDateSelect"
+                  ></v-date-picker>
+                </v-menu>
+              </div>
+
+
               <label    v-if="!isEdit"> تاریخ تولد : <span>{{born || '-'}} </span></label>
 
 

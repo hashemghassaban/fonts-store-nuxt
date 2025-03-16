@@ -127,7 +127,6 @@ export default {
     async getCart() {
       try {
         const res = await cartService.getCart()
-        this.$store.commit('setCategory', res.entity?.categories)
         this.menuItems = res.entity?.categories
         this.$store.commit('setCart', res.entity?.cart)
 

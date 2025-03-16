@@ -41,7 +41,6 @@ export default {
       default: null,
     },
     items:{
-      type: Array,
       default: [],
     }
   },
@@ -58,7 +57,10 @@ export default {
     display: flex;
     width: 100%;
     gap: 35px;
-    height: 300px;
+    height: 150px;
+    @include breakpoint(small) {
+      height: 300px;
+    }
     img{
       width: 100%;
       height: 100%;

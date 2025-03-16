@@ -90,7 +90,7 @@
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
-          <span>  محصولی ای یافت نشد</span>
+          <span>  محصولی یافت نشد</span>
         </div>
       </section>
     </div>
