@@ -70,13 +70,13 @@
               <label for="code">جمع خرید : </label>
               <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
-            <div class="totalPrice"  v-if="$store.state.cart.discount > 0">
+            <div class="totalPrice"  v-if="cart.coupon_price > 0">
               <label for="code"> سود شما از خرید : </label>
-              <span> {{formatPrice(parseInt(cart?.discount))}} ت</span>
+              <span> {{formatPrice(parseInt(cart?.coupon_price))}} ت</span>
             </div>
             <div class="benefit-buy" >
               <label for="code"> قابل پرداخت : </label>
-              <span> {{formatPrice(parseInt(cart?.items_payable))}} ت</span>
+              <span> {{formatPrice(parseInt(cart?.payable))}} ت</span>
             </div>
           </div>
           <div class="warning-cart">
@@ -179,7 +179,6 @@ export default {
           this.$toast.success(data?.message, {
             timeout: 4000,
           })
-          this.getCart()
           this.loadingDiscount = false;
         } catch (error) {
           this.$toast.error(error, {

@@ -67,8 +67,8 @@ export default {
         mobile: this.mobile,
         code: this.otp,
         ...(this.isRegisterd === true && {
-          firstName: this.firstName,
-          lastName: this.lastName,
+          name: this.firstName,
+          family: this.lastName,
           email: this.email
         })
 

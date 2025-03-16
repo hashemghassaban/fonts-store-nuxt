@@ -82,9 +82,7 @@
               <span>{{ product?.lowest_price?.offer_percent }}</span>
             </div>
             <h1>{{product.name}}</h1>
-
           </div>
-
           <button @click="scrollToBottom">
             <div class="icon">
               <SvgIcon
@@ -94,10 +92,9 @@
                 className="rounded-full"
               />
             </div>
-            <span>   انتخاب نسخه و خرید</span>
+            <span>انتخاب نسخه و خرید</span>
           </button>
         </div>
-
         <p>{{product.short_description}}</p>
       </section>
       <section class="productDetail-fontPack" >
@@ -115,14 +112,13 @@
               <img :src="item?.preview_path" :alt="item.name">
             </div>
             <div class="box-footer">
-              <div class="price"><span v-if="item.price !==item.offer_price" class="isOldPrice">{{  formatPrice(item.price) }} ت</span>  {{  formatPrice(item.offer_price) }} ت  </div>
+              <div class="price"><span v-if="item?.offer_price && item?.price!== 0 " class="isOldPrice">{{  formatPrice(item?.price) }} ت</span>  {{ item?.offer_price !== 0 ? formatPrice(item?.price) : formatPrice(item?.offer_price) }} ت  </div>
               <button class="add-to-cart"  @click="addToCart(item)">
                 <SvgIcon
                   name="arrow"
                   color="#fff"
                   size="16px"
                   className="rounded-full"
-
                 />
                 خرید
               </button>
@@ -144,12 +140,10 @@
           <h3> {{product?.designer?.full_name}}</h3>
           <p>{{product?.designer?.description}}</p>
         </nuxt-link>
-
       </section>
       <section class="type-font">
         <p>{{product.short_description_2}}</p>
       </section>
-
     </div>
   </client-only>
 </template>
@@ -158,7 +152,6 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
-
 import { productService } from '~/services'
 
 export default {
@@ -183,8 +176,6 @@ export default {
       title:'',
       description:'',
       loading:false,
-
-
     }
   },
   methods: {
@@ -787,12 +778,8 @@ export default {
     }
   }
   .slide-back img {
-
     border-radius: 15px;
     overflow: hidden;
   }
-
 }
-
-
 </style>

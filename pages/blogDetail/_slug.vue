@@ -304,7 +304,7 @@ this.dialogAddComment = true,
       this.loading = true;
       let body = isReply ? {
         comment : this.bodyComment,
-        parent_id: this.selectId?.parent_id,
+        parent_id: this.selectId?.id,
       } : {
         comment :  this.description,
         parent_id: null,

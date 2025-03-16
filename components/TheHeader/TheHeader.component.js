@@ -127,16 +127,14 @@ export default {
     async getCart() {
       try {
         const res = await cartService.getCart()
-        console.log('asasasas',res.entity)
         this.$store.commit('setCategory', res.entity?.categories)
         this.menuItems = res.entity?.categories
         this.$store.commit('setCart', res.entity?.cart)
-        console.log(res.entity?.cart)
 
       } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
+        // this.$toast.error(error, {
+        //   timeout: 4000,
+        // })
       }
 
 

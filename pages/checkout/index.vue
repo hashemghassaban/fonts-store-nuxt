@@ -65,7 +65,7 @@
                           v-for="payMethod in payMethods"
                           :key="payMethod.id"
                           :class="{ 'gateway-item': true, 'active': selectedGateway === payMethod.id }"
-                          @click="selectedPayment = payMethod.id"
+                          @click="selectedGateway = payMethod.id"
                         >
                           <img
                             :src="payMethod.icon_url"
@@ -164,7 +164,6 @@ export default {
       wallet:0,
       cartItems:[],
       cart:[],
-      selectedPayment: 0,
       selectedPaymethod: 3,
       payMethods: [],
       loading:false,
@@ -197,7 +196,7 @@ export default {
           this.payMethods = res.entity.online_payments
           this.wallet = res.entity
           if (this.payMethods.length > 0)
-            this.selectedPayment = this.payMethods[0]?.id
+            this.selectedGateway = this.payMethods[0]?.id
 
         } catch (error) {
           this.$toast.error(error, {
