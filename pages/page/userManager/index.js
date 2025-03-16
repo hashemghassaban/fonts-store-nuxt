@@ -41,7 +41,6 @@ export default {
     born: {
       get() {
         if (!this.internalDate) return null
-
         const date = moment(this.internalDate, 'YYYY-MM-DD')
         const shamsiDate = date.locale('fa').format('jYYYY/jMM/jDD')
         const latinDate = date.locale('en').format('YYYY-MM-DD')  // تغییر فرمت به YYYY-MM-DD
@@ -141,12 +140,8 @@ export default {
       this.firstName = data?.name
       this.lastName= data?.family
       this.mobileNumber =data?.mobile
-      this.email =data?.email
-      this.born = data?.birth_at?   new Date(data?.birth_at ).toLocaleString("fa-IR", {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-      }) : null
+      this.email = data?.email
+      this.internalDate = data?.birth_at
       this.id = data?.id
       this.loading = false
     },
