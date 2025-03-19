@@ -4,6 +4,14 @@
       <Loading v-if="loading" />
       <section class="category">
         <div class="title">
+          <div class="icon">
+            <SvgIcon
+              name="edit"
+              color="#F15A24"
+              size="1.3rem"
+              className="rounded-full"
+            />
+          </div>
           <h2 class="text">طراحان</h2>
         </div>
       </section>
@@ -129,6 +137,7 @@ export default {
 <style lang="scss" scoped>
 .productMain{
   padding: 0 0;
+  margin-top: 170px!important;
   @include breakpoint(medium) {
     padding: 0 10%;
   }

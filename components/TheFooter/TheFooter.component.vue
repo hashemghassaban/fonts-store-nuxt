@@ -54,7 +54,7 @@
             class="mega-menu"
           >
             <nuxt-link
-             to="/workUs"
+             to="/page/cooperate"
               class="nav-link"
             >
               <span>
@@ -79,7 +79,7 @@
               class="nav-link"
             >
               <span>
-                پرسش و پاسخ
+                پرسش های متداول
                </span>
 
             </nuxt-link>
@@ -93,35 +93,38 @@
           >
             <nuxt-link
               :to="
-                '/support'
+                '/page/rules'
 
               "
               class="nav-link"
             >
               <span>
-                پشیتیبانی
+               قوانین استفاده
                </span>
 
             </nuxt-link>
           </li>
+
+
           <li
 
 
-            class="mega-menu" v-show="!authenticate"
+            class="mega-menu"
           >
             <nuxt-link
               :to="
-                '/signIn'
+                '/page/guide'
 
               "
               class="nav-link"
             >
               <span>
-                عضویت / ورود
+                راهنمای خرید
                </span>
 
             </nuxt-link>
           </li>
+
         </ul>
       </div>
       <div class="footer-bottom-social">
@@ -171,12 +174,12 @@
           </li>
         </ul>
         <div class="namad">
-          <a href="">
+          <nuxt-link to="/page/enamad">
             <img src="~/assets/img/logo/namad.png" alt="">
-          </a>
-          <a href="">
+          </nuxt-link>
+          <nuxt-link to="/page/enamad">
             <img src="~/assets/img/logo/namd2.png" alt="">
-          </a>
+          </nuxt-link>
         </div>
       </div>
 

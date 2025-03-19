@@ -223,7 +223,7 @@
           </div>
         </div>
         <div class="feature-title">
-          ویژگی‌های فونت لاینوتایپ
+          چرا فونت لاینوتایپ ؟
         </div>
         <v-dialog width="800" v-model="dialogVideo" persistent  >
 
@@ -460,7 +460,7 @@ export default {
       newsLoading:false,
       dialogVideo:false,
       indexPro:null,
-      videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      videoSource: '',
       phoneNumber:'',
       currentTime: 0,
       settingsDesigner: {

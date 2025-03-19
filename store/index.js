@@ -14,6 +14,7 @@ export const state = () => ({
   dialog: false,
   totalCart: 0,
   cart: {},
+  namad:{},
   user: {},
   hasShipping: false,
   currencyUnit: '',
@@ -50,9 +51,7 @@ export const mutations = {
     state.collections = settings.collections
     state.user = settings.user
   },
-  setProductFilters(state, filters) {
-    state.productFilters = filters
-  },
+
   setLoading(state, loading) {
     state.loading = loading
   },
@@ -64,6 +63,9 @@ export const mutations = {
     state.cart = cart
     state.hasShipping = cart.shipping_status
   },
+  setEnamad(state, payload) {
+    state.namad = payload
+  },
   openLogin(state) {
     state.loginModal = true
   },
@@ -74,9 +76,7 @@ export const mutations = {
   setUser(state, data) {
     state.user = data
   },
-  setSearchState(state, value) {
-    state.onSearch = value
-  },
+
 }
 
 export const getters = {

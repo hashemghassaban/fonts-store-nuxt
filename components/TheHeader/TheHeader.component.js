@@ -11,7 +11,9 @@ export default {
   data: () => ({
     showMenu: false,
     drawer: false,
+    enamad:[],
     showSearch:false,
+    promotions:[],
     menuItems: [
       {
         "name": "دسته بندی ها",
@@ -127,8 +129,11 @@ export default {
     async getCart() {
       try {
         const res = await cartService.getCart()
+        this.$store.commit('setEnamad',  res.entity?.settings?.enemad)
+        this.promotions = res.entity?.promotions
         this.menuItems = res.entity?.categories
         this.$store.commit('setCart', res.entity?.cart)
+        console.log(this.$store.state.namad)
 
       } catch (error) {
         // this.$toast.error(error, {

@@ -9,6 +9,14 @@ class ProductService {
       throw error
     }
   }
+  async getPromotion(id , body) {
+    try {
+      const response = await apiService.post(`/api/v1/promotions/${id}`, body)
+      return response.data
+    } catch (error) {
+      throw error
+    }
+  }
   async getProduct(id) {
     try {
       const response = await apiService.get(`/api/v1/products/${id}`)

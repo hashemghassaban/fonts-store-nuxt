@@ -2,20 +2,30 @@
   <client-only>
 
     <section class="support custom-container py-10" >
-      <Loading v-if="loading" />
 
-      <div class="support-title" v-if="!loading">
+      <div class="support-title">
         <SvgIcon
           name="post"
           color=#FF7A00
           size="38px"
           className="rounded-full"
         />
-        <h1>{{dataResult?.title}}</h1>
+        <h1>نماد اعتماد</h1>
       </div>
-      <div class="type-font" v-if="!loading"  >
-        <p>{{dataResult?.description}}</p>
-        <div v-html="dataResult?.content"></div>
+      <Loading v-if="loading" />
+      <div class="type-font"  v-else>
+        <ul>
+          <li>
+            <a href="">
+              <img src="~/assets/img/logo/namad.png" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <img src="~/assets/img/logo/namad.png" alt="">
+            </a>
+          </li>
+        </ul>
 
       </div>
     </section>
@@ -38,63 +48,48 @@ export default {
     }
   },
   computed: {
-
-    currentPath() {
-      return this.$router?.history?.current?.params?.slug
+    namad() {
+      return this.$store.state.namad
     },
   },
   methods: {
-    async getData(name) {
-      this.loading = true
-      try {
-        const res = await pagesService.getPage(name)
-        setTimeout(() => {
-          this.dataResult = res?.entity?.page
-          this.loading = false
 
-        }, 1000);
-
-      } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
-      }
-    },
   },
   mounted() {
-    setTimeout(()=>{
-      this.getData(this.currentPath);
-    },500)
+  setTimeout(()=>{
+    const parsedData = JSON.parse(JSON.stringify(this.namad))
+    console.log('aaaaaaaaaa',parsedData)
+
+  },1000)
   },
   head() {
     return {
-      title: `${this.dataResult?.title} - لاینو تایپ`,
+      title: " نماد اعتماد - لاینو تایپ",
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.dataResult?.seo?.description,
+          content: this.dataResult?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.dataResult?.seo?.description,
+          content: this.dataResult?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content:  `${this.dataResult?.seo?.title} - لاینو تایپ`,
+          content: " پشتیبانی - لاینو تایپ" ,
         },
 
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.dataResult?.seo?.description,
+          content: this.dataResult?.description,
         },
       ],
     }
   },
-
 
 
 };
@@ -136,6 +131,37 @@ export default {
       }
     }
 
+  }
+}
+ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px 0;
+  gap: 20px;
+  flex-direction: column;
+  @include breakpoint(small) {
+    flex-direction: row;
+    gap: 40px;
+  }
+  li{
+    border: 1px solid #ccc;
+    overflow: hidden;
+    border-radius: 10px;
+
+    a{
+      width: 100%;
+      height: 100%;
+      display: block;
+      padding: 15px;
+      @include breakpoint(small) {
+        padding: 31px;
+      }
+    }
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

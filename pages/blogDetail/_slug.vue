@@ -4,7 +4,7 @@
 
     <div class="productDetail py-10">
       <section class="productDetail-banner">
-        <img :src="posts?.post?.thumbnail_url" alt="">
+        <img :src="posts?.post?.thumbnail_url" :alt="posts?.post?.title">
       </section>
       <section class="productDetail-description">
         <div class="head-pro">
@@ -364,32 +364,32 @@ this.dialogAddComment = true,
   },
   head() {
     return {
-      title: this.posts.title,
+      title: this.posts.post?.title,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.posts?.content,
+          content: this.posts.post?.content,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.posts?.content,
+          content: this.posts.post?.content,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.posts?.title + ' -  ' ,
+          content: this.posts.post?.title + ' -  ' ,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.posts.thumbnail_url,
+          content: this.posts.post?.thumbnail_url,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.posts?.content,
+          content: this.posts.post?.content,
         },
       ],
     }

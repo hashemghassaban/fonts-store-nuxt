@@ -1,10 +1,6 @@
 <template>
   <client-only>
     <section class="about  py-10">
-<!--      <div class="about-banner custom-container">-->
-<!--        <img src="~/assets/img/banner/about.jpg" alt="">-->
-<!--      </div>-->
-
       <section class="contact-info">
         <div class="contact-info-block">
           <h4>جواب شما در سوالات متداول نبود؟</h4>
@@ -20,21 +16,21 @@
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبانی تلگرام</div>
-                <div class="value">+98-9120001122</div>
+                <a href="https://t.me/linotyper_sup" class="value">@linotyper_sup</a>
               </div>
             </li>
             <li>
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبلنی ایمیل</div>
-                <div class="value">Linotype@gmail.com</div>
+                <a href="mailto:linotyper.ir@gmail.com" class="value">linotyper.ir@gmail.com</a>
               </div>
             </li>
             <li>
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبانی تلفنی</div>
-                <div class="value">+98-21 88 66 55</div>
+                <a href="tel:+982128422022" class="value">+98 21 2842 2022</a>
               </div>
             </li>
           </ul>
@@ -155,7 +151,7 @@ export default {
       captcha:'',
       dialogVideo:false,
       captchaLoading:false,
-      videoSource: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      videoSource: '',
       BrandData: [
         {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
         {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
@@ -411,8 +407,16 @@ export default {
           .value{
             font-size: 15px;
             color: #ccc;
+            direction: ltr;
+            -webkit-transition: 0.5s ease;
+            transition: 0.5s ease;
             @include breakpoint(medium) {
               font-size: 20px;
+            }
+            &:hover{
+              color: #ff5722;
+              -webkit-transition: 0.5s ease;
+              transition: 0.5s ease;
             }
           }
         }

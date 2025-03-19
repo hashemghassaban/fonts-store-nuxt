@@ -11,6 +11,15 @@ class DesignerService {
     }
   }
 
+  async getDesignerId(id) {
+    try {
+      const response = await apiService.get(`/api/v1/collections/${id}/products`)
+      return response.data
+    } catch (error) {
+      throw error
+    }
+  }
+
 
 }
 

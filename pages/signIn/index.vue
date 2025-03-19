@@ -86,7 +86,7 @@
           </div>
           <div class="code modify">
             <p> کد به شماره {{mobile}} ارسال شده</p>
-            <div class="edit" @click="step = 1">
+            <div class="edit" @click="edit()">
               <SvgIcon
                 name="edit"
                 color=#000
@@ -100,7 +100,7 @@
             elevation="0"
             class="secondary btn"
             @click="login()"
-            :disabled="loading || otp?.length !== 5"
+            :disabled="loading || isRegisterd ? (otp?.length !== 5 || email?.length === 0 || lastName?.length === 0  || firstName?.length === 0   ) : (otp?.length !== 5) "
             :loading="loading"
           >  <SvgIcon
             name="arrow"

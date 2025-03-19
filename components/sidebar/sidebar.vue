@@ -53,9 +53,9 @@
             <span v-else>{{this.profile.mobile}}</span>
           </li>
           <li>
-            <b>ایمیل : </b>
+            <b>موجودی کیف پول : </b>
             <v-skeleton-loader type="image" class="elevation-0"  v-if="loading"></v-skeleton-loader>
-            <span  v-else>{{this.profile.email}}</span>
+            <span  v-else>{{formatPrice(this.profile.credit)}}   ت  </span>
           </li>
         </ul>
       </div>
@@ -166,7 +166,12 @@ export default {
         window.localStorage.removeItem('token');
         window.location.replace( '/')
       }
-    }
+    },
+    formatPrice(value) {
+      if(isNaN(value)) return  0
+      let val = (value / 1).toFixed(0).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
   mounted() {
     this.url = this.$router?.history?.current?.path
@@ -500,7 +505,6 @@ export default {
           font-weight: 100;
         }
         span{
-          direction: ltr;
           i{
             margin-right: 10px;
             cursor: pointer;

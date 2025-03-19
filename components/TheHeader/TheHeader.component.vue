@@ -9,7 +9,7 @@
         <!-- Navigation Links -->
         <div class="navbar-links">
 
-          <Nav-bar :menuLink="this.menuItems" />
+          <Nav-bar :menuLink="this.menuItems"  :promotions="this.promotions"/>
 
 
         </div>
@@ -74,28 +74,23 @@
               </v-list-group>
             </div>
             <div  class="list-parent">
+              <v-list-item to="/designer">
+                <v-list-item-title>طراحان</v-list-item-title>
+              </v-list-item>
+            </div>
+            <div  class="list-parent">
+              <v-list-item to="/promotion">
+                <v-list-item-title>تخفیف ها</v-list-item-title>
+              </v-list-item>
+            </div>
+            <div  class="list-parent">
               <v-list-item to="/blog">
                 <v-list-item-title>لاینومگ</v-list-item-title>
               </v-list-item>
             </div>
             <div  class="list-parent">
-              <v-list-item to="/about">
-                <v-list-item-title>درباره ما </v-list-item-title>
-              </v-list-item>
-            </div>
-            <div  class="list-parent">
-              <v-list-item to="/workUs">
-                <v-list-item-title>همکاری با ما</v-list-item-title>
-              </v-list-item>
-            </div>
-            <div  class="list-parent">
-              <v-list-item to="/support">
-                <v-list-item-title>پشتیبانی</v-list-item-title>
-              </v-list-item>
-            </div>
-            <div  class="list-parent">
-              <v-list-item to="/faq">
-                <v-list-item-title>سوالات متداول</v-list-item-title>
+              <v-list-item to="/contact">
+                <v-list-item-title>تماس با ما </v-list-item-title>
               </v-list-item>
             </div>
           </v-list>

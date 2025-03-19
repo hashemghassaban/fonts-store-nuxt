@@ -43,6 +43,13 @@ export default {
     Timer
   },
   methods: {
+    edit(){
+      this.step = 1;
+      this.otp = ""
+      this.firstName = ""
+      this.lastName = ""
+      this.email = ""
+    },
     async getSMS(){
       this.loading = true
       let body ={

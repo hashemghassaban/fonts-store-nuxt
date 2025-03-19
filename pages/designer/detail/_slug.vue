@@ -6,13 +6,12 @@
     <div class="productDetail py-10">
       <section class="creator">
         <div class="pic">
-          <img :src=" designer?.designer?.avatar_url" :alt="designer?.designer?.full_name">
-          <h1> {{designer?.designer?.full_name}}</h1>
-          <p>{{designer?.designer?.description}}</p>
+          <img :src=" designer?.icon_url" :alt="designer?.title">
+
         </div>
         <div class="info-creator">
-          <h1> {{designer?.designer?.full_name}}</h1>
-          <p>{{designer?.designer?.description}}</p>
+          <h1> {{designer?.title}}</h1>
+          <div v-html="designer?.description"></div>
         </div>
 
       </section>
@@ -34,7 +33,7 @@
         </div>
         <div class="productMain-lists-block not-pro"  v-else>
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
-          <span>  دسته ای یافت نشد</span>
+          <span>  محصولی یافت نشد</span>
         </div>
       </section>
       <section class="productDetail-tiny-banners">
@@ -54,7 +53,7 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import TextInput from "@/components/TextInput/TextInput";
 import SelectInput from "@/components/SelectInput/SelectInput";
 
-import { productService } from '~/services'
+import { designerService } from '~/services'
 
 export default {
 
@@ -106,13 +105,10 @@ export default {
     },
     async getProductAll() {
       this.loading = true;
-      const data = {
-        collection : this.currentPath,
-      }
       try {
-        const product = await productService.getProductAll(data)
-        this.product = product?.entity?.data
-        this.designer = product?.entity?.data[0]
+        const product = await designerService.getDesignerId(this.currentPath)
+        this.product = product?.entity?.products
+        this.designer = product?.entity?.collection
         this.totalItems = product?.total?.total
         this.totalItems = product?.entity?.total
 
@@ -155,7 +151,7 @@ export default {
   },
   head() {
     return {
-      title: this.designer.title,
+      title: this.designer?.title,
       meta: [
         {
           hid: 'keywords',
@@ -175,7 +171,7 @@ export default {
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.designer.icon,
+          content: this.designer.icon_url,
         },
         {
           hid: 'og:description',
@@ -428,6 +424,22 @@ export default {
   }
 
 }
+.not-pro{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 100px 0;
+  width: 100%;
+  margin: 60px auto 100px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  span{
+    font-weight: 800;
+    color: #ff7a00 !important;
+    margin-top: 15px;
+    text-align: center;
+  }
+}
 .v-carousel__controls {
   bottom: 5px !important;
   justify-content: flex-start;
@@ -495,7 +507,7 @@ export default {
     align-items: center;
     @include breakpoint(medium) {
       min-width: 283px;
-      min-height: 283px;
+      max-height: 283px;
       width: 283px;
       display: inline-block;
       border: 1px solid #d6d6d6;
@@ -506,7 +518,7 @@ export default {
         min-height: 80px;
         width: 80px;
         height: 80px;
-        object-fit: fill;
+        object-fit: cover;
         overflow: hidden;
         border-radius: 10px;
         @include breakpoint(medium) {
@@ -514,6 +526,7 @@ export default {
           height: 100%;
           min-width: 100%;
           min-height: 100%;
+          object-fit: cover;
         }
 
       }

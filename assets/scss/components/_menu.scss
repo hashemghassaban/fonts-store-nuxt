@@ -163,6 +163,24 @@
         gap: 34px;
         width: 100%;
         border-radius: 10px;
+        &.promotions{
+          min-height: 150px;
+          .box{
+            flex: 100%!important;
+            max-width: 100%!important;
+            .parent-link{
+              height: 40px!important;
+              min-width:100%!important;
+              li{
+                flex: 25%;
+                min-width:  25%;
+                max-width:  25%;
+                width: 25%;
+                position: static;
+              }
+            }
+          }
+        }
 
 
         .block {

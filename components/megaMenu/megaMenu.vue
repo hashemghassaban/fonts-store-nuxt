@@ -24,7 +24,7 @@
 
             <div class="mega-menu-container" >
               <div class="block">
-               <div v-for="(items, d) in menuLink" :key="d"  class="box">
+               <div v-for="(items, d) in promotions" :key="d"  class="box">
                  <nuxt-link :to="'/categories/'+items.id" class="title" >
                    <img :src="getImgUrl(titleBlock[d].pic)" :alt="items?.name" />
                    <span>{{items?.name}}</span>
@@ -63,6 +63,48 @@
           >
             <nuxt-link
               :to="
+                '/designer'
+
+              "
+              class="nav-link"
+            >
+              <span>
+                طراحان
+               </span
+               >
+
+            </nuxt-link>
+          </li>
+          <li  class="mega-menu">
+            <a href="#" class="nav-link">
+
+              <span >  تخفیف ها</span>
+            </a>
+
+            <div class="mega-menu-container promotions" >
+              <div class="block">
+                <div   class="box">
+                  <ul class="parent-link" >
+                    <li v-for="(items, d) in promotions" :key="d"  class="box">
+                     <nuxt-link :to="'/promotions/'+items.id">{{items?.title}}</nuxt-link>
+
+                    </li>
+
+
+                  </ul>
+
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li
+
+
+            class="mega-menu"
+          >
+            <nuxt-link
+              :to="
                 '/blog'
 
               "
@@ -75,6 +117,7 @@
 
             </nuxt-link>
           </li>
+
           <li
 
 
@@ -82,31 +125,13 @@
           >
             <nuxt-link
               :to="
-                '/about'
+                '/contact'
 
               "
               class="nav-link"
             >
               <span>
-                درباره ما
-               </span>
-
-            </nuxt-link>
-          </li>
-          <li
-
-
-            class="mega-menu"
-          >
-            <nuxt-link
-              :to="
-                '/support'
-
-              "
-              class="nav-link"
-            >
-              <span>
-                پشیتیبانی
+                تماس با ما
                </span>
 
             </nuxt-link>
@@ -120,7 +145,7 @@
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
 
 export default {
-  props: ['leftSidebarVal', 'menuLink'],
+  props: ['leftSidebarVal', 'menuLink' , 'promotions'],
   data() {
     return {
       openmobilenav: true,
@@ -129,6 +154,7 @@ export default {
       activeChildItem: '',
       srcImg: '',
       activemegaChild: '',
+      enamad:[],
       // indexShowChild: null,
       titleBlock:[
         {name:'کالیگرافی',pic:'box01'},
