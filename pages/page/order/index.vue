@@ -48,7 +48,13 @@
                     <li>نام فونت : <b>{{ data.product_name }}</b></li>
                     <li>مبلغ: <b>{{formatPrice(data.payable_price)}} ت</b></li>
 
-                    <li><v-btn :loading="loadingBtn && data.id === selectId" color="primary" @click="download(data.id)"> دانلود</v-btn></li>
+                    <li><v-btn :loading="loadingBtn && data.id === selectId" color="primary" @click="download(data.id)"> دانلود</v-btn> <p>آخرین بروزرسانی :    {{
+                        new Date(data?.updated_at).toLocaleString("fa-IR", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })
+                      }}</p></li>
                   </ul>
                 </td>
               </template>

@@ -87,29 +87,19 @@
                   <ul class="parent-link" >
                     <li v-for="(items, d) in promotions" :key="d"  class="box">
                      <nuxt-link :to="'/promotions/'+items.id">{{items?.title}}</nuxt-link>
-
                     </li>
-
-
                   </ul>
-
                 </div>
               </div>
             </div>
           </li>
 
-          <li
-
-
-            class="mega-menu"
-          >
+          <li class="mega-menu" >
             <nuxt-link
               :to="
                 '/blog'
-
               "
-              class="nav-link"
-            >
+              class="nav-link">
               <span>
                 لاینومگ
                </span
@@ -119,7 +109,6 @@
           </li>
 
           <li
-
 
             class="mega-menu"
           >

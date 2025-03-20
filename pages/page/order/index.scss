@@ -137,7 +137,7 @@
     padding:10px 0;
     align-items: center;
     border-bottom: 1px solid #ccc;
-    padding-right: 83px;
+    padding-right: 0px;
   &:last-child{
     border-bottom: 0
   }
@@ -145,9 +145,11 @@
     li{
       flex: 33.33%;
       max-width: 33.33%;
-      text-align: right;
+      text-align: center;
       &:last-child{
         text-align: left;
+        line-height: 37px;
+        font-size: 12px;
       }
       b{
         margin-right: 10px;

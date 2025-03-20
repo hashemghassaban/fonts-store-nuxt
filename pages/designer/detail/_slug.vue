@@ -509,6 +509,7 @@ export default {
       min-width: 283px;
       max-height: 283px;
       width: 283px;
+      height: 283px;
       display: inline-block;
       border: 1px solid #d6d6d6;
       gap:0;

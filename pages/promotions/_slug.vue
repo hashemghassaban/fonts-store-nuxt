@@ -17,7 +17,7 @@
 
       </section>
       <section class="productMain-lists">
-        <div class="productMain-lists-filter" v-if="product?.length > 0">
+        <div class="productMain-lists-filter">
           <div class="searchBlock">
             <form @submit.prevent="handleSearch">
             <v-text-field
@@ -27,6 +27,7 @@
               rounded
               clearable
               placeholder="جستجو اسم فونت"
+              @click:clear="clear()"
               prepend-inner-icon="mdi-magnify"
               class="pt-6 shrink expanding-search"
             ></v-text-field>
@@ -87,13 +88,6 @@ import { productService , categoryService} from '~/services'
 
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "نتایج جستجو - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
   meta: [
     {
       hid: "og:title",
@@ -150,13 +144,15 @@ export default {
     }
   },
   computed: {
-
     currentPath() {
-
       return this.$route.params.slug
     },
   },
   methods: {
+    clear(){
+      this.searchText = ''
+      this.getProductAll()
+    },
     handleSearch(){
       this.getProductAll(this.sort)
     },
@@ -180,8 +176,9 @@ export default {
         const product = await productService.getPromotion(this.currentPath,data)
         this.product = product?.entity?.products?.data
         this.promotion = product?.entity?.promotion
-
-        this.totalItems = product?.entity?.total
+        this.loading = false;
+        this.totalItems = product?.entity?.products?.total
+        console.log(this.totalItems )
 
       } catch (error) {
         this.loading = false;
@@ -195,7 +192,39 @@ export default {
   mounted() {
     this.getProductAll();
 
-  }
+  },
+  head() {
+    return {
+      title: this.promotion.title,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.promotion.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.promotion.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: this.promotion.title + ' -  ' ,
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          content: this.promotion.icon_url
+                 },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.promotion.description,
+        },
+      ],
+    }
+  },
 };
 </script>
 

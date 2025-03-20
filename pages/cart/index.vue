@@ -70,10 +70,15 @@
               <label for="code">جمع خرید : </label>
               <span> {{formatPrice(parseInt(cart?.total))}} ت</span>
             </div>
+            <div class="totalPrice" v-if="cart?.discount > 0">
+              <label for="code">  تخفیف حراج : </label>
+              <span> {{formatPrice(parseInt(cart?.discount))}} ت</span>
+            </div>
             <div class="totalPrice" v-if="cart?.coupon_price > 0">
-              <label for="code"> سود شما از خرید : </label>
+              <label for="code">  کد تخفیف : </label>
               <span> {{formatPrice(parseInt(cart?.coupon_price))}} ت</span>
             </div>
+
             <div class="benefit-buy" >
               <label for="code"> قابل پرداخت : </label>
               <span> {{formatPrice(parseInt(cart?.payable))}} ت</span>

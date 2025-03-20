@@ -27,6 +27,7 @@
                 filled
                 rounded
                 clearable
+                @click:clear="clear()"
                 placeholder="جستجو مقاله"
                 prepend-inner-icon="mdi-magnify"
                 class="pt-6 shrink expanding-search"
@@ -131,6 +132,10 @@ export default {
     },
   },
   methods: {
+    clear(){
+      this.searchText = ''
+      this.getPost()
+    },
     changeRoute(id){
       this.getPost(id)
     },

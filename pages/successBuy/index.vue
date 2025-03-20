@@ -45,7 +45,7 @@
         <div class="cart-block-list">
           <div class="pro">
             <div class="box" v-for="(item, index) in product?.items"  >
-              <Product :typeProduct="'profile'" :items="item"   />
+              <Product :typeProduct="'successBuy'" :items="item"   />
             </div>
           </div>
         </div>

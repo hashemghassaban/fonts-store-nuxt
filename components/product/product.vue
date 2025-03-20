@@ -3,7 +3,7 @@
 <div class="product-list">
 
   <div class="product-list-top" >
-    <v-btn icon class="heart" v-if="typeProduct !== 'profile' &&  typeProduct !== 'favorite'"
+    <v-btn icon class="heart" v-if="typeProduct !== 'profile' && typeProduct !== 'successBuy'  &&  typeProduct !== 'favorite'"
          @click="toggleHeart(items)">
       <SvgIcon
         name="heart1"
@@ -30,7 +30,7 @@
       </div>
     </div>
     </nuxt-link>
-    <v-btn :loading="loadingBtn && items?.id === selectId" class="download-file" v-if="typeProduct === 'profile'" @click="download(items?.id)">
+    <v-btn :loading="loadingBtn && items?.id === selectId" class="download-file" v-if="typeProduct === 'profile' || typeProduct === 'successBuy'" @click="download(items?.id)">
       <div class="icon">
         <SvgIcon
           name="download"
@@ -63,7 +63,7 @@
         />
       </v-btn>
 
-      <v-btn v-if="typeProduct !== 'profile' && (typeProduct !== 'cart' && typeProduct !== 'favorite') " @click="addToCart(items)" :loading="loading">
+      <v-btn v-if="typeProduct !== 'profile' && typeProduct !== 'successBuy' && (typeProduct !== 'cart' && typeProduct !== 'favorite') " @click="addToCart(items)" :loading="loading">
         <SvgIcon
           name="arrow"
           color="#fff"
@@ -72,14 +72,14 @@
         />
         <span>خرید</span>
       </v-btn>
-      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || (typeProduct === 'profile' && typeProduct !== 'favorite')">
+      <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'successBuy' || (typeProduct === 'profile' && typeProduct !== 'favorite')">
         <div class="price-main">
           <span v-if="items?.prices?.length > 1">  از</span>
           {{typeProduct === 'product' ? formatPrice(items?.lowest_price?.offer_price) : typeProduct === 'noProduct' ? formatPrice(items?.lowest_price?.price): formatPrice(items?.payable_price)}} ت
 
         </div>
-        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'profile') && (!!items?.lowest_price?.has_offer  || items?.price!==items?.payable_price))">
-          {{typeProduct === 'cart' ?  formatPrice(items?.price) :formatPrice(items?.lowest_price?.price)}} ت
+        <div class="price-old" v-if="((typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'profile' || typeProduct === 'successBuy') && (!!items?.lowest_price?.has_offer  || items?.price!==items?.payable_price))">
+          {{typeProduct === 'cart'  ||  typeProduct === 'successBuy'?  formatPrice(items?.price) :formatPrice(items?.lowest_price?.price)}} ت
         </div>
 
 

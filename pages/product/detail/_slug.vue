@@ -112,7 +112,11 @@
               <img :src="item?.preview_path" :alt="item.name">
             </div>
             <div class="box-footer">
-              <div class="price"><span v-if="item?.offer_price && item?.price!== 0 " class="isOldPrice">{{  formatPrice(item?.price) }} ت</span>  {{ item?.offer_price !== 0 ? formatPrice(item?.price) : formatPrice(item?.offer_price) }} ت  </div>
+              <div class="price">
+                <span v-if="item?.offer_price !==  item?.price && item?.has_offer && item?.offer_price && item?.price!== 0 " class="isOldPrice">{{  formatPrice(item?.price) }} ت</span>
+                <b>  {{ item?.has_offer ? formatPrice(item?.offer_price) : formatPrice(item?.price) }} ت  </b>
+
+              </div>
               <button class="add-to-cart"  @click="addToCart(item)">
                 <SvgIcon
                   name="arrow"
@@ -215,8 +219,8 @@ export default {
       try {
         const product = await productService.getProduct(id)
         this.product = product?.entity?.product
-        this.description =  product?.entity?.product?.description
-        this.title =  product?.entity?.product?.title
+        this.description =  product?.entity?.product?.seo?.description
+        this.title =  product?.entity?.product?.seo?.title
 
         this.loading = false
       } catch (error) {
@@ -344,7 +348,6 @@ export default {
       padding: 15px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-direction: column;
       gap: 20px;
       align-items: flex-start;
@@ -441,6 +444,16 @@ export default {
   }
   &-tiny-banners{
     padding: 0 5%;
+    ::v-deep{
+      img{
+        width: 100% !important;
+        height: 100%;
+
+      }
+
+    }
+
+
     .banners{
       &-block{
         display: flex;
@@ -478,6 +491,7 @@ export default {
         }
 
       }
+
     }
     p{
       font-size: 15px;
@@ -488,7 +502,9 @@ export default {
       @include breakpoint(medium) {
         text-align: right;
       }
+
     }
+
   }
   &-fontPack{
     padding: 0 5%;
@@ -649,6 +665,7 @@ export default {
       min-width: 283px;
       min-height: 283px;
       width: 283px;
+      height: 283px;
       display: inline-block;
       border: 1px solid #d6d6d6;
       gap:0;

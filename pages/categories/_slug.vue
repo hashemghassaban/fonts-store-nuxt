@@ -15,7 +15,7 @@
           <h1 class="text">دسته بندی {{ title }} </h1>
         </div>
       <section class="productMain-lists">
-        <div class="productMain-lists-filter" v-if="product?.length > 0">
+        <div class="productMain-lists-filter">
           <div class="searchBlock">
             <form @submit.prevent="handleSearch">
               <v-text-field
@@ -23,6 +23,7 @@
                 dense
                 filled
                 rounded
+                @click:clear="clear()"
                 clearable
                 placeholder="جستجو اسم فونت"
                 prepend-inner-icon="mdi-magnify"
@@ -195,6 +196,10 @@ export default {
 
   },
   methods: {
+    clear(){
+      this.searchText = ''
+      this.getCategories()
+    },
     handleSearch(){
       this.getCategories()
     },

@@ -164,7 +164,7 @@
         <div class="banners-block" v-else>
           <div class="banners-box" v-for="(item, i) in  (dataResult?.slids?.middle)?.slice(0, 3)" >
             <div class="box">
-              <nuxt-link :to="item?.link !== null ?item?.link  :'/'" >
+              <nuxt-link :to="item?.link !== null ? item?.link  :'/'" >
                 <img :src="item.mobile_image_url" alt="">
                 <v-btn>
                   <SvgIcon

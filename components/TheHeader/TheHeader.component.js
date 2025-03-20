@@ -126,6 +126,10 @@ export default {
       this.$router.push('/product?search=' + this.searchText)
       this.showSearch = false
     },
+    clear(){
+      this.searchText = ''
+      this.getCart()
+    },
     async getCart() {
       try {
         const res = await cartService.getCart()
@@ -136,9 +140,6 @@ export default {
         console.log(this.$store.state.namad)
 
       } catch (error) {
-        // this.$toast.error(error, {
-        //   timeout: 4000,
-        // })
       }
 
 

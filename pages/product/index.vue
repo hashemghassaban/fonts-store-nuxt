@@ -38,7 +38,7 @@
         </div>
       </section>
       <section class="productMain-lists">
-        <div class="productMain-lists-filter" v-if="product?.length > 0">
+        <div class="productMain-lists-filter" >
           <div class="searchBlock">
             <form @submit.prevent="handleSearch">
             <v-text-field
@@ -47,6 +47,7 @@
               filled
               rounded
               clearable
+              @click:clear="clear()"
               placeholder="جستجو اسم فونت"
               prepend-inner-icon="mdi-magnify"
               class="pt-6 shrink expanding-search"
@@ -170,6 +171,10 @@ export default {
     }
   },
   methods: {
+    clear(){
+      this.searchText = ''
+      this.getCategoryAll()
+    },
     handleSearch(){
       this.getProductAll(this.sort)
     },

@@ -155,6 +155,7 @@
       rounded
       clearable
       placeholder="جستجو"
+      @click:clear="clear()"
       prepend-inner-icon="mdi-magnify"
       class="pt-6 shrink expanding-search"
     ></v-text-field>
