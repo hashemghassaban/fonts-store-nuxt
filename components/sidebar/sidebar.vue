@@ -395,6 +395,8 @@ export default {
     background: #626262;
     position: relative;
     min-width: 80px;
+    width: 80px;
+    max-width: 80px;
     height: 80px;
     border-radius: 100px;
     overflow: hidden;

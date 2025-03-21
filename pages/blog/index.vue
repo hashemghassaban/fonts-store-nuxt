@@ -45,12 +45,7 @@
               @change="changeRoute"
             >
               <template #prepend-inner>
-                <SvgIcon
-                  name="filter"
-                  color="#969696"
-                  size="1.3rem"
-                  className="rounded-full"
-                />
+                <img src="~/assets/img/icon/category.png" width="20px" style="margin-left: 10px">
               </template>
             </v-select>
           </div>
@@ -274,6 +269,9 @@ export default {
     color: #ff7a00 !important;
     margin-top: 15px;
     text-align: center;
+  }
+  img{
+    width: 120px;
   }
 }
 .latest-font{

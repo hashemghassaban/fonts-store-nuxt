@@ -745,9 +745,15 @@ export default {
     }
   }
 
+
   h2{
-    text-align: center;
+    text-align: right;
     font-weight: bold;
+    padding: 0 25px;
+    @include breakpoint(medium) {
+      text-align: center;
+      padding: 0;
+    }
   }
 
 
@@ -1123,10 +1129,16 @@ export default {
     margin-bottom: 10px;
     margin-top: 100px;
   }
+
   h2{
-       text-align: center;
-       font-weight: bold;
-     }
+    text-align: right;
+    font-weight: bold;
+    padding: 0 25px;
+    @include breakpoint(medium) {
+      text-align: center;
+      padding: 0;
+    }
+  }
   ::v-deep {
     .swiper-slide {
       text-align: center;
@@ -1168,17 +1180,27 @@ export default {
   margin-top: 100px;
   .show-More{
     position: absolute;
-    left: 16%;
+    left: 26px;
     top: 0;
     font-size: 20px;
     color: #F15A24;
     font-weight: bold;
+    @include breakpoint(medium) {
+      left: 16%;
+
+    }
   }
 
   h2{
-    text-align: center;
+    text-align: right;
     font-weight: bold;
+    padding: 0 25px;
+    @include breakpoint(medium) {
+      text-align: center;
+      padding: 0;
+    }
   }
+
   &-block{
     display: flex;
     width: 100%;

@@ -272,6 +272,12 @@ export default {
   }
   &-tiny-banners{
     padding: 0 5%;
+    ::v-deep{
+      img{
+        width: 100%!important;
+        height: auto!important;
+      }
+    }
     .banners{
       &-block{
         display: flex;
@@ -438,6 +444,9 @@ export default {
     color: #ff7a00 !important;
     margin-top: 15px;
     text-align: center;
+  }
+  img{
+    width: 120px;
   }
 }
 .v-carousel__controls {
@@ -740,6 +749,9 @@ export default {
       color: #ff7a00 !important;
       margin-top: 15px;
       text-align: center;
+    }
+    img{
+      width: 120px;
     }
   }
   &-banner{

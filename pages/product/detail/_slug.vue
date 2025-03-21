@@ -132,17 +132,18 @@
         </div>
       </section>
       <section class="productDetail-tiny-banners">
+        <h3>معرفی محصول : </h3>
         <p v-html="product.description"></p>
       </section>
     </div>
       <section class="creator">
         <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="pic">
-          <img :src=" product?.designer?.avatar_url" :alt="product?.designer?.full_name">
-          <h3> {{product?.designer?.full_name}}</h3>
+          <img :src=" product?.collection?.icon_url" :alt="product?.collection?.title">
+          <h3> {{product?.collection?.title}}</h3>
         </nuxt-link>
         <nuxt-link :to="'/designer/detail/' + product?.collection_id" class="info-creator">
-          <h3> {{product?.designer?.full_name}}</h3>
-          <p>{{product?.designer?.description}}</p>
+          <h3> {{product?.collection?.title}}</h3>
+         <div v-html="product?.collection?.description"></div>
         </nuxt-link>
       </section>
       <section class="type-font">
@@ -345,7 +346,7 @@ export default {
   &-description{
     padding: 40px 5%;
     .head-pro{
-      padding: 15px;
+      padding: 0 0 15px;
       display: flex;
       justify-content: space-between;
       flex-direction: column;
@@ -354,15 +355,17 @@ export default {
       @include breakpoint(medium) {
         flex-direction: row;
         gap: 20px;
+        padding: 15px;
       }
       .titles{
         margin: 0;
         text-align: right;
         display: flex;
         align-items: center;
+
         .percent{
-          width: 60px;
-          height: 60px;
+          width: 80px;
+          height: 80px;
           position: relative;
           background:url("~/assets/img/icon/star.png");
           background-size: contain;
@@ -379,9 +382,9 @@ export default {
           }
           span{
             position: absolute;
-            right: 16px;
+            right: 13px;
             top: 15px;
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             @include breakpoint(medium) {
               right: 23px;
@@ -390,6 +393,13 @@ export default {
             }
 
 
+          }
+        }
+
+        h1{
+          font-size: 18px;
+          @include breakpoint(medium) {
+            font-size: 20px;
           }
         }
       }
@@ -444,13 +454,19 @@ export default {
   }
   &-tiny-banners{
     padding: 0 5%;
+    h3{
+      margin-top: 40px;
+      font-size: 20px;
+      font-weight: bold;
+      @include breakpoint(medium) {
+        font-size: 25px;
+      }
+    }
     ::v-deep{
       img{
-        width: 100% !important;
-        height: 100%;
-
+        width: 100%!important;
+        height: auto!important;
       }
-
     }
 
 
@@ -675,7 +691,7 @@ export default {
         min-height: 80px;
         width: 80px;
         height: 80px;
-        object-fit: fill;
+        object-fit: cover;
         overflow: hidden;
         border-radius: 10px;
         @include breakpoint(medium) {
@@ -792,9 +808,13 @@ export default {
       height: 100%;
     }
   }
+  .slide-back{
+    height: 100%;
+  }
   .slide-back img {
     border-radius: 15px;
     overflow: hidden;
+    object-fit: cover;
   }
 }
 </style>

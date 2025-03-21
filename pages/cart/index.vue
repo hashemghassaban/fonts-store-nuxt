@@ -366,13 +366,16 @@ export default {
             background: #F15A24;
             border-radius: 10px 0 0 10px;
             text-align: center;
-            width: 180px;
+            width: 100px;
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             gap: 10px;
+            @include breakpoint(medium) {
+              width: 180px;
+            }
             &.v-btn--loading{
               background: #fff;
 

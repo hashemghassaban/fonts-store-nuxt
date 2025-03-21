@@ -64,7 +64,7 @@ export default {
     img{
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: fill;
     }
   }
 
@@ -78,7 +78,6 @@ export default {
         padding: 12px 10px;
         align-items: flex-start;
         flex-direction: column;
-        flex-direction: column;
 
         @include breakpoint(small) {
           align-items: center;
@@ -86,6 +85,11 @@ export default {
         .type{
           font-size: 14px;
           color: #F15A24;
+          height: 20px;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 100%;
+          text-overflow: ellipsis;
         }
         .date{
           color: #cbcbcb;

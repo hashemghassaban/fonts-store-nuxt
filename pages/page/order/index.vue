@@ -3,7 +3,29 @@
     <section class="profile">
       <div class="profile-block">
         <div class="profile-block__info">
-          <sidebar />
+          <sidebar class="desktopSileBar"/>
+          <v-expansion-panels class="mobileSileBar">
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                <template v-slot:default="{ open }">
+                  <v-btn
+                    class="showList"
+                    color="primary"
+                    @click="drawerPage = true"
+                    height="40px"
+                    width="40px"
+                    elevation="0"
+                  >
+                    مشاهده منو
+                    <v-icon style="margin-right: 15px">mdi-menu</v-icon>
+                  </v-btn>
+                </template>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <sidebar />
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </div>
         <div class="profile-block__content">
           <div class="profile-title">
@@ -17,6 +39,7 @@
               v-if="orders"
               show-expand
               :search="search"
+              disable-sort
               hide-default-footer
             >
               <template
@@ -49,7 +72,7 @@
                     <li>مبلغ: <b>{{formatPrice(data.payable_price)}} ت</b></li>
 
                     <li><v-btn :loading="loadingBtn && data.id === selectId" color="primary" @click="download(data.id)"> دانلود</v-btn> <p>آخرین بروزرسانی :    {{
-                        new Date(data?.updated_at).toLocaleString("fa-IR", {
+                        new Date(data?.product_price?.file_updated_at).toLocaleString("fa-IR", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",

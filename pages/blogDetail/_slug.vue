@@ -28,7 +28,7 @@
               className="rounded-full"
             />
           </div>
-          <span>فونت های لاینوتایپ</span>
+          <span>خرید فونت</span>
         </nuxt-link>
       </div>
 
@@ -485,6 +485,12 @@ this.dialogAddComment = true,
         text-align: right!important;
 
       }
+      ::v-deep{
+        img{
+          width: 100%!important;
+          height: auto!important;
+        }
+      }
     }
     .banners{
 
@@ -707,16 +713,28 @@ this.dialogAddComment = true,
   margin-top: 50px;
   .show-More{
     position: absolute;
-    left: 16%;
+    left: 26px;
     top: 0;
     font-size: 20px;
     color: #F15A24;
     font-weight: bold;
+    @include breakpoint(medium) {
+      left: 16%;
+
+
+    }
   }
 
   h2{
-    text-align: center;
+    text-align: right;
     font-weight: bold;
+    padding:0 30px;
+    @include breakpoint(medium) {
+      text-align: center;
+      padding:0;
+
+
+    }
   }
   &-block{
     display: flex;

@@ -237,14 +237,18 @@ small {
 .title{
   display: flex;
   gap: 13px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  .icon{
+  @include breakpoint(medium) {
+    justify-content: center;
 
   }
   .text{
     font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
+    @include breakpoint(medium) {
+      font-size: 25px;
+    }
   }
 }
 .header{

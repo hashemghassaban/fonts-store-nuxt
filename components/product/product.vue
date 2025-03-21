@@ -26,7 +26,7 @@
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
         <img src="~/assets/img/icon/star.png" alt="">
-        <span>{{ typeProduct === 'product' || typeProduct === 'noProduct' ? items?.lowest_price?.offer_percent:  items?.discount_percent + '%'}}</span>
+        <span>{{ typeProduct === 'product' || typeProduct === 'noProduct' ? items?.lowest_price?.offer_percent:items?.discount_percent+'%'}}</span>
       </div>
     </div>
     </nuxt-link>
@@ -304,9 +304,9 @@ export default {
           }
           span{
             position: absolute;
-            right: 8px;
-            top: 12px;
-            font-size: 18px;
+            right: 10px;
+            top: 15px;
+            font-size: 15px;
             font-weight: 700;
             @include breakpoint(medium) {
               right: 33px;
@@ -521,10 +521,12 @@ export default {
           font-size: 15px;
           flex-direction: row-reverse;
            width: 100%;
+          padding: 0 10px;
           @include breakpoint(medium) {
             margin: 25px 14px;
             font-size: 18px;
             gap: 17px;
+            padding: 0;
 
           }
           &-main{

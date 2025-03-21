@@ -453,6 +453,9 @@ export default {
     margin-top: 15px;
     text-align: center;
   }
+  img{
+    width: 120px;
+  }
 }
 .latest-font{
   padding: 50px 5%;

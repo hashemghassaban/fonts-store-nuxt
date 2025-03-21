@@ -24,7 +24,7 @@
 
             <div class="mega-menu-container" >
               <div class="block">
-               <div v-for="(items, d) in promotions" :key="d"  class="box">
+               <div v-for="(items, d) in menuLink" :key="d"  class="box">
                  <nuxt-link :to="'/categories/'+items.id" class="title" >
                    <img :src="getImgUrl(titleBlock[d].pic)" :alt="items?.name" />
                    <span>{{items?.name}}</span>

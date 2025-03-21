@@ -78,11 +78,34 @@
                 <v-list-item-title>طراحان</v-list-item-title>
               </v-list-item>
             </div>
-            <div  class="list-parent">
-              <v-list-item to="/promotion">
-                <v-list-item-title>تخفیف ها</v-list-item-title>
-              </v-list-item>
+            <div class="list-parent hasChild">
+
+
+              <v-list-group
+              ><!--FIRST DROPDOWN-->
+                <template v-slot:activator>
+                  <v-list-item
+                    to="/promotion"
+                    class="parent-link">
+                    <v-list-item-title>تخفیف ها</v-list-item-title>
+                  </v-list-item>
+                </template>
+
+                <div v-for="(child, j) in promotions" :key="j"    class="latest-child">
+
+                  <!--END OF FIRST SUBMENU-->
+
+                      <v-list-item
+                        :to="'/promotions/'+child.id"
+                      >
+                        <v-list-item-title>{{ child.title }}</v-list-item-title>
+                      </v-list-item>
+
+
+                </div>
+              </v-list-group>
             </div>
+
             <div  class="list-parent">
               <v-list-item to="/blog">
                 <v-list-item-title>لاینومگ</v-list-item-title>

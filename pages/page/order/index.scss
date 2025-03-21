@@ -26,17 +26,33 @@
 
 
     &__info{
-      border: 1px solid #ccc;
       border-radius: 15px;
       flex: 100%;
       min-width: 100%;
       max-width: 100%;
-      padding: 30px;
+      padding: 0;
       height: 715px;
       @include breakpoint(medium) {
         flex: 40%;
         min-width: 40%;
         max-width: 40%;
+        border: 1px solid #ccc;
+        padding: 30px;
+
+      }
+      .desktopSileBar{
+        display: none;
+        @include breakpoint(medium) {
+
+          display: block;
+        }
+      }
+      .mobileSileBar{
+        display: block;
+        @include breakpoint(medium) {
+
+          display: none;
+        }
       }
     }
     &__content{
@@ -134,29 +150,95 @@
   }
   .list-detail{
     display: flex;
-    padding:10px 0;
+    padding: 0;
     align-items: center;
     border-bottom: 1px solid #ccc;
-    padding-right: 0px;
+    flex-direction: column;
+    @include breakpoint(medium) {
+      flex-direction: row;
+      padding:10px 0;
+    }
   &:last-child{
     border-bottom: 0
   }
 
     li{
-      flex: 33.33%;
-      max-width: 33.33%;
-      text-align: center;
+      flex:  100%;
+      max-width: 100%;
+      text-align: right;
+      height: 61px;
+      min-height: 50px;
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+      line-height: 50px;
+      display: flex    ;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      @include breakpoint(medium) {
+        flex: 33.33%;
+        max-width: 33.33%;
+        text-align: center;
+        height: auto;
+        min-height: auto;
+        line-height: 30px;
+        display: block;
+        border-bottom: 0;
+        padding:  0;
+
+
+      }
       &:last-child{
         text-align: left;
-        line-height: 37px;
+        line-height: 50px;
         font-size: 12px;
+        border: 0;
+        @include breakpoint(medium) {
+
+          line-height: 37px
+        }
       }
       b{
         margin-right: 10px;
         font-weight: bold;
         color: #3A3A3A;
+        width: 68%;
+        line-height: 30px;
+        text-align: left;
+        @include breakpoint(medium) {
+          width: 100%;
+          line-height: inherit;
+          text-align: right;
+
+        }
+
+
       }
     }
   }
 }
 
+::v-deep{
+  .showList{
+    max-width: 143px!important;
+    max-height:50px!important;
+  }
+  .v-expansion-panel-header{
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .v-expansion-panel::before{
+    border: 0;
+    box-shadow: none;
+  }
+  .v-expansion-panel-header__icon{
+    display: none;
+  }
+  .v-expansion-panel-content{
+    border: 1px solid #ccc;
+    padding: 30px 6px 0 0 ;
+  }
+
+
+}
