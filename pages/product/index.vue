@@ -514,6 +514,12 @@ export default {
   .v-pagination {
     margin: 0 0 100px;
   }
+  .v-select__slot{
+    .v-input__append-inner{
+      display: none;
+    }
+  }
+
 }
 
 </style>

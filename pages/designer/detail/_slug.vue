@@ -107,10 +107,9 @@ export default {
       this.loading = true;
       try {
         const product = await designerService.getDesignerId(this.currentPath)
-        this.product = product?.entity?.products
+        this.product = product?.entity?.products.data
         this.designer = product?.entity?.collection
-        this.totalItems = product?.total?.total
-        this.totalItems = product?.entity?.total
+        this.totalItems = product?.entity?.products?.total
 
         this.loading = false;
 
@@ -186,7 +185,7 @@ export default {
 
 <style lang="scss" scoped>
 .productDetail{
-  padding: 0 5%;
+  padding: 0 5%!important;
   &-banner{
     height: 250px;
     width: 90%;
@@ -209,7 +208,6 @@ export default {
       padding: 15px;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       flex-direction: column;
       gap: 20px;
       align-items: flex-start;
@@ -658,7 +656,10 @@ export default {
     padding: 0 10%;
   }
   &-lists{
-    padding:0 10%;
+    padding:0;
+    @include breakpoint(medium) {
+      padding: 0 10%;
+    }
     &-filter{
       display: flex;
       justify-content: space-between;

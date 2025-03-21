@@ -299,5 +299,12 @@ export default {
     }
   }
 }
+::v-deep{
+  .v-select__slot{
+    .v-input__append-inner{
+      display: none;
+    }
+  }
+}
 
 </style>

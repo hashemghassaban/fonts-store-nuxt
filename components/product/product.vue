@@ -244,9 +244,9 @@ export default {
       }
       .heart{
         position: absolute;
-        top: 20px;
+        top: 10px;
         cursor: pointer;
-        left: 20px;
+        left: 10px;
         width: 42px;
         height: 42px;
         text-align: center;
@@ -260,6 +260,7 @@ export default {
         min-width: 35px;
         @include breakpoint(medium) {
           left: 20px;
+          top: 20px;
         }
         i{
           color:red!important;
@@ -386,13 +387,19 @@ export default {
         align-items: flex-start;
         flex-direction: column;
         gap: 0;
+        width: 100%;
+        @include breakpoint(medium) {
+          width: 60%;
+        }
         h3{
-          height: 30px;
-          line-height: 30px;
+
           font-size: 15px !important;
           margin: 0;
           @include breakpoint(medium) {
             font-size: 18px !important;
+            height: 30px;
+            line-height: 30px;
+
           }
         }
         .type{
