@@ -21,7 +21,7 @@
       />
 
     </v-btn>
-    <nuxt-link :to="isNestedLink ? '/product/detail/' +items?.product?.id : '/product/detail/'+items?.id ">
+    <nuxt-link :to="typeProduct === 'successBuy'  ? '/product/detail/' +items?.product_id : isNestedLink ? '/product/detail/' +items?.product?.id : '/product/detail/'+items?.id ">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
       <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
@@ -389,7 +389,7 @@ export default {
         gap: 0;
         width: 100%;
         @include breakpoint(medium) {
-          width: 60%;
+          width: 54%;
         }
         h3{
 
