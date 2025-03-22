@@ -239,9 +239,10 @@ small {
   gap: 13px;
   justify-content: flex-start;
   align-items: center;
+  padding: 0 25px;
   @include breakpoint(medium) {
     justify-content: center;
-
+    padding: 0 ;
   }
   .text{
     font-weight: bold;

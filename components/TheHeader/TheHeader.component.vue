@@ -162,7 +162,7 @@
               size="28px"
               className="rounded-full"
             />
-            <div class="isFill" v-show="cart?.items?.length > 0"></div>
+            <div class="isFill" v-show="cart?.items?.length > 0">{{cart?.items?.length}}</div>
           </div>
         </div>
       </nav>

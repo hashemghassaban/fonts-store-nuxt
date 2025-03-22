@@ -6,7 +6,7 @@
 
     &-block{
       display: flex;
-      gap: 50px;
+      gap: 10px;
       padding: 5% 0 40px;
       background: #fff;
       flex-direction: column;
@@ -19,6 +19,7 @@
       @include breakpoint(medium) {
         padding: 5% 0% ;
         flex-direction: row;
+        gap: 50px;
       }
       @include breakpoint(xultra) {
         padding: 5% 10% ;
@@ -38,19 +39,6 @@
           max-width: 40%;
           border: 1px solid #ccc;
           padding: 30px;
-        }
-        .desktopSileBar{
-          display: none;
-          @include breakpoint(medium) {
-
-            display: block;
-          }
-        }
-        .mobileSileBar{
-          display: block;
-          @include breakpoint(medium) {
-            display: none;
-          }
         }
       }
       &__content{
@@ -106,27 +94,6 @@
     display: block;
     margin-top: 148px;
   }
-  .v-expansion-panel-header{
-    padding: 0;
-    border: 0;
-    box-shadow: none;
-  }
-  .v-expansion-panel::before{
-    border: 0;
-    box-shadow: none;
-  }
-  .v-expansion-panel-header__icon{
-    display: none;
-  }
-  .v-expansion-panel-content{
-    border: 1px solid #ccc;
-    padding: 30px 6px 0 0 ;
-  }
-  .showList{
-    max-width: 143px!important;
-    max-height:50px!important;
-  }
-
 }
 
 .not-pro{

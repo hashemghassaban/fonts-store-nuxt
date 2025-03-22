@@ -57,11 +57,23 @@
             <v-skeleton-loader type="image" class="elevation-0"  v-if="loading"></v-skeleton-loader>
             <span  v-else>{{formatPrice(this.profile.credit)}}   ت  </span>
           </li>
+          <li>
+            <v-btn
+              class="showList"
+              color="primary"
+              icon
+              @click="isVisible = !isVisible"
+            >
+
+              <v-icon>mdi-menu</v-icon>
+              مشاهده منو
+            </v-btn>
+          </li>
         </ul>
       </div>
 
     </div>
-    <v-card class="mx-auto sidebar-block mb-10" max-width="100%">
+    <v-card class="mx-auto sidebar-block mb-10" max-width="100%" v-show="isVisible">
       <v-list flat>
         <v-list-item-group  color="primary">
           <v-list-item
@@ -93,6 +105,8 @@ export default {
     isCallService: {
       type: Boolean,
       default:false,
+
+
     },
   },
 
@@ -101,6 +115,9 @@ export default {
     avatarUrl: null,
     profile:'',
     loading:false,
+    isVisible: false,
+    isMobile: false,
+    windowWidth: 0,
     url:'',
     items: [
       { text: 'داشبورد', link: '/page/userManager' , action:''},
@@ -151,6 +168,13 @@ export default {
     triggerUpload() {
       this.$refs.fileInput.click()
     },
+    checkMobile() {
+      // در موبایل اگر عرض صفحه کمتر از 768 پیکسل باشد
+      this.isMobile = window.innerWidth < 768
+      if( !this.isMobile){
+        this.isVisible = true
+      }
+    },
     handleFileSelect(event) {
       const file = event.target.files[0]
       if (!file) return
@@ -172,10 +196,22 @@ export default {
       let val = (value / 1).toFixed(0).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
+    toggleSize() {
+      // برای تست، عرض صفحه را تغییر می‌دهیم
+      this.windowWidth = this.isMobile ? 1024 : 320
+      this.checkMobile()
+    }
   },
   mounted() {
     this.url = this.$router?.history?.current?.path
+    this.checkMobile()
+    // در هنگام تغییر اندازه پنجره هم بررسی می‌کنیم
+    window.addEventListener('resize', this.checkMobile)
 
+  },
+  beforeDestroy() {
+    // پاک کردن event listener
+    window.removeEventListener('resize', this.checkMobile)
   }
 }
 </script>
@@ -188,11 +224,26 @@ export default {
     display: none;
   }
 }
-.showList {
+.showList  {
   display: block;
+  width: auto!important;
+  max-height:50px!important;
+  padding: 0 10px;
+   border-radius: 5px!important;
+  border: 1px solid;
+  margin: 15px 0 0;
   @include breakpoint(medium) {
     display: none;
   }
+  ::v-deep{
+    .v-btn__content{
+      gap: 10px;
+      i{
+        margin: 0!important;
+      }
+    }
+  }
+
 }
 .sidebar-block {
   display: block;

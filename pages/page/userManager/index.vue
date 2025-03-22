@@ -5,29 +5,8 @@
     <section class="userManager">
       <div class="userManager-block">
         <div class="userManager-block__info">
-          <sidebar class="desktopSileBar" @profile="profile" @avatarUrl="avatarUrl" :isCallService="isCallService"   />
-          <v-expansion-panels class="mobileSileBar">
-            <v-expansion-panel>
-              <v-expansion-panel-header>
-                <template v-slot:default="{ open }">
-                  <v-btn
-                    class="showList"
-                    color="primary"
-                    @click="drawerPage = true"
-                    height="40px"
-                    width="40px"
-                    elevation="0"
-                  >
-                    مشاهده منو
-                    <v-icon style="margin-right: 15px">mdi-menu</v-icon>
-                  </v-btn>
-                </template>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content>
-                <sidebar @profile="profile" @avatarUrl="avatarUrl" :isCallService="isCallService"    />
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <sidebar @profile="profile" @avatarUrl="avatarUrl" :isCallService="isCallService"   />
+
         </div>
         <div class="userManager-block__content">
           <div class="userManager-title">

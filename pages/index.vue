@@ -749,7 +749,7 @@ export default {
   h2{
     text-align: right;
     font-weight: bold;
-    padding: 0 25px;
+    padding: 0 ;
     @include breakpoint(medium) {
       text-align: center;
       padding: 0;

@@ -405,7 +405,7 @@ export default {
     padding: 0 10%;
   }
   &-lists{
-    padding: 100px  5% 0;
+    padding: 50px  5% 0;
     &-filter{
       display: flex;
       justify-content: space-between;

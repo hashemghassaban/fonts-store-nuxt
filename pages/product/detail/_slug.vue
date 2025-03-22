@@ -595,7 +595,7 @@ export default {
             background: #AAE73E;
             border-radius: 10px;
             text-align: center;
-            width: 100px;
+            width: auto;
             height: 50px;
             display: flex;
             align-items: center;
@@ -603,6 +603,9 @@ export default {
             gap: 10px;
             transition: all 0.3s ease;
             color: #fff;
+            @include breakpoint(medium) {
+              width: 100px;
+            }
             &:hover{
               background: #000;
               border: 2px solid #000;
@@ -617,7 +620,10 @@ export default {
             }
           }
           .price{
-            font-size: 20px;
+            font-size: 18px;
+            @include breakpoint(medium) {
+              font-size: 20px;
+            }
             .isOldPrice{
               color: #00000061;
               text-decoration-line: line-through;
