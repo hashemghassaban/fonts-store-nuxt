@@ -33,7 +33,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  لاینومگ - ",
+      content: "لاینومگ - لاینو تایپ ",
     },
   ],
   components: {

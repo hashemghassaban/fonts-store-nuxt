@@ -258,7 +258,7 @@ export default {
   },
   head() {
     return {
-      title: 'دسته بندی ' + this.title ,
+      title: 'دسته بندی ' + this.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',

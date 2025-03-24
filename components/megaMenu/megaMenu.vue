@@ -33,7 +33,7 @@
                   <li v-for="(childrenItem, index) in items.children" :key="index">
                     <nuxt-link :to="'/categories/'+childrenItem.id" class="parent-box">{{ childrenItem?.name }}</nuxt-link>
                   </li>
-                  <li>
+                  <li v-if="items.children > 5">
                     <nuxt-link
                       :to="'/categories/'+items.id"
                       class="nav-link">

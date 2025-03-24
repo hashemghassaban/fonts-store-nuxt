@@ -310,7 +310,7 @@ export default {
             font-size: 15px;
             font-weight: 700;
             @include breakpoint(medium) {
-              right: 33px;
+              right: 27px;
               top: 34px;
               font-size: 24px;
             }

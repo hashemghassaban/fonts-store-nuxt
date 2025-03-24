@@ -8,7 +8,7 @@ export default {
   name: 'wallet',
   head: {
     titleTemplate: "",
-    title: "پنل کاربری - لاینو تایپ",
+    title: "افزایش اعتبار - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -18,16 +18,16 @@ export default {
     last:null,
     paymentGateway:null,
     amounts: [{
-      name:'10.000 ت',value:10000
+      name:'150.000 ت',value:150000
     },
       {
-        name:'20.000 ت',value:20000
+        name:'300.000 ت',value:30000
       }
       ,{
-        name:'30.000 ت',value:30000
+        name:'600.000 ت',value:600000
       }
       ,{
-        name:'40.000 ت',value:40000
+        name:'1.000.000 ت',value:1000000
       }
       ,{
         name:'مبلغ دلخواه',value:''

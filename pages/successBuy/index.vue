@@ -96,7 +96,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: " پرداخت - ",
+      content: "خرید موفق - لاینو تایپ",
     },
   ],
   components: {

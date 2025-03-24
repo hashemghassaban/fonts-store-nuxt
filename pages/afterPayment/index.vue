@@ -56,7 +56,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: " وضعیت پرداخت -",
+      content: "وضعیت پرداخت - لاینو تایپ",
     },
   ],
   components: {

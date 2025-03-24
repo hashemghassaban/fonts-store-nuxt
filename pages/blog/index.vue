@@ -84,7 +84,7 @@ import { postService  } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "به وبلاگ لاینوتایپ خوش آمدید.",
+    title: 'لاینومگ - لاینو تایپ' ,
     htmlAttrs: {
       lang: "fa",
     },

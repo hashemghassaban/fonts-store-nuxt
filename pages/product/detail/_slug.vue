@@ -267,7 +267,7 @@ export default {
   },
   head() {
     return {
-      title: this.title,
+      title: this.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
@@ -387,9 +387,9 @@ export default {
             font-size: 15px;
             font-weight: 700;
             @include breakpoint(medium) {
-              right: 23px;
-              top: 21px;
-              font-size: 24px;
+              right: 21px;
+              top: 26px;
+              font-size: 20px;
             }
 
 

@@ -9,7 +9,7 @@
     <div class="footer-bottom">
       <div class="footer-bottom-info">
         <h1>لاینو تایپ</h1>
-        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته.</p>
+        <p>لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.</p>
       </div>
       <div class="footer-bottom-link">
         <ul class="nav-menu" >
@@ -130,7 +130,7 @@
       <div class="footer-bottom-social">
         <ul class="social">
           <li class="socialListFooter">
-            <a href="https://instagram.com/alasazcom/">
+            <a href="/linotyper">
               <SvgIcon
                 name="telegram"
                 color="#ccc"
@@ -140,7 +140,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="">
+            <a href="/linotyper">
 
               <SvgIcon
                 name="twitter"
@@ -151,7 +151,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="#">
+            <a href="/linotyper">
 
               <SvgIcon
                 name="instagram"
@@ -162,7 +162,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="#">
+            <a href="/linotyper">
 
               <SvgIcon
                 name="aparat"

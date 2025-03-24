@@ -195,7 +195,7 @@ export default {
   },
   head() {
     return {
-      title: this.promotion.title,
+      title: this.promotion.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',

@@ -3,29 +3,7 @@
     <Loading v-if="loading" />
     <div class="profile-info">
       <div class="info-top">
-        <div class="avatar-user">
-          <SvgIcon
-            name="user"
-            color=#AAE73E
-            size="30px"
-            className="rounded-full"
-            v-if="!avatarUrl"
-          />
-          <img
-            v-else
-            :src="avatarUrl"
-            alt="avatar"
-            class="avatar-preview"
-            @click="triggerUpload"
-          />
-          <input
-            ref="fileInput"
-            type="file"
-            accept="image/*"
-            style="display: none"
-            @change="handleFileSelect"
-          />
-        </div>
+
         <v-btn density="default" class="add" v-if="false"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
 
 
@@ -34,7 +12,7 @@
 
             <v-skeleton-loader type="image" class="elevation-0" v-if="loading"></v-skeleton-loader>
 
-         <span v-else>{{this.profile.full_name !== " " ?  this.profile.full_name : 'نام کاربری'}}</span>
+         <span v-else>{{(this.profile.full_name !== " "  || this.profile.full_name !== null) ?  this.profile.full_name : 'نام کاربری'}}</span>
           <SvgIcon
             name="edit"
             color=#000

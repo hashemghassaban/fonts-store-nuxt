@@ -59,7 +59,7 @@ import { designerService } from '../../services'
 export default {
   head: {
     titleTemplate: "",
-    title: "لیست محصول - لاینو تایپ",
+    title: "طراحان - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -68,7 +68,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  لیست محصول - ",
+      content: "طراحان - لاینو تایپ",
     },
   ],
   components: {

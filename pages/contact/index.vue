@@ -126,20 +126,7 @@ import { pagesService  } from '~/services'
 
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: " ارتباط با ما - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: " ارتباط با ما - ",
-    },
-  ],
+
   components: {
     SvgIcon,
     VueSlickCarousel,
@@ -267,7 +254,30 @@ export default {
   },
   mounted() {
     this.getCaptcha();
-  }
+  },
+  head() {
+    return {
+      title: " ارتباط با ما - لاینو تایپ",
+      meta: [
+
+        {
+          hid: 'description',
+          name: 'description',
+          content:"با ما در ارتباط باشید" ,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content:   " ارتباط با ما - لاینو تایپ",
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content:"با ما در ارتباط باشید" ,
+        },
+      ],
+    }
+  },
 };
 </script>
 

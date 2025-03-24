@@ -9,7 +9,7 @@ export default {
   name: 'usermanager',
   head: {
     titleTemplate: "",
-    title: "پنل کاربری - لاینو تایپ",
+    title: " اطلاعات کاربری - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

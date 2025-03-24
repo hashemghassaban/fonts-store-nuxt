@@ -150,7 +150,7 @@ export default {
   },
   head() {
     return {
-      title: this.designer?.title,
+      title: this.designer?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',

@@ -128,7 +128,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "   سبد خرید - ",
+      content: " سبد خرید - لاینو تایپ ",
     },
   ],
   components: {

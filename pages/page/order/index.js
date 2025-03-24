@@ -7,7 +7,7 @@ export default {
   name: 'profile',
   head: {
     titleTemplate: "",
-    title: "پنل کاربری - لاینو تایپ",
+    title: "سفارش های من- لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },

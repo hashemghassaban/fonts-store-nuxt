@@ -79,7 +79,7 @@ export default {
         {
           hid: 'og:title',
           name: 'og:title',
-          content: " پشتیبانی - لاینو تایپ" ,
+          content: " نماد اعتماد - لاینو تایپ" ,
         },
 
         {

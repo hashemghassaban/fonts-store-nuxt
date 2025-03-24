@@ -164,8 +164,8 @@
         <div class="banners-block" v-else>
           <div class="banners-box" v-for="(item, i) in  (dataResult?.slids?.middle)?.slice(0, 3)" >
             <div class="box">
-              <nuxt-link :to="item?.link !== null ? item?.link  :'/'" >
-                <img :src="item.mobile_image_url" alt="">
+              <a :href="item?.link !== null ? item?.link  :'/'" >
+                <img :src="item.image_url" alt="">
                 <v-btn>
                   <SvgIcon
                     name="arrow"
@@ -175,7 +175,7 @@
                   />
                   <span>خرید</span>
                 </v-btn>
-              </nuxt-link>
+              </a>
 
             </div>
 
@@ -223,7 +223,7 @@
           </div>
         </div>
         <div class="feature-title">
-          چرا فونت لاینوتایپ ؟
+          چرا فونت های لاینوتایپ ؟
         </div>
         <v-dialog width="800" v-model="dialogVideo" persistent  >
 
@@ -379,12 +379,7 @@ export default {
           property: "og:site_name",
           content: "لاینو تایپ",
         },
-        {
-          hid: "google-site-verification",
-          name: "google-site-verification",
-          content: "aGwNcRY3IOc1ckWzqXoajWVykBRGonfJBjiLwitBhY8",
-        },
-        { hid: "og-url", property: "og:url", content: "https://alasaz.com/" },
+        { hid: "og-url", property: "og:url", content: "https://linotyper.com/" },
 
         { hid: "og-type", property: "og:type", content: "website" },
         {
@@ -396,7 +391,7 @@ export default {
           hid: "og-description",
           property: "og:description",
           content:
-            "",
+            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
         },
         {
           hid: "og-image",
@@ -414,19 +409,19 @@ export default {
           hid: "description",
           name: "description",
           content:
-            "",
+            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
         },
         {
           hid: "keywords",
           name: "keywords",
           content:
-            "",
+            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
         },
 
         {
           hid: "twitter-url",
           name: "twitter:url",
-          content: "",
+          content: "https://linotyper.com/",
         },
         {
           hid: "twitter-title",
@@ -437,7 +432,7 @@ export default {
           hid: "twitter-description",
           name: "twitter:description",
           content:
-            "",        },
+            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",        },
       ],
     };
   },

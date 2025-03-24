@@ -152,7 +152,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: " پرداخت - ",
+      content: "پرداخت - لاینو تایپ",
     },
   ],
   components: {

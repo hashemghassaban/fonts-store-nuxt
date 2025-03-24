@@ -12,11 +12,7 @@
         </div>
         <p>{{posts?.post?.introduction}}</p>
       </section>
-      <section class="productDetail-tiny-banners">
-        <div v-for="(item, i) in (posts?.newest_posts)">
-          <div v-html="item?.content"></div>
-        </div>
-      </section>
+
       <div class="small-banner">
         <img src="~/assets/img/banner/ban4.jpg" alt="">
         <nuxt-link to="/product" >
@@ -364,7 +360,7 @@ this.dialogAddComment = true,
   },
   head() {
     return {
-      title: this.posts.post?.title,
+      title: this.posts.post?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',

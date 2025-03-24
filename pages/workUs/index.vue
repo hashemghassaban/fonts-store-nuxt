@@ -37,7 +37,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  همکاری با ما - ",
+      content:"همکاری با ما - لاینو تایپ ",
     },
   ],
   components: {

@@ -35,7 +35,7 @@ import { pagesService  } from '~/services'
 export default {
   head: {
     titleTemplate: "",
-    title: "پرسش و پاسخ - لاینو تایپ",
+    title: "پرسش های متداول - لاینو تایپ",
     htmlAttrs: {
       lang: "fa",
     },
@@ -44,7 +44,7 @@ export default {
     {
       hid: "og:title",
       name: "og:title",
-      content: "  پرسش و پاسخ - ",
+      content: "پرسش های متداول - لاینو تایپ",
     },
   ],
   components: {

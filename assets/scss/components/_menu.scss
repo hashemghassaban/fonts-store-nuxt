@@ -157,7 +157,7 @@
         box-shadow: 0 4px 6px -6px #000;
         padding: 30px;
         background: #161515c4;
-        min-height: 300px;
+        height: auto;
         transform: translate(50%, 35px) scale(0.9, 1);
         right: 50%;
         gap: 34px;
@@ -212,7 +212,7 @@
               }
             }
             .parent-link {
-              height: 335px;
+              height: auto;
               display: flex;
               flex-direction: column;
               flex-wrap: wrap;

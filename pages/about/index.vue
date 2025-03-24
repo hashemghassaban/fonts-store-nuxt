@@ -26,20 +26,6 @@ import SvgIcon from "@/components/SvgIcon/SvgIcon";
 import { pagesService  } from '~/services'
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: " درباره ما - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "  درباره ما -",
-    },
-  ],
   components: {
     SvgIcon,
   },
@@ -69,7 +55,34 @@ export default {
   },
     mounted() {
       this.getData();
+    },
+  head() {
+    return {
+      title:  " درباره ما - لاینو تایپ",
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.dataResult?.description,
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content:this.dataResult?.description,
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content:  " درباره ما - لاینو تایپ",
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.dataResult?.description,
+        },
+      ],
     }
+  },
 
 };
 </script>
