@@ -1,7 +1,7 @@
 <template>
   <div class="loading-overwrite">
     <div class="loading-box">
-      <img src="~/assets/img/logo/logo2.png" alt="">
+      <img src="~/assets/img/logo/logo2.png" alt="logo">
       <v-progress-linear
         color="#FF7A00"
         indeterminate

@@ -12,17 +12,11 @@
         />
         <h1>نماد اعتماد</h1>
       </div>
-      <Loading v-if="loading" />
-      <div class="type-font"  v-else>
+      <div class="type-font" >
         <ul>
-          <li>
-            <a href="">
-              <img src="~/assets/img/logo/namad.png" alt="">
-            </a>
-          </li>
-          <li>
-            <a href="">
-              <img src="~/assets/img/logo/namad.png" alt="">
+          <li v-for="(data, j) in  dataResult" :key="j">
+            <a :href="data?.link">
+              <img :src="data.image_url" :alt="data?.name">
             </a>
           </li>
         </ul>
@@ -52,13 +46,10 @@ export default {
       return this.$store.state.namad
     },
   },
-  methods: {
-
-  },
   mounted() {
   setTimeout(()=>{
     const parsedData = JSON.parse(JSON.stringify(this.namad))
-    console.log('aaaaaaaaaa',parsedData)
+    this.dataResult = parsedData
 
   },1000)
   },
@@ -66,15 +57,11 @@ export default {
     return {
       title: " نماد اعتماد - لاینو تایپ",
       meta: [
-        {
-          hid: 'keywords',
-          name: 'keywords',
-          content: this.dataResult?.description,
-        },
+
         {
           hid: 'description',
           name: 'description',
-          content: this.dataResult?.description,
+          content: "نماد اعتماد لاینو تایپ",
         },
         {
           hid: 'og:title',
@@ -85,7 +72,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.dataResult?.description,
+          content: "نماد اعتماد لاینو تایپ",
         },
       ],
     }

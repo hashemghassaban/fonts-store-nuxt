@@ -10,6 +10,7 @@ export const state = () => ({
   promotions: [],
   loading: false,
   socials: [],
+  setting:[],
   footerMenu: [],
   dialog: false,
   totalCart: 0,
@@ -65,6 +66,10 @@ export const mutations = {
   },
   setEnamad(state, payload) {
     state.namad = payload
+  },
+  setSetting(state, payload) {
+    state.setting = payload
+
   },
   openLogin(state) {
     state.loginModal = true

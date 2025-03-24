@@ -82,7 +82,7 @@
               <div class="icon">
                 <img
                   :src="require(`~/assets/img/element/box0${i+1}.png`)"
-                  alt=""
+                  :alt="item?.name"
                 />
 
               </div>
@@ -218,8 +218,8 @@ export default {
         const product = await categoryService.getCategoryPro(this.params ,  data)
         let res = product?.entity
         this.itemsFilter =  res.category?.children
-        this.title = res?.category?.name
-        this.description = res?.category?.description
+        this.title = res?.category?.seo?.title
+        this.description =res?.category?.seo?.description
         this.product = res?.products?.data
         this.getCategoriesAll()
 
@@ -258,22 +258,22 @@ export default {
   },
   head() {
     return {
-      title: 'دسته بندی ' + this.title + ' - لاینو تایپ' ,
+      title:  this.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.category?.name,
+          content: this.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.category?.description,
+          content: this?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.category?.name + ' -  ' ,
+          content:  this.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'og:image',
@@ -283,7 +283,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.category?.description,
+          content: this?.description,
         },
       ],
     }

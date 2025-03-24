@@ -1,5 +1,4 @@
 <template>
-
     <v-app-bar :elevation="2" class="header">
       <nav class="navbar">
         <!-- Brand Section -->

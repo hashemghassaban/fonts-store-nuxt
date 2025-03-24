@@ -1,11 +1,10 @@
 <template>
   <v-app>
-    <v-main  id="top" class="">
-      <TheHeader  class="headerBox" />
+    <v-main id="top" class="">
+      <TheHeader class="headerBox" />
       <Nuxt class="onContent" />
       <TheFooter />
     </v-main>
-
     <transition name="fade">
       <client-only>
         <Loading v-if="loading" />

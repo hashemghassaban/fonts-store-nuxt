@@ -21,7 +21,7 @@
               <div class="icon">
                 <img
                   :src="require(`~/assets/img/element/box0${i+1}.png`)"
-                  alt=""
+                  :alt="item?.name"
                 />
               </div>
               <div class="text">

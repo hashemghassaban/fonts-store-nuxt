@@ -134,6 +134,8 @@ export default {
       try {
         const res = await cartService.getCart()
         this.$store.commit('setEnamad',  res.entity?.settings?.enemad)
+        this.$store.commit('setSetting',  res.entity?.settings)
+
         this.promotions = res.entity?.promotions
         this.menuItems = res.entity?.categories
         this.$store.commit('setCart', res.entity?.cart)
@@ -164,7 +166,6 @@ mounted() {
     this.getCart()
   }
 }
-
 }
 
 

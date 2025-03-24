@@ -14,7 +14,7 @@
       </section>
 
       <div class="small-banner">
-        <img src="~/assets/img/banner/ban4.jpg" alt="">
+        <img src="~/assets/img/banner/ban4.jpg" alt="banner">
         <nuxt-link to="/product" >
           <div class="icon">
             <SvgIcon
@@ -360,22 +360,22 @@ this.dialogAddComment = true,
   },
   head() {
     return {
-      title: this.posts.post?.title + ' - لاینو تایپ' ,
+      title: this.posts.post?.seo?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.posts.post?.content,
+          content: this.posts.post?.seo?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.posts.post?.content,
+          content: this.posts.post?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.posts.post?.title + ' -  ' ,
+          content: this.posts.post?.seo?.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'og:image',
@@ -385,7 +385,7 @@ this.dialogAddComment = true,
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.posts.post?.content,
+          content: this.posts.post?.seo?.description,
         },
       ],
     }

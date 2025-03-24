@@ -99,7 +99,7 @@
               <div class="icon">
                 <img
                   :src="require(`~/assets/img/element/box0${i+1}.png`)"
-                  alt=""
+                  :alt="item.name"
                 />
 
               </div>
@@ -165,7 +165,7 @@
           <div class="banners-box" v-for="(item, i) in  (dataResult?.slids?.middle)?.slice(0, 3)" >
             <div class="box">
               <a :href="item?.link !== null ? item?.link  :'/'" >
-                <img :src="item.image_url" alt="">
+                <img :src="item.image_url" :alt="item.title">
                 <v-btn>
                   <SvgIcon
                     name="arrow"
@@ -219,7 +219,7 @@
       <section class="feature">
         <div class="feature-block">
           <div class="feature-block-play" @click="showVideo">
-            <img src="~/assets/img/icon/play.svg" alt="">
+            <img src="~/assets/img/icon/play.svg" alt="play">
           </div>
         </div>
         <div class="feature-title">
@@ -369,7 +369,7 @@ export default {
   head() {
     return {
       script: [{ type: "application/ld+json" }],
-      title: "صفحه اصلی  - لاینو تایپ",
+      title: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
       htmlAttrs: {
         lang: "fa",
       },
@@ -377,7 +377,7 @@ export default {
         {
           hid: "og:site-name",
           property: "og:site_name",
-          content: "لاینو تایپ",
+          content: this.settingData?.title,
         },
         { hid: "og-url", property: "og:url", content: "https://linotyper.com/" },
 
@@ -385,13 +385,12 @@ export default {
         {
           hid: "og-title",
           property: "og:title",
-          content: "صفحه اصلی - لاینو تایپ",
+          content: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
         },
         {
           hid: "og-description",
           property: "og:description",
-          content:
-            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
+          content: this.settingData?.description
         },
         {
           hid: "og-image",
@@ -408,14 +407,12 @@ export default {
         {
           hid: "description",
           name: "description",
-          content:
-            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
+          content: this.settingData?.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content:
-            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",
+          content: this.settingData?.keywords
         },
 
         {
@@ -426,13 +423,13 @@ export default {
         {
           hid: "twitter-title",
           name: "twitter:title",
-          content: "صفحه اصلی  - لاینوتایپ",
+          content: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
         },
         {
           hid: "twitter-description",
           name: "twitter:description",
-          content:
-            "لاینوتایپ یک مارکت پلیس جهت عرضه فونت های طراحان ایرانیست. شما با خرید این فونت ها ضمن گسترش فرهنگ قانون کپی رایت و حمایت از طراحان، می توانید به آخرین فونت های سفارشی و خاص طراحان برجسته ایران دسترسی داشته باشید.",        },
+          content: this.settingData?.description
+        }
       ],
     };
   },
@@ -451,6 +448,7 @@ export default {
       loading: false,
       loadingBtn:false,
       dataResult:[],
+      settingData:[],
       loadingPage: true,
       newsLoading:false,
       dialogVideo:false,
@@ -535,6 +533,11 @@ export default {
         ],
       },
     }
+  },
+  computed: {
+    setting() {
+      return this.$store.state.setting
+    },
   },
   methods: {
     refreshData(newValue) {
@@ -624,9 +627,13 @@ export default {
   },
   mounted() {
     this.getHomeBanners();
-
+    setTimeout(()=>{
+     let data = JSON.parse(JSON.stringify(this.setting))
+      this.settingData = data
+    },1500)
 
   }
+
 };
 </script>
 <style lang="scss" scoped>

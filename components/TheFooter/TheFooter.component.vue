@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer-top">
       <nuxt-link to="/" class="logos">
-        <img src="~/assets/img/logo/logo3.png" alt="">
+        <img src="~/assets/img/logo/logo3.png" alt="logo">
       </nuxt-link>
 
     </div>
@@ -175,10 +175,10 @@
         </ul>
         <div class="namad">
           <nuxt-link to="/page/enamad">
-            <img src="~/assets/img/logo/namad.png" alt="">
+            <img src="~/assets/img/logo/namad.png" alt="namad">
           </nuxt-link>
           <nuxt-link to="/page/enamad">
-            <img src="~/assets/img/logo/namd2.png" alt="">
+            <img src="~/assets/img/logo/namd2.png" alt="namad">
           </nuxt-link>
         </div>
       </div>

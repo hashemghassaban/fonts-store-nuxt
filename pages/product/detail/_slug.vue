@@ -267,32 +267,32 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' - لاینو تایپ' ,
+      title: this.product?.seo?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.description,
+          content: this.product?.seo?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.description,
+          content:  this.product?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.title + ' -  ' ,
+          content: this.product?.seo?.title + ' -  ' ,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.product.thumbnail?.small_full_url,
+          content: this.product?.thumbnail?.small_full_url,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.description,
+          content: this.product?.seo?.description,
         },
       ],
     }

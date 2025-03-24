@@ -44,7 +44,7 @@
         <div class="cart-block-list">
           <div class="pro">
             <div class="emptyProduct" v-if="cartItems?.length === 0">
-              <img src="~/assets/img/icon/empty.png" alt="">
+              <img src="~/assets/img/icon/empty.png" alt="empty">
               <p>محصولی موجود نیست </p>
             </div>
             <div class="box" v-for="(item, index) in cartItems"  v-else>
@@ -60,7 +60,7 @@
               <div class="discount-field">
                 <input type="text" placeholder="کد تخفیف" id="code" v-model="discount">
                 <v-btn @click="applyCoupon" :loading="loadingDiscount">
-                  <img src="~/assets/img/icon/starBuy.png" alt="">
+                  <img src="~/assets/img/icon/starBuy.png" alt="star Buy">
                   <span>اعمال</span>
                 </v-btn>
               </div>

@@ -23,9 +23,9 @@
     </v-btn>
     <nuxt-link :to="typeProduct === 'successBuy'  ? '/product/detail/' +items?.product_id : isNestedLink ? '/product/detail/' +items?.product?.id : '/product/detail/'+items?.id ">
     <div class="background" :class="typeProduct === 'noProduct ' ? '':'noProduct '">
-      <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.product?.name">
+      <img :src="items?.thumbnail?.full_url || items?.product?.thumbnail?.full_url" :alt="items?.name || items?.product?.name">
       <div class="percent" v-if="(typeProduct === 'product' || typeProduct === 'noProduct ') && (items?.lowest_price?.has_offer && items?.discount_percent !== 0) " >
-        <img src="~/assets/img/icon/star.png" alt="">
+        <img src="~/assets/img/icon/star.png" alt="star">
         <span>{{ typeProduct === 'product' || typeProduct === 'noProduct' ? items?.lowest_price?.offer_percent:items?.discount_percent+'%'}}</span>
       </div>
     </div>
