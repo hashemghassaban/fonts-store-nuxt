@@ -12,6 +12,7 @@ export default {
     showMenu: false,
     drawer: false,
     enamad:[],
+    dataProduct: [],
     showSearch:false,
     promotions:[],
     menuItems: [
@@ -131,20 +132,21 @@ export default {
       this.getCart()
     },
     async getCart() {
-      try {
-        const res = await cartService.getCart()
-        this.$store.commit('setEnamad',  res.entity?.settings?.enemad)
-        this.$store.commit('setSetting',  res.entity?.settings)
+      await fetch(
+        'https://linotyper.com/api/v1/layout/web',
+        {
+          method: 'GET', // or 'PUT'
+        }
+      )
+        .then((response) => response.json()) //2
+        .then((res) => {
+          this.$store.commit('setEnamad',  res.entity?.settings?.enemad)
+          this.$store.commit('setSetting',  res.entity?.settings)
 
-        this.promotions = res.entity?.promotions
-        this.menuItems = res.entity?.categories
-        this.$store.commit('setCart', res.entity?.cart)
-        console.log(this.$store.state.namad)
-
-      } catch (error) {
-      }
-
-
+          this.promotions = res.entity?.promotions
+          this.menuItems = res.entity?.categories
+          this.$store.commit('setCart', res.entity?.cart)
+        })
     },
     goToCart(){
       if(this.cart?.items?.length  > 0){
@@ -161,10 +163,18 @@ export default {
     },
 
   },
+  async asyncData() {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/layout/web`,
+      {
+        method: 'GET', // or 'PUT'
+      }
+    ).then((res) => res.json());
+    console.log(dataProduct)
+    return { dataProduct };
+  },
 mounted() {
-  if(this.authenticate){
-    this.getCart()
-  }
+  this.getCart()
 }
 }
 

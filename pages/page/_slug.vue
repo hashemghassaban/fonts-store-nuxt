@@ -44,22 +44,22 @@ export default {
     },
   },
   methods: {
+
     async getData(name) {
-      this.loading = true
-      try {
-        const res = await pagesService.getPage(name)
-        setTimeout(() => {
+      this.loading=true
+      await fetch(
+        `https://linotyper.com/api/v1/pages/${name}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
           this.dataResult = res?.entity?.page
-          this.loading = false
-
-        }, 1000);
-
-      } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
+          this.loading=false
         })
-      }
     },
+
   },
   mounted() {
     setTimeout(()=>{

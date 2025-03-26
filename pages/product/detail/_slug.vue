@@ -216,22 +216,22 @@ export default {
       });
     },
     async getProduct(id) {
-      this.loading = true
-      try {
-        const product = await productService.getProduct(id)
-        this.product = product?.entity?.product
-        this.description =  product?.entity?.product?.seo?.description
-        this.title =  product?.entity?.product?.seo?.title
-
-        this.loading = false
-      } catch (error) {
-        this.loading = false
-
-        this.$toast.error(error, {
-          timeout: 4000,
+      this.loading=true
+      await fetch(
+        `https://linotyper.com/api/v1/products/${id}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          this.product = res?.entity?.product
+          this.description =  res?.entity?.product?.seo?.description
+          this.title =  res?.entity?.product?.seo?.title
+          this.loading = false
         })
-      }
     },
+
     async addToCart(pro) {
 
       let body = {

@@ -22,7 +22,7 @@
             <li>
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
-                <div class="name">پشتیبلنی ایمیل</div>
+                <div class="name">پشتیبانی ایمیل</div>
                 <a href="mailto:linotyper.ir@gmail.com" class="value">linotyper.ir@gmail.com</a>
               </div>
             </li>

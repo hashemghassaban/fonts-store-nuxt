@@ -325,17 +325,17 @@ this.dialogAddComment = true,
 
       }
     },
-
     async getPost(id) {
-      try {
-        const res = await postService.getPostDetail(id)
-        this.posts = res?.entity
-
-      } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
+      await fetch(
+        `https://linotyper.com/api/v1/posts/${id}`,
+        {
+          method: 'GET', // or 'PUT'
+        }
+      )
+        .then((response) => response.json()) //2
+        .then((res) => {
+          this.posts = res?.entity
         })
-      }
     },
     async getComment(id) {
       try {
@@ -348,10 +348,6 @@ this.dialogAddComment = true,
         })
       }
     },
-
-
-
-
 
   },
   mounted() {

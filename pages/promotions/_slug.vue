@@ -162,9 +162,8 @@ export default {
       }
 
     },
-
     async getProductAll(sort) {
-      this.loading = true;
+      this.loading=true
 
       const data = {
         sort : sort,
@@ -172,20 +171,23 @@ export default {
           search: this.searchText,
         })
       }
-      try {
-        const product = await productService.getPromotion(this.currentPath,data)
-        this.product = product?.entity?.products?.data
-        this.promotion = product?.entity?.promotion
-        this.loading = false;
-        this.totalItems = product?.entity?.products?.total
-        console.log(this.totalItems )
-
-      } catch (error) {
-        this.loading = false;
-        this.$toast.error(error, {
-          timeout: 4000,
+      await fetch(
+        `https://linotyper.com/api/v1/promotions/${this.currentPath}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          this.product = res?.entity?.products?.data
+          this.promotion = res?.entity?.promotion
+          this.loading = false;
+          this.totalItems = res?.entity?.products?.total
         })
-      }
     },
 
   },

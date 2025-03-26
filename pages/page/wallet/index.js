@@ -21,7 +21,7 @@ export default {
       name:'150.000 ت',value:150000
     },
       {
-        name:'300.000 ت',value:30000
+        name:'300.000 ت',value:300000
       }
       ,{
         name:'600.000 ت',value:600000

@@ -69,6 +69,26 @@ export default {
           })
     },
     async login() {
+      if(this.isRegisterd){
+        if(this.firstName === ""){
+          this.$toast.error("فیلد نام نباید خالی باشد.", {
+            timeout: 4000,
+          })
+          return;
+        }
+        if(this.lastName === ""){
+          this.$toast.error("فیلد نام خانوادگی نباید خالی باشد.", {
+            timeout: 4000,
+          })
+          return;
+        }
+        if(this.email === ""){
+          this.$toast.error("فیلد ایمیل نباید خالی باشد.", {
+            timeout: 4000,
+          })
+          return;
+        }
+      }
       this.loading = true
       const body = {
         mobile: this.mobile,
@@ -93,6 +113,8 @@ export default {
      })
      .catch(error => {
        this.loading = false
+       this.otp = ''
+
        this.$toast.error(error, {
          timeout: 4000,
        })
@@ -111,7 +133,8 @@ export default {
     },
     otp(newValue) {
       if(newValue.length === 5){
-        this.login()
+        if(!this.isRegisterd)  this.login()
+
       }
     }
   }

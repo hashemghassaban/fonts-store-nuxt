@@ -104,21 +104,20 @@ export default {
       });
     },
     async getProductAll() {
-      this.loading = true;
-      try {
-        const product = await designerService.getDesignerId(this.currentPath)
-        this.product = product?.entity?.products.data
-        this.designer = product?.entity?.collection
-        this.totalItems = product?.entity?.products?.total
-
-        this.loading = false;
-
-      } catch (error) {
-        this.loading = false;
-        this.$toast.error(error, {
-          timeout: 4000,
+      this.loading=true
+      await fetch(
+        `https://linotyper.com/api/v1/collections/${this.currentPath}/products`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          this.product = res?.entity?.products.data
+          this.designer = res?.entity?.collection
+          this.totalItems = res?.entity?.products?.total
+          this.loading=false
         })
-      }
     },
     async addToCart(pro) {
       let body = {

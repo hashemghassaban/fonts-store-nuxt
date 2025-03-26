@@ -342,10 +342,7 @@
         </div>
         <div class="postMain-block" v-else>
           <div class="box"  v-for="(item, i) in (dataResult?.posts)?.slice(0, 4)"><Post :items="item" /></div>
-
-
         </div>
-
       </section>
     </client-only>
   </div>
@@ -361,8 +358,6 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import VueSlickCarousel from "vue-slick-carousel";
 import { homeService , productService } from '~/services'
-
-
 export default {
 
   name: "home",
@@ -448,7 +443,6 @@ export default {
       loading: false,
       loadingBtn:false,
       dataResult:[],
-      settingData:[],
       loadingPage: true,
       newsLoading:false,
       dialogVideo:false,
@@ -535,9 +529,9 @@ export default {
     }
   },
   computed: {
-    setting() {
-      return this.$store.state.setting
-    },
+    settingData() {
+      return JSON.parse(JSON.stringify(this.$store.state.setting))
+    }
   },
   methods: {
     refreshData(newValue) {
@@ -627,10 +621,6 @@ export default {
   },
   mounted() {
     this.getHomeBanners();
-    setTimeout(()=>{
-     let data = JSON.parse(JSON.stringify(this.setting))
-      this.settingData = data
-    },1500)
 
   }
 

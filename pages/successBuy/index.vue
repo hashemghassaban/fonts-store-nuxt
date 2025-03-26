@@ -117,7 +117,7 @@ export default {
   computed: {
 
     params() {
-      return this.$route.query?.order_id
+      return this.$route.query?.licence ?this.$route.query?.licence :  this.$route.query?.order_id
     },
 
   },

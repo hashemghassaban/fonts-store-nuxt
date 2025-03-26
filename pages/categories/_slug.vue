@@ -12,7 +12,7 @@
               className="rounded-full"
             />
           </div>
-          <h1 class="text">دسته بندی {{ title }} </h1>
+          <h1 class="text">دسته بندی {{ dataCategory.name }} </h1>
         </div>
       <section class="productMain-lists">
         <div class="productMain-lists-filter">
@@ -70,8 +70,8 @@
         </div>
       </section>
       <div class="type-font">
-        <h3>{{title}}</h3>
-        <p v-html="description"></p>
+        <h3>{{ dataCategory.name }}</h3>
+        <p v-html=" dataCategory.description "></p>
       </div>
     <div class="category">
         <div class="category-block">
@@ -138,6 +138,7 @@ export default {
       category:[],
       product:[],
       title:'',
+      dataCategory:[],
       description:''
 
     }
@@ -206,33 +207,41 @@ export default {
         this.getCategories()
       }
     },
+
     async getCategories() {
       this.loading=true
-      const data = {
 
-        ...(this.searchText.length > 0  && {
-          search: this.searchText,
+        const data = {
+
+          ...(this.searchText.length > 0  && {
+            search: this.searchText,
+          })
+        }
+      await fetch(
+        `https://linotyper.com/api/v1/categories/${this.params}/products`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }
+      )
+        .then((response) => response.json())
+        .then((res) => {
+          console.log(res)
+          this.itemsFilter =  res?.entity.category?.children
+          this.dataCategory = res?.entity?.category
+          this.title = res?.entity?.category?.seo?.title
+          this.description = res?.entity?.category?.seo?.description
+          this.product = res?.entity?.products?.data
+          this.getCategoriesAll()
+          this.totalItems =  res?.entity?.products?.total
+          this.loading=false
         })
-      }
-      try {
-        const product = await categoryService.getCategoryPro(this.params ,  data)
-        let res = product?.entity
-        this.itemsFilter =  res.category?.children
-        this.title = res?.category?.seo?.title
-        this.description =res?.category?.seo?.description
-        this.product = res?.products?.data
-        this.getCategoriesAll()
-
-        this.totalItems =  res?.products?.total
-        this.loading=false
-
-      } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
-        this.loading=false
-      }
     },
+
+
     async getCategoriesAll() {
       this.loading=true
       try {
