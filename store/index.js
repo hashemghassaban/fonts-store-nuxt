@@ -60,9 +60,9 @@ export const mutations = {
     state.dialog = value
   },
   setCart(state, cart) {
-    state.totalCart = cart.total
+    // state.totalCart = cart.total
     state.cart = cart
-    state.hasShipping = cart.shipping_status
+    // state.hasShipping = cart.shipping_status
   },
   setEnamad(state, payload) {
     state.namad = payload

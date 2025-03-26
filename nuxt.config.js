@@ -103,7 +103,9 @@ export default {
   generate: {
     fallback: true,
   },
-
+  env: {
+    BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
+  },
   auth: {
     strategies: {
       local: {

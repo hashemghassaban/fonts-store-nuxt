@@ -77,6 +77,25 @@ export default {
 
     }
   },
+  async asyncData({ params, error, req }) {
+    try {
+      // بررسی درخواست سرور یا کلاینت
+      const isServer = process.server
+      const baseUrl = isServer ? 'http://localhost:3000' : ''
+
+      const data = await designerService.getDesignerId(params.slug, {
+        baseUrl: baseUrl
+      })
+
+      return {
+        designer: data.entity?.collection,
+        product: data?.entity?.products.data || [],
+        totalItems: data?.entity?.products?.total
+      }
+    } catch (e) {
+      return null
+    }
+  },
   watch: {
     itemsPerPage(newVal) {
       this.page = 1 // Reset page when itemsPerPage changes
@@ -85,11 +104,7 @@ export default {
   },
 
   methods: {
-    refreshData(newValue) {
-      if(newValue ){
-        this.getProductAll(this.sort)
-      }
-    },
+
     formatPrice(value) {
       if(isNaN(value)) return  0
       let val = (value / 1).toFixed(0).replace(".", ",");
@@ -142,11 +157,7 @@ export default {
       return this.$route.params.slug
     },
   },
-  mounted() {
-    this.getProductAll(this.currentPath);
 
-
-  },
   head() {
     return {
       title: this.designer?.title + ' - لاینو تایپ' ,
