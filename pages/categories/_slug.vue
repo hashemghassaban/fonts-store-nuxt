@@ -139,9 +139,17 @@ export default {
       product:[],
       title:'',
       dataCategory:[],
-      description:''
+      description:'',
+      dataProduct:[]
+
 
     }
+  },
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/categories/${params.slug}/products`
+    ).then((res) => res.json());
+    return { dataProduct };
   },
 
   watch: {
@@ -229,11 +237,8 @@ export default {
       )
         .then((response) => response.json())
         .then((res) => {
-          console.log(res)
           this.itemsFilter =  res?.entity.category?.children
           this.dataCategory = res?.entity?.category
-          this.title = res?.entity?.category?.seo?.title
-          this.description = res?.entity?.category?.seo?.description
           this.product = res?.entity?.products?.data
           this.getCategoriesAll()
           this.totalItems =  res?.entity?.products?.total
@@ -267,22 +272,22 @@ export default {
   },
   head() {
     return {
-      title:  this.title + ' - لاینو تایپ' ,
+      title:  this.dataProduct?.entity?.category?.seo?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.title + ' - لاینو تایپ' ,
+          content: this.dataProduct?.entity?.category?.seo?.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this?.description,
+          content: this?.dataProduct?.entity?.category?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content:  this.title + ' - لاینو تایپ' ,
+          content:  this.dataProduct?.entity?.category?.seo?.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'og:image',
@@ -292,7 +297,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this?.description,
+          content: this?.dataProduct?.entity?.category?.seo?.description,
         },
       ],
     }

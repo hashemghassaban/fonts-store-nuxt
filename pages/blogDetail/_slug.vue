@@ -247,10 +247,16 @@ export default {
       loading:false,
       commentList:[],
       selectId : [],
-
+      dataProduct:[]
 
 
     }
+  },
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/posts/${params.slug}`
+    ).then((res) => res.json());
+    return { dataProduct };
   },
   computed: {
     authenticate() {
@@ -308,7 +314,6 @@ this.dialogAddComment = true,
       try {
         const res = await postService.postComment(this.currentPath ,  body)
         this.loading = false;
-        console.log('asasas',res?.message)
         this.$toast.success(res?.message, {
           timeout: 4000,
         })
@@ -356,32 +361,32 @@ this.dialogAddComment = true,
   },
   head() {
     return {
-      title: this.posts.post?.seo?.title + ' - لاینو تایپ' ,
+      title: this.dataProduct?.entity?.post?.seo?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.posts.post?.seo?.description,
+          content: this.dataProduct.entity?.post?.seo?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.posts.post?.seo?.description,
+          content: this.dataProduct.entity?.post?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.posts.post?.seo?.title + ' - لاینو تایپ' ,
+          content: this.dataProduct.entity?.post?.seo?.title + ' - لاینو تایپ' ,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.posts.post?.thumbnail_url,
+          content: this.dataProduct.entity?.post?.thumbnail_url,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.posts.post?.seo?.description,
+          content: this.dataProduct.entity?.post?.seo?.description,
         },
       ],
     }

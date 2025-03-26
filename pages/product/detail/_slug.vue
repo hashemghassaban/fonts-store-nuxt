@@ -181,8 +181,18 @@ export default {
       title:'',
       description:'',
       loading:false,
+      dataProduct:[]
+
+
     }
   },
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/products/${params.slug}`
+    ).then((res) => res.json());
+    return { dataProduct };
+  },
+
   methods: {
     async toggleHeart(item) {
       if (!this.authenticate) {
@@ -267,32 +277,32 @@ export default {
   },
   head() {
     return {
-      title: this.product?.seo?.title + ' - لاینو تایپ' ,
+      title: this.dataProduct?.entity?.product?.seo?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.product?.seo?.description,
+          content: this.dataProduct?.entity?.product?.seo?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content:  this.product?.seo?.description,
+          content:  this.dataProduct?.entity?.product?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.product?.seo?.title + ' -  ' ,
+          content: this.dataProduct?.entity?.product?.seo?.title + ' -  ' ,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.product?.thumbnail?.small_full_url,
+          content: this.dataProduct?.entity?.product?.thumbnail?.small_full_url,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.product?.seo?.description,
+          content: this.dataProduct?.entity?.product?.seo?.description,
         },
       ],
     }

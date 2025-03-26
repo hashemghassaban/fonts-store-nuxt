@@ -72,29 +72,17 @@ export default {
       page: 1,
       itemsPerPage: 10,
       totalItems: 0,
+      dataProduct: [],
 
 
 
     }
   },
-  async asyncData({ params, error, req }) {
-    try {
-      // بررسی درخواست سرور یا کلاینت
-      const isServer = process.server
-      const baseUrl = isServer ? 'http://localhost:3000' : ''
-
-      const data = await designerService.getDesignerId(params.slug, {
-        baseUrl: baseUrl
-      })
-
-      return {
-        designer: data.entity?.collection,
-        product: data?.entity?.products.data || [],
-        totalItems: data?.entity?.products?.total
-      }
-    } catch (e) {
-      return null
-    }
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/collections/${params.slug}/products`
+    ).then((res) => res.json());
+    return { dataProduct };
   },
   watch: {
     itemsPerPage(newVal) {
@@ -157,35 +145,38 @@ export default {
       return this.$route.params.slug
     },
   },
+  mounted() {
+    this.getProductAll()
+  },
 
   head() {
     return {
-      title: this.designer?.title + ' - لاینو تایپ' ,
+      title: this.dataProduct?.entity?.collection?.title + ' - لاینو تایپ' ,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.designer?.description,
+          content: this.dataProduct?.entity?.collection?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.designer?.description,
+          content: this.dataProduct?.entity?.collection?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content: this.designer?.title + ' -  ' ,
+          content: this.dataProduct?.entity?.collection?.title + ' -  ' ,
         },
         {
           hid: 'og:image',
           name: 'og:image',
-          content: this.designer.icon_url,
+          content: this.dataProduct?.entity?.collection?.icon_url,
         },
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.designer?.description,
+          content: this.dataProduct?.entity?.collection?.description,
         },
       ],
     }

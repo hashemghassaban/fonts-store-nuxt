@@ -35,7 +35,16 @@ export default {
     return {
       dataResult:[],
       loading:false,
+      dataProduct:[]
+
+
     }
+  },
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      `https://linotyper.com/api/v1/pages/${params.slug}`
+    ).then((res) => res.json());
+    return { dataProduct };
   },
   computed: {
 
@@ -68,28 +77,28 @@ export default {
   },
   head() {
     return {
-      title: `${this.dataResult?.title} - لاینو تایپ`,
+      title:  `${this.dataProduct?.entity?.page?.seo?.title} - لاینو تایپ`,
       meta: [
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.dataResult?.seo?.description,
+          content: this.dataProduct?.entity?.page?.seo?.description,
         },
         {
           hid: 'description',
           name: 'description',
-          content: this.dataResult?.seo?.description,
+          content: this.dataProduct?.entity?.page?.seo?.description,
         },
         {
           hid: 'og:title',
           name: 'og:title',
-          content:  `${this.dataResult?.seo?.title} - لاینو تایپ`,
+          content:  `${this.dataProduct?.entity?.page?.seo?.title} - لاینو تایپ`,
         },
 
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.dataResult?.seo?.description,
+          content: this.dataProduct?.entity?.page?.seo?.description,
         },
       ],
     }

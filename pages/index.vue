@@ -364,7 +364,7 @@ export default {
   head() {
     return {
       script: [{ type: "application/ld+json" }],
-      title: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
+      title: this.dataProduct?.entity?.settings?.title ?  'صفحه اصلی - '  + this.dataProduct?.entity?.settings?.title : 'صفحه اصلی - لاینو تایپ' ,
       htmlAttrs: {
         lang: "fa",
       },
@@ -372,7 +372,7 @@ export default {
         {
           hid: "og:site-name",
           property: "og:site_name",
-          content: this.settingData?.title,
+          content: this.dataProduct?.entity?.settings?.title,
         },
         { hid: "og-url", property: "og:url", content: "https://linotyper.com/" },
 
@@ -380,12 +380,12 @@ export default {
         {
           hid: "og-title",
           property: "og:title",
-          content: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
+          content: this.dataProduct?.entity?.settings?.title ?  'صفحه اصلی - '  + this.dataProduct?.entity?.settings?.title : 'صفحه اصلی - لاینو تایپ' ,
         },
         {
           hid: "og-description",
           property: "og:description",
-          content: this.settingData?.description
+          content: this.dataProduct?.entity?.settings?.description
         },
         {
           hid: "og-image",
@@ -402,12 +402,12 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.settingData?.description
+          content: this.dataProduct?.entity?.settings?.description
         },
         {
           hid: "keywords",
           name: "keywords",
-          content: this.settingData?.keywords
+          content: this.dataProduct?.entity?.settings?.keywords
         },
 
         {
@@ -418,12 +418,12 @@ export default {
         {
           hid: "twitter-title",
           name: "twitter:title",
-          content: this.settingData?.title ?  'صفحه اصلی - '  + this.settingData?.title : 'صفحه اصلی - لاینو تایپ' ,
+          content: this.dataProduct?.entity?.settings?.title ?  'صفحه اصلی - '  + this.dataProduct?.entity?.settings?.title : 'صفحه اصلی - لاینو تایپ' ,
         },
         {
           hid: "twitter-description",
           name: "twitter:description",
-          content: this.settingData?.description
+          content: this.dataProduct?.entity?.settings?.description
         }
       ],
     };
@@ -526,13 +526,19 @@ export default {
           },
         ],
       },
+      dataProduct: [],
+
+
+
     }
   },
-  computed: {
-    settingData() {
-      return JSON.parse(JSON.stringify(this.$store.state.setting))
-    }
+  async asyncData({ params }) {
+    const dataProduct = await fetch(
+      'https://linotyper.com/api/v1/layout/web',
+    ).then((res) => res.json());
+    return { dataProduct };
   },
+
   methods: {
     refreshData(newValue) {
       if(newValue ){
