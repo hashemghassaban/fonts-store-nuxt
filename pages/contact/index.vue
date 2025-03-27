@@ -37,224 +37,21 @@
         </div>
 
       </section>
-      <section class="contact-form">
-        <div class="contact-form-block">
-          <div class="block">
-            <TextInput
-              validators="subject"
-              class="my-2"
-              :isValid.sync="isValid"
-              v-model="fullName"
-              label="نام"
-            />
-            <TextInput
-              validators="email"
-              class="my-2"
-              :isValid.sync="isValid"
-              v-model="email"
-              label=" ایمیل"
-              type="email"
-            />
-          </div>
-
-          <div class="block pb-5 pt-5">
-            <TextInput
-              class="my-2"
-              :isValid.sync="isValid"
-              v-model="description"
-              height="100px"
-              width="100%"
-              label="متن پیام"
-            />
-          </div>
-          <div class="block">
-          <div class="d-flex justify-center align-center">
-            <v-img
-              style="cursor: pointer"
-              class="rounded"
-              max-width="200"
-              max-height="56"
-              :src="captcha"
-            />
-            <v-btn
-              class="mr-2 refresh"
-              icon
-              color="white"
-              :loading="captchaLoading"
-              @click="getCaptcha"
-
-            >
-              <v-icon size="30" color="white"> mdi-refresh </v-icon>
-            </v-btn>
-          </div>
-            <TextInput
-              class="my-2 code"
-              :isValid.sync="isValid"
-              v-model="captchaCode"
-              label="کد امنیتی "
-            />
-          </div>
-          <div class="block">
-            <v-btn
-              elevation="0"
-              class="secondary btn"
-              @click="SubmitContact"
-              :loading="loadingBtn"
-            >  <SvgIcon
-              name="arrow"
-              color="#fff"
-              size="15px"
-              className="rounded-full"
-              style="margin-left: 15px"
-            />   ارسال  </v-btn
-            >
-          </div>
-        </div>
-      </section>
     </section>
   </client-only>
 </template>
 
 <script>
 import SvgIcon from "@/components/SvgIcon/SvgIcon";
-import 'vue-slick-carousel/dist/vue-slick-carousel.css'
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
-import VueSlickCarousel from "vue-slick-carousel";
-import TextInput from "@/components/TextInput/TextInput";
-import SelectInput from "@/components/SelectInput/SelectInput";
-import { pagesService  } from '~/services'
 
 
 export default {
 
   components: {
     SvgIcon,
-    VueSlickCarousel,
-    TextInput,
-    SelectInput
   },
-  data () {
-    return {
-      captcha:'',
-      dialogVideo:false,
-      captchaLoading:false,
-      videoSource: '',
-      BrandData: [
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-        {url:'/',imagePath:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYjjplEXRIYUP9MtxgXigsOGpVGfYJrUdTHzawNtAWTpqAjWkn&s' , name:'مسعود سپهری' },
-      ],
-      settingsBrand: {
-        slidesToShow: 5,
-        "arrows": false,
-        "dots": false,
-        "infinite": true,
-        "slidesToScroll": 1,
-        "autoplay": true,
-        "speed": 2000,
-        "autoplaySpeed": 2000,
-        "cssEase": "linear",
-
-        responsive: [
-          {
-            breakpoint: 1023,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-            },
-          },
-        ],
-      },
-      isValid: false,
-      fullName:'',
-      tell:'',
-      description:'',
-      email:'',
-      captchaCode:'',
-      key:'',
-      loading:false,
-      loadingBtn:false,
 
 
-    }
-  },
-  methods: {
-    async getCaptcha(){
-      this.captchaLoading = true
-      this.loading = true
-
-      try {
-        const res = await pagesService.getCaptcha()
-        this.captcha = res?.img
-        this.key = res?.key
-        this.captchaLoading = false
-        this.loading = false
-
-      } catch (error) {
-        this.captchaLoading = false
-        this.loading = false
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
-      }
-    },
-    async SubmitContact() {
-      this.loadingBtn = true
-      let body = {
-        name:this.fullName,
-        email:this.email,
-       captcha:this.captchaCode,
-        description:this.description,
-        key: this.key
-      }
-
-      if(this.isValid){
-      try {
-        await pagesService.postContactUs(body)
-        this.$toast.success('متن پیام با موفقیت ارسال شد', {
-          timeout: 4000,
-        })
-        this.loadingBtn = false
-      } catch (error) {
-        this.loadingBtn = false
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
-      }
-      }
-    },
-    showVideo(){
-      this.dialogVideo = true
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.play();
-      });
-    },
-    hideVideo(){
-      this.dialogVideo = false
-      this.$nextTick(() => {
-        this.$refs.videoPlayer.pause();
-      });
-    }
-
-  },
-  mounted() {
-    this.getCaptcha();
-  },
   head() {
     return {
       title: " ارتباط با ما - لاینو تایپ",
@@ -436,13 +233,6 @@ export default {
   }
 }
 
-.refresh{
-  i{
-    color: #ff7a00 !important;
-    margin-right: 20px;
-  }
-
-}
 
 .contact-form {
   background: #eee;
