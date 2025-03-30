@@ -17,11 +17,11 @@ export default {
       },
     ],
   },
+  // bridge: true, // Enable Nuxt Bridge
   loading: {
     color: '#FAC569',
     height: '5px',
   },
-
   css: [
     '~/assets/scss/main',
     '~/assets/fonts/fonticon/style.css',
@@ -65,7 +65,8 @@ export default {
     ],
     '@nuxt/icon',
     '@nuxtjs/style-resources',
-  ],
+    '@nuxtjs/sitemap'
+],
   icon: {
     customCollections: [
       {
@@ -73,6 +74,21 @@ export default {
         dir: './assets/img/icon/'
       }
     ]
+  },
+
+  sitemap: {
+    hostname: 'https://linotyper.com',
+
+    routes: [
+      '/blogDetail/:slug',
+      '/categories/:slug',
+      '/categories/detail/:slug',
+      '/designer/detail/:slug',
+      '/page/:slug',
+      '/product/detail/:slug',
+      '/promotions/:slug',
+      '/promotions/:slug',
+    ],
   },
 
   toast: {
@@ -95,10 +111,6 @@ export default {
     proxy: true,
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: process.env.NODE_ENV === 'production' ? '/api/v1' : 'http://faryadresan.ir/api/v1',
-  },
-  proxy: {
-    '/api/v1': process.env.SERVER_HOST,
-    '/v1': process.env.SERVER_HOST,
   },
   generate: {
     fallback: true,
