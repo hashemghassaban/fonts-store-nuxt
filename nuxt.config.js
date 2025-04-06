@@ -65,7 +65,7 @@ export default {
     ],
     '@nuxt/icon',
     '@nuxtjs/style-resources',
-    // '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap'
 ],
   icon: {
     customCollections: [
@@ -76,20 +76,20 @@ export default {
     ]
   },
 
-  // sitemap: {
-  //   hostname: 'https://linotyper.com',
-  //
-  //   routes: [
-  //     '/blogDetail/:slug',
-  //     '/categories/:slug',
-  //     '/categories/detail/:slug',
-  //     '/designer/detail/:slug',
-  //     '/page/:slug',
-  //     '/product/detail/:slug',
-  //     '/promotions/:slug',
-  //     '/promotions/:slug',
-  //   ],
-  // },
+  sitemap: {
+    hostname: 'https://linotyper.com',
+
+    routes: [
+      '/blogDetail/:slug',
+      '/categories/:slug',
+      '/categories/detail/:slug',
+      '/designer/detail/:slug',
+      '/page/:slug',
+      '/product/detail/:slug',
+      '/promotions/:slug',
+      '/promotions/:slug',
+    ],
+  },
 
   toast: {
     position: 'bottom-left',
