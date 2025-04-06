@@ -1,8 +1,8 @@
 <template>
   <div class="sidebar">
     <Loading v-if="loading" />
-    <div class="profile-info">
-      <div class="info-top">
+    <div class="profile-info" :class="{ isShow: !this.isMain }">
+      <div class="info-top"  >
 
         <v-btn density="default" class="add" v-if="false"  @click="triggerUpload" > <v-icon>mdi-plus</v-icon></v-btn>
 
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="list-info">
+      <div class="list-info" >
         <ul class="information">
           <li>
             <b>شماره تماس : </b>
@@ -35,23 +35,13 @@
             <v-skeleton-loader type="image" class="elevation-0"  v-if="loading"></v-skeleton-loader>
             <span  v-else>{{formatPrice(this.profile.credit)}}   ت  </span>
           </li>
-          <li>
-            <v-btn
-              class="showList"
-              color="primary"
-              icon
-              @click="isVisible = !isVisible"
-            >
 
-              <v-icon>mdi-menu</v-icon>
-              مشاهده منو
-            </v-btn>
-          </li>
         </ul>
       </div>
 
+
     </div>
-    <v-card class="mx-auto sidebar-block mb-10" max-width="100%" v-show="isVisible">
+    <v-card class="mx-auto sidebar-block mb-10" max-width="100%"  :class="{ isShow: !this.isMain }">
       <v-list flat>
         <v-list-item-group  color="primary">
           <v-list-item
@@ -70,7 +60,17 @@
         </v-list-item-group>
       </v-list>
     </v-card>
+    <v-btn
+      class="showList"
+      color="primary"
+      icon
+      @click="goToPage()"
+      :class="{ isShow: this.isMain }"
+    >
 
+      <v-icon>mdi-arrow-right</v-icon>
+      بازگشت به پنل کاربری
+    </v-btn>
 
   </div>
 </template>
@@ -80,11 +80,11 @@ import { profileService  } from '~/services'
 
 export default {
   props: {
+    isMain:false,
+
     isCallService: {
       type: Boolean,
       default:false,
-
-
     },
   },
 
@@ -117,7 +117,6 @@ export default {
       }
     },
     isCallService(newValue){
-      console.log(newValue)
       if(newValue){
         this.getProfile()
       }
@@ -125,6 +124,9 @@ export default {
     }
   },
   methods: {
+    goToPage(){
+      this.$router.push('/page/userManager')
+    },
     async getProfile() {
       this.loading = false
       try {
@@ -195,6 +197,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.isShow{
+  display: none;
+  @include breakpoint(medium) {
+    display: block;
+  }
+}
 .navigation {
   display: block;
   z-index: 100;
@@ -209,7 +217,7 @@ export default {
   padding: 0 10px;
    border-radius: 5px!important;
   border: 1px solid;
-  margin: 15px 0 0;
+  margin: 0 0 25px;
   @include breakpoint(medium) {
     display: none;
   }
@@ -224,7 +232,6 @@ export default {
 
 }
 .sidebar-block {
-  display: block;
   border: 0;
   box-shadow: none!important;
 

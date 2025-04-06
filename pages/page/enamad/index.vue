@@ -13,9 +13,9 @@
         <h1>نماد اعتماد</h1>
       </div>
       <div class="type-font" >
-        <div v-html="dataResult" class="namadContent"></div>
-
-
+        <div  class="namadContent">
+          <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=595755&Code=NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=595755&Code=NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY' alt='' style='cursor:pointer' code='NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'></a>
+        </div>
       </div>
     </section>
   </client-only>
@@ -32,21 +32,11 @@ export default {
   },
   data () {
     return {
-      dataResult:[],
       loading:false,
     }
   },
-  computed: {
-    namad() {
-      return this.$store.state.namad
-    },
-  },
-  mounted() {
-  setTimeout(()=>{
-    const parsedData = JSON.parse(JSON.stringify(this.namad))
-    this.dataResult = parsedData
-  },1000)
-  },
+
+
   head() {
     return {
       title: " نماد اعتماد - لاینو تایپ",

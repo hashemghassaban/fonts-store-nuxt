@@ -112,11 +112,19 @@
       width: 100%;
       min-width: 100%;
       display: inline-table;
+      @include breakpoint(medium) {
+        display: table-row;
+      }
+
     }
     tbody > tr > td {
       text-align: center !important;
       width: 100%;
       min-width: 100%;
+      @include breakpoint(medium) {
+        width: auto;
+        min-width: inherit;
+      }
     }
 
     thead > tr > th {
