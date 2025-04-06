@@ -12,6 +12,7 @@ export default {
     htmlAttrs: {
       lang: "fa",
     },
+
   },
   data: () => ({
     transactions:null,

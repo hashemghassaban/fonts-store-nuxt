@@ -11,6 +11,7 @@ export default {
     htmlAttrs: {
       lang: "fa",
     },
+
   },
   data: () => ({
     page: 1,

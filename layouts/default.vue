@@ -30,6 +30,15 @@ export default {
   beforeMount() {
     window.addEventListener("scroll", this.handleScroll);
   },
+  head() {
+    return {
+      link: [{
+        hid: 'canonical',
+        rel: 'canonical',
+        href: `https://linotyper.com${this.$route.path}`
+      }]
+    }
+  },
   data() {
     return {
 

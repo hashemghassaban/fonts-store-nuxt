@@ -227,6 +227,7 @@ export default {
   head() {
     return {
       title: "همه فونت ها - لاينوتايپ",
+
       meta: [
         {
           hid: 'keywords',

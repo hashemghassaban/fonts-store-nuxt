@@ -362,6 +362,7 @@ this.dialogAddComment = true,
   head() {
     return {
       title: this.dataProduct?.entity?.post?.seo?.title + ' - لاینو تایپ' ,
+
       meta: [
         {
           hid: 'keywords',

@@ -61,6 +61,7 @@ export default {
   head() {
     return {
       title: " پشتیبانی - لاینو تایپ",
+
       meta: [
         {
           hid: 'keywords',

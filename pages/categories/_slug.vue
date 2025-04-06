@@ -273,6 +273,7 @@ export default {
   head() {
     return {
       title:  this.dataProduct?.entity?.category?.seo?.title + ' - لاینو تایپ' ,
+
       meta: [
         {
           hid: 'keywords',

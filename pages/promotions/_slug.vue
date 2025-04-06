@@ -88,13 +88,6 @@ import { productService , categoryService} from '~/services'
 
 
 export default {
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "نتایج جستجو - لاینو تایپ",
-    },
-  ],
   components: {
     SvgIcon,
     VueSlickCarousel,
@@ -212,6 +205,7 @@ export default {
   head() {
     return {
       title: this.dataProduct?.entity?.promotion?.title + ' - لاینو تایپ' ,
+
       meta: [
         {
           hid: 'keywords',

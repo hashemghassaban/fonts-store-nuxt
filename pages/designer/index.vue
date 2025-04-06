@@ -63,6 +63,7 @@ export default {
     htmlAttrs: {
       lang: "fa",
     },
+
   },
   meta: [
     {

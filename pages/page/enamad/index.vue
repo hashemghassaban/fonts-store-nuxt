@@ -44,14 +44,13 @@ export default {
   mounted() {
   setTimeout(()=>{
     const parsedData = JSON.parse(JSON.stringify(this.namad))
-    console.log(parsedData)
     this.dataResult = parsedData
-
   },1000)
   },
   head() {
     return {
       title: " نماد اعتماد - لاینو تایپ",
+
       meta: [
 
         {

@@ -41,6 +41,7 @@ export default {
   head: {
     titleTemplate: "%s -فروشگاه اینترنتی شیرالات و تجهیزات ساختمانی",
     title: "صفحه یافت نشد",
+
   },
 }
 </script>

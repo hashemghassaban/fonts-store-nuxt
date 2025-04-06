@@ -59,6 +59,7 @@ export default {
   head() {
     return {
       title:  " درباره ما - لاینو تایپ",
+
       meta: [
         {
           hid: 'keywords',

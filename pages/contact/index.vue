@@ -55,6 +55,7 @@ export default {
   head() {
     return {
       title: " ارتباط با ما - لاینو تایپ",
+
       meta: [
 
         {

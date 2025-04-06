@@ -1,7 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
+
 export default {
   head: {
     title: '',
+
     htmlAttrs: {
       lang: 'en'
     },
@@ -10,6 +12,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
+
       {
         rel: 'icon',
         type: 'image/x-icon',

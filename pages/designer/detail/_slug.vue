@@ -152,6 +152,7 @@ export default {
   head() {
     return {
       title: this.dataProduct?.entity?.collection?.title + ' - لاینو تایپ' ,
+
       meta: [
         {
           hid: 'keywords',

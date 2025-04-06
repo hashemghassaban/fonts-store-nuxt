@@ -78,6 +78,7 @@ export default {
   head() {
     return {
       title:  `${this.dataProduct?.entity?.page?.seo?.title} - لاینو تایپ`,
+
       meta: [
         {
           hid: 'keywords',

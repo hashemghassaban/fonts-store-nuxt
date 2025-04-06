@@ -368,6 +368,7 @@ export default {
       htmlAttrs: {
         lang: "fa",
       },
+
       meta: [
         {
           hid: "og:site-name",
