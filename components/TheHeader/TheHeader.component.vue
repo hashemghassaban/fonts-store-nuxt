@@ -37,38 +37,35 @@
               ><!--FIRST DROPDOWN-->
                 <template v-slot:activator>
                   <v-list-item
-                    to="/categories"
                     class="parent-link">
                     <v-list-item-title>دسته بندی ها</v-list-item-title>
                   </v-list-item>
                 </template>
 
                 <div v-for="(child, j) in menuItems" :key="j">
-
                   <!--END OF FIRST SUBMENU-->
 
-                  <v-list-group sub-group >
+                  <v-list-group
+                    v-if="child.children && child.children.length > 0"
+                    sub-group
+                  >
                     <template v-slot:activator>
-                      <v-list-item
-                        :to="'/categories/detail/'+child.id"
-                      >
+                      <v-list-item :to="'/categories/'+child.id">
                         <v-list-item-title>{{ child.name }}</v-list-item-title>
                       </v-list-item>
                     </template>
 
-                    <div
-                      v-for="(grandchild, k) in child.children"
-                      :key="k"
-                      class="latest-child"
-                    >
-                      <v-list-item
-                     :to="'/categories/detail/'+grandchild.id"
-
-                      >
+                    <div v-for="(grandchild, k) in child.children" :key="k" class="latest-child">
+                      <v-list-item :to="'/categories/'+grandchild.id">
                         <v-list-item-title>{{ grandchild.name }}</v-list-item-title>
                       </v-list-item>
                     </div>
                   </v-list-group>
+
+                  <!-- Render regular list item if no children -->
+                  <v-list-item v-else :to="'/categories/'+child.id"  class="parentList">
+                    <v-list-item-title>{{ child.name }}</v-list-item-title>
+                  </v-list-item>
                 </div>
               </v-list-group>
             </div>
@@ -84,7 +81,6 @@
               ><!--FIRST DROPDOWN-->
                 <template v-slot:activator>
                   <v-list-item
-                    to="/promotion"
                     class="parent-link">
                     <v-list-item-title>تخفیف ها</v-list-item-title>
                   </v-list-item>

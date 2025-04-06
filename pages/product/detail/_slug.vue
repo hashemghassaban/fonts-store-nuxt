@@ -36,8 +36,8 @@
                   <img
                     :src="
 
-                      slide?.full_url +
-                      '?width=auto&height=300'
+                      slide?.full_url
+
                     "
 
                     alt="banner"
@@ -55,14 +55,13 @@
 
         >
           <v-carousel-item v-for="(slide, i) in  product?.images" :key="i">
-            <nuxt-link :to="slide.full_url">
               <v-sheet height="100%">
                 <div class="slide-back">
                   <img
                     :src="
 
-                      slide.full_url +
-                      '?width=auto&height=300'
+                      slide.small_full_url
+
                     "
 
                     alt="banner"
@@ -71,7 +70,6 @@
                   />
                 </div>
               </v-sheet>
-            </nuxt-link>
           </v-carousel-item>
         </v-carousel>
       </section>

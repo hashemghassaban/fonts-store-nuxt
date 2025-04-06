@@ -13,13 +13,8 @@
         <h1>نماد اعتماد</h1>
       </div>
       <div class="type-font" >
-        <ul>
-          <li v-for="(data, j) in  dataResult" :key="j">
-            <a :href="data?.link">
-              <img :src="data.image_url" :alt="data?.name">
-            </a>
-          </li>
-        </ul>
+        <div v-html="dataResult" class="namadContent"></div>
+
 
       </div>
     </section>
@@ -49,6 +44,7 @@ export default {
   mounted() {
   setTimeout(()=>{
     const parsedData = JSON.parse(JSON.stringify(this.namad))
+    console.log(parsedData)
     this.dataResult = parsedData
 
   },1000)
@@ -83,6 +79,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.namadContent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .support{
   &-title{
     display: flex;

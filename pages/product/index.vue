@@ -2,41 +2,17 @@
   <client-only>
     <div class="productMain ">
       <Loading v-if="loading" />
-      <section class="category">
-        <div class="title">
-          <div class="icon">
-            <SvgIcon
-              name="category"
-              color="#F15A24"
-              size="1.3rem"
-              className="rounded-full"
-            />
-          </div>
-          <h1 class="text">دسته بندی فونت</h1>
+      <div class="title">
+        <div class="icon">
+          <SvgIcon
+            name="category"
+            color="#F15A24"
+            size="1.3rem"
+            className="rounded-full"
+          />
         </div>
-        <div class="category-block">
-          <div class="col-3" v-for="(item, i) in (category)?.slice(0, 4)" :key="i">
-            <div  class="box" @click="changeCategory(item.id)">
-              <div class="count">+{{item.products_count}}</div>
-              <div class="icon">
-                <img
-                  :src="require(`~/assets/img/element/box0${i+1}.png`)"
-                  :alt="item?.name"
-                />
-              </div>
-              <div class="text">
-                <span>{{item.name}}</span>
-                <button> <SvgIcon
-                  name="arrow"
-                  color="#AAE73E"
-                  size="1.3rem"
-                  className="rounded-full"
-                /></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        <h1 class="text">نتیجه جستجو {{ searchText }} </h1>
+      </div>
       <section class="productMain-lists">
         <div class="productMain-lists-filter" >
           <div class="searchBlock">
@@ -48,7 +24,7 @@
               rounded
               clearable
               @click:clear="clear()"
-              placeholder="جستجو اسم فونت"
+              placeholder="جستجو فونت"
               prepend-inner-icon="mdi-magnify"
               class="pt-6 shrink expanding-search"
             ></v-text-field>
@@ -93,6 +69,36 @@
           <img src="~/assets/img/icon/not-pro.png" alt="not pro">
           <span>  محصولی یافت نشد</span>
         </div>
+        <div class="category">
+          <div class="category-block">
+            <div class="col-3" v-for="(item, i) in (category)" :key="i">
+              <nuxt-link :to="'/categories/' + item.id" >
+                <div  class="box" >
+                  <div class="count">+{{item?.products_count}}</div>
+                  <div class="icon">
+                    <img
+                      :src="require(`~/assets/img/element/box0${i+1}.png`)"
+                      :alt="item?.name"
+                    />
+
+                  </div>
+                  <div class="text">
+                    <span>{{item.name}}</span>
+                    <button> <SvgIcon
+                      name="arrow"
+                      color="#AAE73E"
+                      size="1.3rem"
+                      className="rounded-full"
+                    /></button>
+
+                  </div>
+                </div>
+              </nuxt-link>
+            </div>
+
+
+          </div>
+        </div>
       </section>
     </div>
   </client-only>
@@ -109,26 +115,14 @@ import { productService , categoryService} from '~/services'
 
 
 export default {
-  head: {
-    titleTemplate: "",
-    title: "نتایج جستجو - لاینو تایپ",
-    htmlAttrs: {
-      lang: "fa",
-    },
-  },
-  meta: [
-    {
-      hid: "og:title",
-      name: "og:title",
-      content: "نتایج جستجو - لاینو تایپ",
-    },
-  ],
+
   components: {
     SvgIcon,
     VueSlickCarousel,
     TextInput,
     SelectInput
   },
+
   data () {
     return {
       searchText: '',
@@ -229,17 +223,50 @@ export default {
   mounted() {
     this.getProductAll();
 
-  }
+  },
+  head() {
+    return {
+      title: "همه فونت ها - لاينوتايپ",
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: "ليست كليه فونت ها از همه طراحان در فروشگاه لاينوتايپ",
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: "ليست كليه فونت ها از همه طراحان در فروشگاه لاينوتايپ",
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          content: "همه فونت ها - لاينوتايپ",
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: "ليست كليه فونت ها از همه طراحان در فروشگاه لاينوتايپ",
+        },
+      ],
+    }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.title{
+  padding-top: 40px;
+}
 .category{
-  padding: 50px 5%;
+  padding: 0 0  5%;
+  border-top: 1px solid #cccc;
+  margin-top: 70px;
   &-block{
     display: flex;
     margin-top: 50px;
     padding: 0 ;
+    justify-content: flex-start;
     flex-wrap: wrap;
     .col-3{
       width: 50%;
@@ -263,7 +290,6 @@ export default {
       @include breakpoint(medium) {
         height: 250px;
         width: 250px;
-        margin: auto;
       }
 
       &:hover{
@@ -340,11 +366,12 @@ export default {
 }
 .productMain{
   padding: 0 0;
+  margin-top: 120px;
   @include breakpoint(medium) {
     padding: 0 10%;
   }
   &-lists{
-    padding: 0 5%;
+    padding:50px 5% 0;
     &-filter{
       display: flex;
       justify-content: space-between;

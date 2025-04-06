@@ -70,7 +70,7 @@
           size="13px"
           className="rounded-full"
         />
-        <span>خرید</span>
+        <span>مشاهده و خرید</span>
       </v-btn>
       <div class="price" v-if="typeProduct === 'product' || typeProduct === 'cart' || typeProduct === 'successBuy' || (typeProduct === 'profile' && typeProduct !== 'favorite')">
         <div class="price-main">
@@ -155,22 +155,23 @@ export default {
       } catch (e) {}
     },
     async addToCart(pro) {
-      this.loading = true
-      let body = {
-        product_price: pro.prices[0].id,
-      };
-      try {
-        const data = await productService.postProduct(body)
-        this.$store.commit('setCart', data)
-        this.$store.commit('setDialogCart', true)
-        this.$toast.success('محصول به سبد خرید اضافه شد')
-        this.loading = false;
-      } catch (error) {
-        this.$toast.error(error, {
-          timeout: 4000,
-        })
-        this.loading = false;
-      }
+      this.$router.push(`/product/detail/${pro?.id}`)
+      // this.loading = true
+      // let body = {
+      //   product_price: pro.prices[0].id,
+      // };
+      // try {
+      //   const data = await productService.postProduct(body)
+      //   this.$store.commit('setCart', data)
+      //   this.$store.commit('setDialogCart', true)
+      //   this.$toast.success('محصول به سبد خرید اضافه شد')
+      //   this.loading = false;
+      // } catch (error) {
+      //   this.$toast.error(error, {
+      //     timeout: 4000,
+      //   })
+      //   this.loading = false;
+      // }
     },
 
     async remove(id , type){
@@ -474,9 +475,9 @@ export default {
           transition: all 0.3s ease;
           border-radius: 10px;
           @include breakpoint(medium) {
-            width: 100px;
+            width: 135px;
             height: 40px;
-            gap: 20px;
+            gap: 29px;
           }
 
 

@@ -5,9 +5,9 @@
         <nuxt-link to="/cart" class="title">
           <div class="icon">
             <SvgIcon
-              name="cart"
+              name="shopping-bag"
               color="#AAE73E"
-              size="1.7rem"
+              size="2rem"
               className="rounded-full"
             />
           </div>
@@ -17,25 +17,25 @@
         <div class="title">
           <div class="icon">
             <SvgIcon
-              name="money"
+              name="credit-card"
               color="#F15A24"
-              size="1.3rem"
+              size="2rem"
               className="rounded-full"
             />
           </div>
-          <h1 class="text">پرداخت</h1>
+          <h2 class="text">پرداخت</h2>
         </div>
         <hr>
         <div class="title next">
           <div class="icon">
             <SvgIcon
-              name="money"
+              name="download1"
               color="#F15A24"
-              size="1.3rem"
+              size="2rem"
               className="rounded-full"
             />
           </div>
-          <h1 class="text">خرید موفق</h1>
+          <h2 class="text">دانلود</h2>
         </div>
       </div>
 
@@ -258,7 +258,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0;
-  padding: 0 25px;
+  padding: 0;
   @include breakpoint(medium) {
     width: 500px;
     padding: 0;

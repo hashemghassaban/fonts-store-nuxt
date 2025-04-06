@@ -26,7 +26,7 @@
               filled
               rounded
               clearable
-              placeholder="جستجو اسم فونت"
+              placeholder="جستجو فونت"
               @click:clear="clear()"
               prepend-inner-icon="mdi-magnify"
               class="pt-6 shrink expanding-search"

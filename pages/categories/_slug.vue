@@ -25,7 +25,7 @@
                 rounded
                 @click:clear="clear()"
                 clearable
-                placeholder="جستجو اسم فونت"
+                placeholder="جستجو فونت"
                 prepend-inner-icon="mdi-magnify"
                 class="pt-6 shrink expanding-search"
               ></v-text-field>
@@ -35,7 +35,7 @@
             <v-select
               :items="formattedItems"
               v-model="sort"
-              label="دسته بندی ها "
+              label="دسته بندی "
               outlined
               item-text="text"
               item-value="id"
@@ -489,6 +489,9 @@ export default {
       }
       .v-text-field__slot{
         padding: 0 15px!important;
+        input{
+          font-size: 15px;
+        }
       }
 
     }
@@ -593,6 +596,9 @@ export default {
   .v-select__slot{
     .v-input__append-inner{
       display: none;
+    }
+    .v-label{
+      font-size: 14px;
     }
   }
 }

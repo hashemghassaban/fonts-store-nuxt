@@ -15,13 +15,26 @@
 
         <div class="faq-list" v-if="item?.faqs?.length > 0"  v-for="(item, index) in category" :key="index">
             <h2> {{item?.name}}</h2>
-            <v-expansion-panels v-model="activePanel">
-              <v-expansion-panel  v-for="(data, i) in item?.faqs" :key="i">
-                <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
-                <v-expansion-panel-header >{{data.question}}</v-expansion-panel-header>
-                <v-expansion-panel-content v-html="data.answer"></v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
+          <v-expansion-panels
+            :value="[activePanel[index]]"
+            @change="(val) => handlePanelChange(val, index)"
+          >
+            <v-expansion-panel
+              v-for="(data, i) in item.faqs"
+              :key="`${index}-${i}`"
+            >
+              <SvgIcon
+                name="arrow"
+                size="12px"
+                color="#fff"
+                class="icons"
+              />
+              <v-expansion-panel-header @click.stop="togglePanel(index, i)">
+                {{ data.question }}
+              </v-expansion-panel-header>
+              <v-expansion-panel-content v-html="data.answer"></v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </div>
       </section>
     </div>
@@ -57,15 +70,46 @@ export default {
         { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
         { title: 'اختلال اضطراب فراگیر ، پرخوری عصبی و سایر اختلالات خوردن', content: 'اختلال اضطراب فراگیر ، پرخوری عصبی' },
       ],
-      activePanel2: [0],
-      activePanel: [0],
-      activePanel3: [0],
-      activePanel4: [0],
+      activePanel: [],
       loading:false
 
     }
   },
   methods: {
+    togglePanel(categoryIndex, panelIndex) {
+      // اگر پنل قبلاً باز بود، آن را می‌بندیم
+      if (this.activePanel[categoryIndex] === panelIndex) {
+        this.$delete(this.activePanel, categoryIndex)
+      }
+      // اگر پنل بسته بود یا پنلی در این دسته باز نبود، آن را باز می‌کنیم
+      else {
+        this.$set(this.activePanel, categoryIndex, panelIndex)
+      }
+
+      // بستن همه پنل‌های باز در سایر دسته‌ها
+      Object.keys(this.activePanel).forEach(index => {
+        if (Number(index) !== categoryIndex) {
+          delete this.activePanel[index]
+        }
+      })
+    },
+    handlePanelChange(value, categoryIndex) {
+      // اگر پنل بسته شد، مقدار آن را حذف می‌کنیم
+      if (!value.length) {
+        delete this.activePanel[categoryIndex]
+        return
+      }
+
+      // تنظیم مقدار جدید برای این دسته
+      this.$set(this.activePanel, categoryIndex, value[0])
+
+      // بستن همه پنل‌های دیگر در دسته‌های دیگر
+      Object.keys(this.activePanel).forEach(index => {
+        if (Number(index) !== categoryIndex) {
+          delete this.activePanel[index]
+        }
+      })
+    },
     async getFaq() {
       this.loading = true
       try {

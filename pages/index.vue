@@ -78,7 +78,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text">دسته بندی فونت</h2>
+          <h2 class="text">دسته بندی فونت ها</h2>
         </div>
         <div v-if="loadingPage" class="loading-box">
             <v-sheet color="grey lighten-2"  v-for="(item, i) in 3">
@@ -122,7 +122,7 @@
         </div>
 
       </section>
-      <section class="latest-font">
+      <section class="latest-font" v-if="dataResult?.promoted_products?.length > 0">
         <div class="title">
           <div class="icon">
             <SvgIcon
@@ -132,7 +132,7 @@
               className="rounded-full"
             />
           </div>
-          <h2 class="text"> شگفت‌انگیز</h2>
+          <h2 class="text"> شگفت انگیز ها</h2>
         </div>
         <div v-if="loadingPage" class="loading-box-2">
           <v-sheet color="grey lighten-2">

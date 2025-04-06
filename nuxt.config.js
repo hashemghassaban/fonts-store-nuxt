@@ -65,7 +65,7 @@ export default {
     ],
     '@nuxt/icon',
     '@nuxtjs/style-resources',
-    '@nuxtjs/sitemap'
+    // '@nuxtjs/sitemap'
 ],
   icon: {
     customCollections: [
@@ -76,20 +76,20 @@ export default {
     ]
   },
 
-  sitemap: {
-    hostname: 'https://linotyper.com',
-
-    routes: [
-      '/blogDetail/:slug',
-      '/categories/:slug',
-      '/categories/detail/:slug',
-      '/designer/detail/:slug',
-      '/page/:slug',
-      '/product/detail/:slug',
-      '/promotions/:slug',
-      '/promotions/:slug',
-    ],
-  },
+  // sitemap: {
+  //   hostname: 'https://linotyper.com',
+  //
+  //   routes: [
+  //     '/blogDetail/:slug',
+  //     '/categories/:slug',
+  //     '/categories/detail/:slug',
+  //     '/designer/detail/:slug',
+  //     '/page/:slug',
+  //     '/product/detail/:slug',
+  //     '/promotions/:slug',
+  //     '/promotions/:slug',
+  //   ],
+  // },
 
   toast: {
     position: 'bottom-left',
@@ -117,6 +117,10 @@ export default {
   },
   env: {
     BASE_URL: process.env.BASE_URL || 'http://localhost:3000'
+  },
+  proxy: {
+    '/api/v1': process.env.SERVER_HOST,
+    '/v1': process.env.SERVER_HOST,
   },
   auth: {
     strategies: {

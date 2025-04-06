@@ -31,17 +31,17 @@
 
     </div>
 
-      <section class="postMain">
-        <h2>  مطالب مشابه</h2>
-        <nuxt-link to="/blog" class="show-More">
-          همه </nuxt-link>
-        <div class="postMain-block">
-          <div class="box"  v-for="(item, i) in (posts?.most_rated)?.slice(0, 4)"><Post :items="item" /></div>
+<!--      <section class="postMain">-->
+<!--        <h2>  مطالب مشابه</h2>-->
+<!--        <nuxt-link to="/blog" class="show-More">-->
+<!--          همه </nuxt-link>-->
+<!--        <div class="postMain-block">-->
+<!--          <div class="box"  v-for="(item, i) in (posts?.most_rated)?.slice(0, 4)"><Post :items="item" /></div>-->
 
 
-        </div>
+<!--        </div>-->
 
-      </section>
+<!--      </section>-->
       <section class="contact-form">
         <div class="form-top">
           <h3>ثبت نظر: </h3>

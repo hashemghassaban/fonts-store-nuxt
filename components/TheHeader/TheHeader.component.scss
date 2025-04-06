@@ -131,6 +131,13 @@
     }
   }
 }
+.parentList{
+  border-top: 1px solid #ccc;
+  &:last-child{
+    padding-right: 38px;
+  }
+}
+
 .logo-mobile{
   width: auto;
   height: 22px;
@@ -352,5 +359,11 @@ i {
     &:before {
       color: #FF7A00  !important;
     }
+  }
+}
+
+::v-deep{
+  .v-list-group__items{
+    background: #f7f7f7;
   }
 }

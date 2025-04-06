@@ -16,14 +16,14 @@
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبانی تلگرام</div>
-                <a href="https://t.me/linotyper_sup" class="value">@linotyper_sup</a>
+                <a href="https://t.me/linotyper_sup" class="value">[at]linotyper_sup</a>
               </div>
             </li>
             <li>
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
-                <div class="name">پشتیبانی ایمیل</div>
-                <a href="mailto:linotyper.ir@gmail.com" class="value">linotyper.ir@gmail.com</a>
+                <div class="name">ایمیل</div>
+                <a href="mailto:linotyper.ir@gmail.com" class="value">linotyper.ir[at]gmail.com</a>
               </div>
             </li>
             <li>

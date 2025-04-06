@@ -109,9 +109,14 @@
     tbody > tr {
       cursor: pointer !important;
       position: relative;
+      width: 100%;
+      min-width: 100%;
+      display: inline-table;
     }
     tbody > tr > td {
       text-align: center !important;
+      width: 100%;
+      min-width: 100%;
     }
 
     thead > tr > th {
@@ -138,6 +143,8 @@
   .list-detail{
     display: flex;
     padding: 0;
+    width: 100%;
+    min-width: 100%;
     align-items: center;
     border-bottom: 1px solid #ccc;
     flex-direction: column;
