@@ -10,12 +10,12 @@
           size="38px"
           className="rounded-full"
         />
-        <h1>نماد اعتماد</h1>
+        <h1>نماد ساماندهی</h1>
       </div>
       <div class="type-font" >
-        <div  class="namadContent">
-          <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=595755&Code=NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'><img referrerpolicy='origin' src='~/assets/img/logo/namad.png' alt='namad' style='cursor:pointer' code='NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'></a>
-        </div>
+<!--        <div  class="namadContent">-->
+<!--          <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=595755&Code=NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'><img referrerpolicy='origin' src='~/assets/img/logo/namad.png' alt='namad' style='cursor:pointer' code='NOgJZeACAFoACKCx9Tzs6HnroOdkhbUY'></a>-->
+<!--        </div>-->
       </div>
     </section>
   </client-only>

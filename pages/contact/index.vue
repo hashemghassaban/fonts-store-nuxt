@@ -16,7 +16,7 @@
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبانی تلگرام</div>
-                <a href="https://t.me/linotyper_sup" class="value">[at]linotyper_sup</a>
+                <a href="https://t.me/linotyper_sup" class="value">linotyper_sup</a>
               </div>
             </li>
             <li>
@@ -30,7 +30,7 @@
               <SvgIcon name="arrow" size="12px" color="#fff" class="icons"></SvgIcon>
               <div class="field">
                 <div class="name">پشتیبانی تلفنی</div>
-                <a href="tel:+982128422022" class="value">+98 21 2842 2022</a>
+                <nuxt-link to="/page/telsup" class="value">اینجا کلیک کنید</nuxt-link>
               </div>
             </li>
           </ul>

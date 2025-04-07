@@ -130,7 +130,7 @@
       <div class="footer-bottom-social">
         <ul class="social">
           <li class="socialListFooter">
-            <a href="/linotyper">
+            <a href="https://t.me/linotyper">
               <SvgIcon
                 name="telegram"
                 color="#ccc"
@@ -140,7 +140,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="/linotyper">
+            <a href="https://x.com/lino_typer">
 
               <SvgIcon
                 name="twitter"
@@ -151,7 +151,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="/linotyper">
+            <a href="https://www.instagram.com/lino_typer">
 
               <SvgIcon
                 name="instagram"
@@ -162,7 +162,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="/linotyper">
+            <a href="https://www.aparat.com/linotyper">
 
               <SvgIcon
                 name="aparat"
@@ -177,7 +177,7 @@
           <nuxt-link to="/page/enamad">
             <img src="~/assets/img/logo/namad.png" alt="namad">
           </nuxt-link>
-          <nuxt-link to="/page/enamad">
+          <nuxt-link to="/page/samandehi">
             <img src="~/assets/img/logo/namd2.png" alt="namad">
           </nuxt-link>
         </div>

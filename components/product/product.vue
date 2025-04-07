@@ -390,7 +390,7 @@ export default {
         gap: 0;
         width: 100%;
         @include breakpoint(medium) {
-          width: 54%;
+          width: 45%;
         }
         h3{
 

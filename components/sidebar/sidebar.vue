@@ -80,8 +80,10 @@ import { profileService  } from '~/services'
 
 export default {
   props: {
-    isMain:false,
-
+    isMain: {
+      type: Boolean,
+      default:false,
+    },
     isCallService: {
       type: Boolean,
       default:false,
@@ -211,7 +213,6 @@ export default {
   }
 }
 .showList  {
-  display: block;
   width: auto!important;
   max-height:50px!important;
   padding: 0 10px;
@@ -219,7 +220,7 @@ export default {
   border: 1px solid;
   margin: 0 0 25px;
   @include breakpoint(medium) {
-    display: none;
+    display: none!important;
   }
   ::v-deep{
     .v-btn__content{
