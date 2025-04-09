@@ -36,13 +36,16 @@
         display: block;
         padding-right: 20px;
         color: #787878;
-        font-size: 17px;
+        font-size: 15px;
         font-weight: 400;
         line-height: 23px;
         text-decoration: none;
         padding-top: 0 !important;
         padding-left: 0;
         position: relative;
+        @include breakpoint(ultra) {
+          font-size: 17px;
+        }
         &.nuxt-link-active{
           color: #FF7A00;
           span{

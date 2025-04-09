@@ -49,9 +49,9 @@
       max-width: 100%;
       padding: 0;
       @include breakpoint(medium) {
-        flex: 60%;
-        min-width: 60%;
-        max-width: 60%;
+        flex: 56%;
+        min-width: 55%;
+        max-width: 55%;
         padding: 50px 0;
 
       }
@@ -81,6 +81,15 @@
   }
 }
 ::v-deep{
+.v-data-table__expanded__content{
+    display: inline-table!important;
+    td{
+      display: table-cell!important;
+    }
+  }
+  .v-data-table__wrapper  tbody tr{
+    display: table-row!important;
+  }
   .v-btn.primary{
     width: 82px;
     font-size: 12px !important;
@@ -111,10 +120,11 @@
       position: relative;
       width: 100%;
       min-width: 100%;
-      display: inline-table;
-      @include breakpoint(medium) {
-        display: table-row;
-      }
+      //
+      //display: inline-table;
+      //@include breakpoint(medium) {
+      //  display: table-row!important;
+      //}
 
     }
     tbody > tr > td {

@@ -223,7 +223,7 @@ export default {
         width: 100%;
         border: 1px solid #d6d6d6;
         margin: 0 auto 24px;
-        @include breakpoint(medium) {
+        @include breakpoint(ultra) {
           width: 510px;
         }
         .title{
@@ -252,7 +252,7 @@ export default {
         padding: 15px;
         width: 100%;
         margin: 0 auto 20px;
-        @include breakpoint(medium) {
+        @include breakpoint(ultra) {
           width: 510px;
         }
 
@@ -312,8 +312,10 @@ export default {
       }
       .submit{
         padding: 0 0;
-        @include breakpoint(medium) {
-          padding: 0 100px
+        width: 100%;
+        margin: 0 auto 20px;
+        @include breakpoint(ultra) {
+          width: 512px;
         }
         button{
           width: 100%;
@@ -360,11 +362,14 @@ export default {
 
 }
 .payment-message{
-  width: 510px;
+  width: 100%;
   margin: 0 auto 20px;
   padding: 15px;
   display: flex;
   gap: 11px;
+  @include breakpoint(ultra) {
+    width: 510px;
+  }
   h2{
     font-size: 20px;
   }

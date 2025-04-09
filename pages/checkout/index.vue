@@ -336,7 +336,7 @@ export default {
       width: 100%;
       border: 1px solid #d6d6d6;
       margin: 0 auto 24px;
-      @include breakpoint(medium) {
+      @include breakpoint(ultra) {
         width: 510px;
       }
       .title{
@@ -365,7 +365,7 @@ export default {
       padding: 15px;
       width: 100%;
       margin: 0 auto 20px;
-      @include breakpoint(medium) {
+      @include breakpoint(ultra) {
         width: 510px;
       }
 
@@ -416,7 +416,7 @@ export default {
       justify-content: flex-start;
       margin: 12px 0;
       @include breakpoint(medium) {
-        margin: 12px 110px;
+        margin: 12px 0;
       }
       p{
         color: #F15A24;
@@ -425,9 +425,6 @@ export default {
     }
     .submit{
       padding: 0 0;
-      @include breakpoint(medium) {
-        padding: 0 100px
-      }
       button{
         width: 100%;
         background: #AAE73E;

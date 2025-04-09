@@ -181,6 +181,10 @@ export default {
     &-filter{
       display: flex;
       justify-content: space-between;
+      gap: 20px;
+      @include breakpoint(ultra) {
+        gap: 20px;
+      }
       .filter{
         width: 130px;
         @include breakpoint(medium) {

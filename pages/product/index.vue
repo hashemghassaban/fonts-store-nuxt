@@ -281,14 +281,14 @@ export default {
     }
     .box{
 
-      height: 150px;
+      height: 200px;
       background: #000;
       border-radius: 15px;
       overflow: hidden;
       position: relative;
       cursor: pointer;
       transition: all 0.3s ease;
-      @include breakpoint(medium) {
+      @include breakpoint(ultra) {
         height: 250px;
         width: 250px;
       }
@@ -376,6 +376,10 @@ export default {
     &-filter{
       display: flex;
       justify-content: space-between;
+      gap: 20px;
+      @include breakpoint(ultra) {
+        gap: 20px;
+      }
       .filter{
         width: 130px;
         @include breakpoint(medium) {

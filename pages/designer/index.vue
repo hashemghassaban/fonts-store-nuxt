@@ -221,7 +221,10 @@ export default {
   overflow: hidden;
   display: block;
   .photo{
-    height: 300px;
+    height: 200px;
+    @include breakpoint(ultra) {
+      height: 300px;
+    }
     img{
       width: 100%;
       height: 100%;

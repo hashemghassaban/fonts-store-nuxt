@@ -545,9 +545,15 @@ export default {
         flex: 100%;
         max-width: 100%;
         @include breakpoint(medium) {
+          flex:48%;
+          max-width: 48%;
+        }
+        @include breakpoint(ultra) {
+
           flex: 33.333%;
           max-width: 33.3333%;
         }
+
         &-head{
           display: flex;
           justify-content: space-between;
@@ -595,7 +601,7 @@ export default {
           height: auto;
           border-radius: 10px;
           align-items: center;
-          @include breakpoint(medium) {
+          @include breakpoint(ultra) {
             flex-direction: row-reverse;
             height: 60px;
           }
@@ -612,7 +618,7 @@ export default {
             gap: 10px;
             transition: all 0.3s ease;
             color: #fff;
-            @include breakpoint(medium) {
+            @include breakpoint(ultra) {
               width: 100px;
             }
             &:hover{
@@ -630,7 +636,7 @@ export default {
           }
           .price{
             font-size: 18px;
-            @include breakpoint(medium) {
+            @include breakpoint(ultra) {
               font-size: 20px;
             }
             .isOldPrice{

@@ -376,7 +376,7 @@ export default {
       height: auto;
       padding:  10px;
       flex-direction: column;
-      @include breakpoint(small) {
+      @include breakpoint(xultra) {
         height: 75px;
         flex-direction: row;
         padding: 0 10px
@@ -389,14 +389,15 @@ export default {
         flex-direction: column;
         gap: 0;
         width: 100%;
-        @include breakpoint(medium) {
+        @include breakpoint(xultra) {
           width: 45%;
         }
         h3{
-
           font-size: 15px !important;
           margin: 0;
-          @include breakpoint(medium) {
+          height: auto;
+          line-height: 35px;
+          @include breakpoint(ultra) {
             font-size: 18px !important;
             height: 30px;
             line-height: 30px;
@@ -473,11 +474,15 @@ export default {
           box-shadow: none;
           overflow: hidden;
           transition: all 0.3s ease;
+          font-size: 12px;
           border-radius: 10px;
           @include breakpoint(medium) {
             width: 135px;
             height: 40px;
             gap: 29px;
+          }
+          @include breakpoint(ultra) {
+            font-size: 14px;
           }
 
 
@@ -525,16 +530,18 @@ export default {
           display: flex;
           align-items: center;
           margin: 10px 0;
-          gap: 10px;
+          gap: 8px;
           font-size: 15px;
           flex-direction: row-reverse;
            width: 100%;
-          padding: 0 10px;
-          @include breakpoint(medium) {
+          padding: 0;
+          justify-content: flex-end;
+          @include breakpoint(xultra) {
             margin: 25px 14px;
-            font-size: 18px;
+            font-size: 16px;
             gap: 17px;
             padding: 0;
+            justify-content: inherit;
 
           }
           &-main{

@@ -765,10 +765,13 @@ export default {
           display: block;
           padding: 0 11px;
           .pic{
-            height: 160px;
+            height: 130px;
             overflow: hidden;
             border-radius: 15px;
             width: 100%;
+            @include breakpoint(ultra) {
+              height: 160px;
+            }
             img {
               object-fit: cover;
               width: 100%;
@@ -855,7 +858,7 @@ export default {
       width: 50%;
       flex: 50%;
       max-width: 50%;
-      @include breakpoint(medium) {
+      @include breakpoint(large) {
         width: 25%;
         flex: 25%;
         max-width: 25%;
@@ -863,14 +866,16 @@ export default {
     }
     .box{
 
-      height: 150px;
+      height:200px;
+      width: 100%;
       background: #000;
       border-radius: 15px;
       overflow: hidden;
       position: relative;
       cursor: pointer;
       transition: all 0.3s ease;
-      @include breakpoint(medium) {
+
+      @include breakpoint(ultra) {
         height: 250px;
         width: 250px;
         margin: auto;
@@ -909,7 +914,8 @@ export default {
         margin: 10px 20px;
         font-family: sans-serif;
         font-weight: 700;
-        @include breakpoint(medium) {
+
+        @include breakpoint(ultra) {
           font-size: 44px;
         }
       }
@@ -922,7 +928,8 @@ export default {
           right: 15px;
           font-size: 15px;
           font-weight: 800;
-          @include breakpoint(medium) {
+
+          @include breakpoint(ultra) {
             font-size: 25px;
           }
         }
@@ -1264,7 +1271,8 @@ export default {
     overflow: hidden;
     position: relative;
     height: auto;
-    @include breakpoint(medium) {
+
+    @include breakpoint(ultra) {
       flex: 32.33%;
       max-width: 32.33%;
       height: 390px;

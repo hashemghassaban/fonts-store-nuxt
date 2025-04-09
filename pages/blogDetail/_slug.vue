@@ -759,7 +759,7 @@ this.dialogAddComment = true,
   background: #F8F8F8;
   padding: 50px 0 65px;
   @include breakpoint(medium) {
-    padding: 100px 0 5%;
+    padding: 50px 0 5%;
   }
   .form-top{
     display: flex;

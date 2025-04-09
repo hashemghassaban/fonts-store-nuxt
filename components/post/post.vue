@@ -58,7 +58,10 @@ export default {
     width: 100%;
     gap: 35px;
     height: 150px;
-    @include breakpoint(small) {
+    @include breakpoint(large) {
+      height: 200px;
+    }
+    @include breakpoint(ultra) {
       height: 300px;
     }
     img{

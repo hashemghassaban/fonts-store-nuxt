@@ -10,7 +10,7 @@
     padding: 5% 0 40px;
     background: #fff;
     flex-direction: column;
-
+    flex-wrap: wrap;
 
     @include breakpoint(small) {
       padding: 4% 0 ;
@@ -49,9 +49,9 @@
       max-width: 100%;
       padding: 0;
       @include breakpoint(medium) {
-        flex: 60%;
-        min-width: 60%;
-        max-width: 60%;
+        flex: 56%;
+        min-width: 55%;
+        max-width: 55%;
         padding: 50px 0;
 
       }
