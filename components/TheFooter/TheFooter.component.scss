@@ -13,7 +13,7 @@ border-top: 25px solid #EEEEEE;
         width: 261px;
         margin: auto;
         @include breakpoint(small) {
-          width: auto;
+          width: 450px;
         }
       }
     }

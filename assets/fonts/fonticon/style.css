@@ -25,6 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-X:before {
+  content: "\e925";
+  color: #cbcccb;
+}
 .font-credit-card:before {
   content: "\e922";
 }

@@ -143,7 +143,7 @@
             <a href="https://x.com/lino_typer">
 
               <SvgIcon
-                name="twitter"
+                name="X"
                 color="#ccc"
                 size="44px"
                 className="rounded-full"
@@ -151,7 +151,7 @@
             </a>
           </li>
           <li class="socialListFooter">
-            <a href="https://www.instagram.com/lino_typer">
+            <a href="https://www.instagram.com/inotyper.ir">
 
               <SvgIcon
                 name="instagram"
