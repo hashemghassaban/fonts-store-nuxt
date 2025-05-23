@@ -1,4 +1,4 @@
-# y
+# fontsStore is a complete project built with Nuxt.js (Vue.js), and you can use it as a template for your own development.
 
 ## Build Setup
 
